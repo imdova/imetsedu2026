@@ -13,6 +13,7 @@ const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', href: '/instructor/dashboard', icon: '📊' },
   { name: 'My Courses', href: '/instructor/courses', icon: '📚' },
   { name: 'Quizzes', href: '/instructor/quizzes', icon: '📝' },
+  { name: 'Events', href: '/instructor/events', icon: '📅' },
   { name: 'Analytics', href: '/instructor/analytics', icon: '📈' },
   { name: 'Earnings', href: '/instructor/earnings', icon: '💰' },
 ];
