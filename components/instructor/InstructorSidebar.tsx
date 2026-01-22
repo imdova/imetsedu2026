@@ -128,7 +128,7 @@ export default function InstructorSidebar() {
                 </div>
 
                 {/* Dropdown Menu */}
-                {hasChildren && menuIsOpen && (
+                {hasChildren && menuIsOpen && item.children && (
                   <ul
                     className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4"
                     onMouseEnter={() => setHoveredMenu(item.name)}
