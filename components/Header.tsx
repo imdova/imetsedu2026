@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import CategoryMegaMenu from './CategoryMegaMenu';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,12 +16,15 @@ export default function Header() {
               <span className="text-2xl font-bold">m</span>
               <span className="text-xl font-bold">medicova</span>
             </Link>
-            <div className="hidden md:flex items-center space-x-1">
-              <Link href="/courses" className="px-3 py-2 hover:bg-green-700 rounded transition-colors">
-                Explore Courses
+            <nav className="hidden md:flex items-center space-x-1">
+              <CategoryMegaMenu />
+              <Link href="/about" className="px-3 py-2 hover:bg-green-700 rounded transition-colors">
+                About Us
               </Link>
-              <span className="text-green-300">▼</span>
-            </div>
+              <Link href="/contact" className="px-3 py-2 hover:bg-green-700 rounded transition-colors">
+                Contact
+              </Link>
+            </nav>
           </div>
           
           <div className="hidden md:flex flex-1 max-w-md mx-8">
