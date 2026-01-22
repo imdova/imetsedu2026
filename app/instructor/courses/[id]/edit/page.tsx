@@ -68,14 +68,15 @@ export default function EditCoursePage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Edit Course</h1>
-        <p className="text-gray-600">Update your course information</p>
-      </div>
+    <div className="p-8 bg-gray-50 min-h-screen">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Edit Course</h1>
+          <p className="text-gray-600">Update your course information</p>
+        </div>
 
-      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-        <form onSubmit={handleSubmit} className="divide-y divide-gray-200">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+          <form onSubmit={handleSubmit} className="divide-y divide-gray-200">
           {/* Basic Information */}
           <div className="p-8">
             <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
@@ -219,7 +220,7 @@ export default function EditCoursePage() {
             </button>
           </div>
         </form>
-      </div>
+        </div>
       </div>
     </div>
   );
