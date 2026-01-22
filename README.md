@@ -1,24 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medicova  Online Courses Platform
+
+Medicova is an online learning platform similar to Udemy, built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Home Page**: Hero section, featured courses, and category browsing
+- **Course Details Page**: Comprehensive course information including curriculum, reviews, and requirements
+- **Course Search Page**: Advanced search with filters for category, level, and price
+- **Course Listing**: Browse all available courses
+- **Responsive Design**: Modern UI that works on all devices
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` - Next.js app router pages
+  - `page.tsx` - Home page
+  - `courses/` - Course listing and detail pages
+  - `search/` - Course search page
+- `components/` - Reusable React components
+  - `Header.tsx` - Navigation header
+  - `Footer.tsx` - Site footer
+  - `CourseCard.tsx` - Course card component
+  - `CategoryCard.tsx` - Category card component
+- `types/` - TypeScript type definitions
+- `lib/` - Utility functions and mock data
 
 ## Learn More
 
