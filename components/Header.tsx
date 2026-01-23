@@ -44,12 +44,12 @@ export default function Header() {
             <Link href="/instructor/dashboard" className="hidden md:block px-4 py-2 hover:bg-green-700 rounded transition-colors">
               Instructor
             </Link>
-            <button className="px-4 py-2 hover:bg-green-700 rounded transition-colors">
+            <Link href="/login" className="px-4 py-2 hover:bg-green-700 rounded transition-colors">
               Log in
-            </button>
-            <button className="px-4 py-2 bg-green-500 hover:bg-green-400 rounded transition-colors font-semibold">
-              Join as instructor
-            </button>
+            </Link>
+            <Link href="/signup" className="px-4 py-2 bg-green-500 hover:bg-green-400 rounded transition-colors font-semibold">
+              Sign up
+            </Link>
           </div>
         </div>
       </div>
