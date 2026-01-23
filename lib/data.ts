@@ -72,11 +72,11 @@ export const categories: Category[] = [
     icon: '📈',
     courseCount: 134,
     subCategories: [
-      { id: '6-1', name: 'Digital Marketing', courseCount: 48 },
-      { id: '6-2', name: 'SEO', courseCount: 32 },
-      { id: '6-3', name: 'Social Media', courseCount: 28 },
-      { id: '6-4', name: 'Content Marketing', courseCount: 18 },
-      { id: '6-5', name: 'Email Marketing', courseCount: 8 },
+      { id: '6-1', name: 'Digital Marketing', courseCount: 48, icon: '📱' },
+      { id: '6-2', name: 'SEO', courseCount: 32, icon: '🔍' },
+      { id: '6-3', name: 'Social Media', courseCount: 28, icon: '📲' },
+      { id: '6-4', name: 'Content Marketing', courseCount: 18, icon: '✍️' },
+      { id: '6-5', name: 'Email Marketing', courseCount: 8, icon: '📧' },
     ],
   },
   {
