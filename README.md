@@ -1,4 +1,4 @@
-# Medicova is Online Courses Platform
+# Medicova is AN Online Courses Platform
 
 Medicova is an online learning platform similar to Udemy, built with Next.js, TypeScript, and Tailwind CSS.
 
