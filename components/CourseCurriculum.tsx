@@ -43,7 +43,7 @@ export default function CourseCurriculum({ sections }: CourseCurriculumProps) {
                   <li key={lecture.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
                     <div className="flex items-center">
                       {lecture.isPreview && (
-                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded mr-3">
+                        <span className="text-xs bg-[#e8e8f5] text-[#030256] px-2 py-1 rounded mr-3">
                           Preview
                         </span>
                       )}

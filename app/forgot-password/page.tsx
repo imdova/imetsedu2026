@@ -20,8 +20,8 @@ export default function ForgotPasswordPage() {
         <div className="text-center mb-6 sm:mb-8">
           <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
             <img
-              src="/images/logo-green.png"
-              alt="Medicova"
+              src="/images/logo.png"
+              alt="IMETS school of business"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
@@ -38,12 +38,12 @@ export default function ForgotPasswordPage() {
           <div className="p-6 sm:p-8">
             {!isSubmitted ? (
               <>
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="mb-6 p-4 bg-[#e8e8f5] border border-[#0a0a7d]/30 rounded-lg">
                   <div className="flex items-start space-x-3">
                     <span className="text-2xl">💡</span>
                     <div>
-                      <p className="text-sm text-blue-900 font-semibold mb-1">How it works</p>
-                      <p className="text-xs text-blue-800">
+                      <p className="text-sm text-[#030256] font-semibold mb-1">How it works</p>
+                      <p className="text-xs text-[#030256]/90">
                         Enter your email address and we'll send you a link to reset your password.
                       </p>
                     </div>
@@ -61,13 +61,13 @@ export default function ForgotPasswordPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="you@example.com"
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    className="w-full bg-gradient-to-r from-[#030256] to-[#0a0a7d] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#04036a] hover:to-[#0a0a7d] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                   >
                     Send Reset Link
                   </button>
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
               </>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-[#e8e8f5] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl">✓</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Check your email</h3>
@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="text-green-600 hover:text-green-700 font-semibold text-sm"
+                    className="text-[#030256] hover:text-[#04036a] font-semibold text-sm"
                   >
                     Try again
                   </button>
@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
           <div className="bg-gray-50 px-8 py-6 border-t border-gray-200 text-center">
             <Link
               href="/login"
-              className="text-sm text-green-600 hover:text-green-700 font-semibold inline-flex items-center space-x-1"
+              className="text-sm text-[#030256] hover:text-[#04036a] font-semibold inline-flex items-center space-x-1"
             >
               <span>←</span>
               <span>Back to Sign in</span>

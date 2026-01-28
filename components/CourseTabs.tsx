@@ -21,7 +21,7 @@ export default function CourseTabs() {
             onClick={() => setActiveTab(tab.id)}
             className={`pb-4 transition-colors ${
               activeTab === tab.id
-                ? 'border-b-2 border-blue-600 text-blue-600 font-semibold'
+                ? 'border-b-2 border-[#030256] text-[#030256] font-semibold'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >

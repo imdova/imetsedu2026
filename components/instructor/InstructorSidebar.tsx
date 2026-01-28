@@ -76,15 +76,13 @@ export default function InstructorSidebar() {
     <div className="w-64 bg-white border-r border-gray-200 min-h-screen flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white text-xl">🎓</span>
-          </div>
+        <Link href="/" className="flex items-center space-x-3">
+          <img src="/images/logo.png" alt="IMETS school of business" className="h-10 w-auto" />
           <div>
-            <h2 className="font-bold text-gray-900">Creator Hub</h2>
+            <h2 className="font-bold text-gray-900">IMETS</h2>
             <p className="text-xs text-gray-500">Educator Account</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Navigation */}
@@ -107,7 +105,7 @@ export default function InstructorSidebar() {
                     href={item.href}
                     className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
                       itemIsActive
-                        ? 'bg-blue-50 text-blue-600 font-semibold'
+                        ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
                         : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   >
@@ -142,7 +140,7 @@ export default function InstructorSidebar() {
                             href={child.href}
                             className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
                               childIsActive
-                                ? 'bg-blue-50 text-blue-600 font-semibold'
+                                ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
                                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                             }`}
                           >
@@ -165,7 +163,7 @@ export default function InstructorSidebar() {
           href="/instructor/profile"
           className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors mb-2 ${
             pathname === '/instructor/profile'
-              ? 'bg-blue-50 text-blue-600 font-semibold'
+              ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
               : 'text-gray-700 hover:bg-gray-50'
           }`}
         >
@@ -176,7 +174,7 @@ export default function InstructorSidebar() {
           href="/instructor/settings"
           className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
             pathname === '/instructor/settings'
-              ? 'bg-blue-50 text-blue-600 font-semibold'
+              ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
               : 'text-gray-700 hover:bg-gray-50'
           }`}
         >

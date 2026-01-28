@@ -2,6 +2,7 @@ import Link from 'next/link';
 import CourseCard from '@/components/CourseCard';
 import CategoryCard from '@/components/CategoryCard';
 import CourseSectionBanner from '@/components/CourseSectionBanner';
+import PopularCoursesSection from '@/components/PopularCoursesSection';
 import { courses, categories } from '@/lib/data';
 
 export default function Home() {
@@ -26,7 +27,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 sm:py-16 lg:py-20">
+      <section className="bg-gradient-to-r from-[#030256] to-[#0a0a7d] text-white py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
@@ -38,13 +39,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4">
               <Link
                 href="/search"
-                className="w-full sm:w-auto bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
+                className="w-full sm:w-auto bg-white text-[#030256] px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
               >
                 Explore Courses
               </Link>
               <Link
                 href="/courses"
-                className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors text-center"
+                className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#030256] transition-colors text-center"
               >
                 Browse All
               </Link>
@@ -53,8 +54,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Popular courses Section */}
+      <PopularCoursesSection />
+
       {/* Categories Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Explore Top Categories</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
@@ -80,7 +84,7 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-bold">Featured Courses</h2>
             <Link
               href="/courses"
-              className="text-blue-600 hover:text-blue-700 font-semibold"
+              className="text-[#030256] hover:text-[#04036a] font-semibold"
             >
               View All →
             </Link>
@@ -104,7 +108,7 @@ export default function Home() {
       {/* Why Choose Us Section */}
       <section className="py-8 sm:py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Why Choose Medicova?</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Why Choose IMETS?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
               <div className="text-4xl sm:text-5xl mb-4">🎓</div>

@@ -14,6 +14,15 @@ interface SidebarItem {
 const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
   {
+    name: 'CRM',
+    href: '/admin/crm/leads',
+    icon: '🤝',
+    children: [
+      { name: 'Leads', href: '/admin/crm/leads' },
+      { name: 'Lead Pipeline', href: '/admin/crm/pipeline' },
+    ],
+  },
+  {
     name: 'Courses',
     href: '/admin/courses',
     icon: '📚',
@@ -66,15 +75,13 @@ export default function AdminSidebar() {
     <div className="w-64 bg-gray-50 border-r border-gray-200 min-h-screen flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200 bg-white">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-            <span className="text-white text-xl font-bold">M</span>
-          </div>
+        <Link href="/" className="flex items-center space-x-3">
+          <img src="/images/logo.png" alt="IMETS school of business" className="h-10 w-auto" />
           <div>
-            <h2 className="font-bold text-gray-900">medicova</h2>
+            <h2 className="font-bold text-gray-900">IMETS</h2>
             <p className="text-xs text-gray-500">Admin Panel</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Navigation */}
@@ -98,7 +105,7 @@ export default function AdminSidebar() {
                     onClick={() => hasChildren && toggleMenu(item.name)}
                     className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
                       itemIsActive
-                        ? 'bg-green-600 text-white font-semibold'
+                        ? 'bg-[#030256] text-white font-semibold'
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
@@ -133,7 +140,7 @@ export default function AdminSidebar() {
                             href={child.href}
                             className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
                               childIsActive
-                                ? 'bg-green-50 text-green-600 font-semibold'
+                                ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
                                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                             }`}
                           >
@@ -156,7 +163,7 @@ export default function AdminSidebar() {
           href="/admin/settings"
           className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors mb-2 ${
             pathname === '/admin/settings'
-              ? 'bg-green-50 text-green-600 font-semibold'
+              ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
               : 'text-gray-700 hover:bg-gray-50'
           }`}
         >
@@ -166,7 +173,7 @@ export default function AdminSidebar() {
         
         <div className="mt-4 pt-4 border-t border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-[#030256] rounded-full flex items-center justify-center">
               <span className="text-white font-semibold">A</span>
             </div>
             <div>

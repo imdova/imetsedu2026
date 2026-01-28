@@ -22,6 +22,15 @@ export interface Course {
   reviews?: Review[];
   whatYouWillLearn?: string[];
   requirements?: string[];
+  /** Popular section display */
+  isBestSeller?: boolean;
+  priceEGP?: number;
+  originalPriceEGP?: number;
+  lectureCount?: number;
+  lectureFrequency?: string;
+  deliveryMode?: string;
+  popularFilter?: string;
+  popularFilterTags?: string[];
 }
 
 export interface CourseSection {

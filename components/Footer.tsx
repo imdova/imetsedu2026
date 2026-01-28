@@ -2,14 +2,14 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-[#030256] text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="inline-block mb-4">
               <img
-                src="/images/logo-white.png"
-                alt="Medicova"
+                src="/images/logo.png"
+                alt="IMETS school of business"
                 className="h-10 w-auto"
               />
             </Link>
@@ -48,8 +48,8 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
-          <p>&copy; 2024 Medicova. All rights reserved.</p>
+        <div className="border-t border-[#04036a] mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
+          <p>&copy; 2024 IMETS school of business. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -94,7 +94,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
       <div className="p-4">
         {/* Course Title */}
         <Link href={courseDetailsPath}>
-          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-green-600 transition-colors">
+          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-[#030256] transition-colors">
             {course.title}
           </h3>
         </Link>
@@ -143,7 +143,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         {/* Pricing */}
         <div className="mb-4">
           {course.price === 0 ? (
-            <div className="text-2xl font-bold text-green-600">Free</div>
+            <div className="text-2xl font-bold text-[#030256]">Free</div>
           ) : (
             <div>
               {course.originalPrice && (
@@ -169,7 +169,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         <div className="flex items-center space-x-2">
           <button
             onClick={handleEnroll}
-            className="flex-1 bg-green-600 text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center text-sm"
+            className="flex-1 bg-[#030256] text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-[#04036a] transition-colors flex items-center justify-center text-sm"
           >
             Enroll
             <span className="ml-1">→</span>

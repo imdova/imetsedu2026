@@ -36,8 +36,8 @@ export default function LoginPage() {
         <div className="text-center mb-6 sm:mb-8">
           <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
             <img
-              src="/images/logo-green.png"
-              alt="Medicova"
+              src="/images/logo.png"
+              alt="IMETS school of business"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
@@ -110,7 +110,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   required
                   placeholder="you@example.com"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
               </div>
 
@@ -121,7 +121,7 @@ export default function LoginPage() {
                   </label>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-green-600 hover:text-green-700 font-semibold"
+                    className="text-sm text-[#030256] hover:text-[#04036a] font-semibold"
                   >
                     Forgot password?
                   </Link>
@@ -133,7 +133,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   required
                   placeholder="Enter your password"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
               </div>
 
@@ -143,7 +143,7 @@ export default function LoginPage() {
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleChange}
-                  className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer"
+                  className="w-4 h-4 text-[#030256] border-gray-300 rounded focus:ring-[#030256] focus:ring-2 cursor-pointer"
                 />
                 <label className="ml-2 text-sm text-gray-700 cursor-pointer">
                   Remember me for 30 days
@@ -152,7 +152,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="w-full bg-gradient-to-r from-[#030256] to-[#0a0a7d] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#04036a] hover:to-[#0a0a7d] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Sign in
               </button>
@@ -163,7 +163,7 @@ export default function LoginPage() {
           <div className="bg-gray-50 px-8 py-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link href="/signup" className="text-green-600 hover:text-green-700 font-semibold">
+              <Link href="/signup" className="text-[#030256] hover:text-[#04036a] font-semibold">
                 Sign up for free
               </Link>
             </p>

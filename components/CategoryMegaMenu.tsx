@@ -20,10 +20,10 @@ export default function CategoryMegaMenu() {
     >
       <Link
         href="/courses"
-        className="px-3 py-2 hover:bg-green-700 rounded transition-colors flex items-center space-x-1"
+        className="px-3 py-2 hover:bg-gray-100 rounded transition-colors flex items-center space-x-1"
       >
         <span>Explore Courses</span>
-        <span className="text-green-300">▼</span>
+        <span className="text-gray-500">▼</span>
       </Link>
 
       {isOpen && (
@@ -92,11 +92,11 @@ export default function CategoryMegaMenu() {
                               <Link
                                 key={subCategory.id}
                                 href={`/courses?category=${selectedCategory.name}&subcategory=${subCategory.name}`}
-                                className="flex items-center space-x-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-200 hover:border-green-300"
+                                className="flex items-center space-x-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-200 hover:border-[#0a0a7d]"
                               >
                                 <span className="text-lg">{subCategory.icon}</span>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-gray-700 group-hover:text-green-600 font-medium truncate">
+                                  <p className="text-sm text-gray-700 group-hover:text-[#030256] font-medium truncate">
                                     {subCategory.name}
                                   </p>
                                   <p className="text-xs text-gray-500">{subCategory.courseCount} courses</p>
@@ -132,7 +132,7 @@ export default function CategoryMegaMenu() {
                                   className="w-24 h-16 object-cover rounded"
                                 />
                                 <div className="flex-1">
-                                  <h4 className="font-semibold text-gray-900 text-sm group-hover:text-green-600 transition-colors line-clamp-2">
+                                  <h4 className="font-semibold text-gray-900 text-sm group-hover:text-[#030256] transition-colors line-clamp-2">
                                     {course.title}
                                   </h4>
                                   <p className="text-xs text-gray-500 mt-1">{course.instructor}</p>
@@ -144,7 +144,7 @@ export default function CategoryMegaMenu() {
                                     </span>
                                   </div>
                                   <div className="mt-2">
-                                    <span className="font-bold text-green-600 text-sm">
+                                    <span className="font-bold text-[#030256] text-sm">
                                       ${course.price}
                                     </span>
                                     {course.originalPrice && (
@@ -160,7 +160,7 @@ export default function CategoryMegaMenu() {
                             ))}
                             <Link
                               href={`/courses?category=${selectedCategory?.name}`}
-                              className="block text-center py-3 text-green-600 font-semibold hover:bg-green-50 rounded-lg transition-colors text-sm"
+                              className="block text-center py-3 text-[#030256] font-semibold hover:bg-[#e8e8f5] rounded-lg transition-colors text-sm"
                             >
                               View All {selectedCategory?.name} Courses →
                             </Link>

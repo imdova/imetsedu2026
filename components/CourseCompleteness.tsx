@@ -49,7 +49,7 @@ export default function CourseCompleteness({
               strokeWidth="8"
               fill="transparent"
               strokeDasharray={`${(percentage / 100) * 351.86} 351.86`}
-              className="text-green-600"
+              className="text-[#030256]"
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -64,7 +64,7 @@ export default function CourseCompleteness({
           <div key={index} className="flex items-start">
             <div className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3 mt-0.5 ${
               task.completed
-                ? 'bg-green-600 border-green-600'
+                ? 'bg-[#030256] border-[#030256]'
                 : 'border-gray-300'
             }`}>
               {task.completed && (
@@ -82,12 +82,12 @@ export default function CourseCompleteness({
       </div>
 
       {/* Quick Tip */}
-      <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+      <div className="mt-6 bg-[#e8e8f5] border border-[#0a0a7d]/30 rounded-lg p-4">
         <div className="flex items-start">
-          <span className="text-green-600 text-xl mr-2">💡</span>
+          <span className="text-[#030256] text-xl mr-2">💡</span>
           <div>
-            <p className="text-sm font-semibold text-green-900 mb-1">Quick Tip</p>
-            <p className="text-xs text-green-800">
+            <p className="text-sm font-semibold text-[#030256] mb-1">Quick Tip</p>
+            <p className="text-xs text-[#030256]/90">
               Courses with a Free Preview lesson have a 25% higher conversion rate. Try enabling it for your first introductory video!
             </p>
           </div>

@@ -46,8 +46,8 @@ export default function SignupPage() {
         <div className="text-center mb-6 sm:mb-8">
           <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
             <img
-              src="/images/logo-green.png"
-              alt="Medicova"
+              src="/images/logo.png"
+              alt="IMETS school of business"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
@@ -120,7 +120,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   required
                   placeholder="John Doe"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
               </div>
 
@@ -135,7 +135,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   required
                   placeholder="you@example.com"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
               </div>
 
@@ -150,7 +150,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   required
                   placeholder="Create a strong password"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
                 <p className="text-xs text-gray-500 mt-2">
                   Must be at least 8 characters with letters and numbers
@@ -168,7 +168,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   required
                   placeholder="Confirm your password"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400"
                 />
               </div>
 
@@ -178,15 +178,15 @@ export default function SignupPage() {
                   name="agreeToTerms"
                   checked={formData.agreeToTerms}
                   onChange={handleChange}
-                  className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer mt-1"
+                  className="w-4 h-4 text-[#030256] border-gray-300 rounded focus:ring-[#030256] focus:ring-2 cursor-pointer mt-1"
                 />
                 <label className="ml-2 text-sm text-gray-700 cursor-pointer">
                   I agree to the{' '}
-                  <Link href="/terms" className="text-green-600 hover:text-green-700 font-semibold">
+                  <Link href="/terms" className="text-[#030256] hover:text-[#04036a] font-semibold">
                     Terms of Service
                   </Link>{' '}
                   and{' '}
-                  <Link href="/privacy" className="text-green-600 hover:text-green-700 font-semibold">
+                  <Link href="/privacy" className="text-[#030256] hover:text-[#04036a] font-semibold">
                     Privacy Policy
                   </Link>
                 </label>
@@ -194,7 +194,7 @@ export default function SignupPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="w-full bg-gradient-to-r from-[#030256] to-[#0a0a7d] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#04036a] hover:to-[#0a0a7d] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Create Account
               </button>
@@ -205,7 +205,7 @@ export default function SignupPage() {
           <div className="bg-gray-50 px-8 py-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href="/login" className="text-green-600 hover:text-green-700 font-semibold">
+              <Link href="/login" className="text-[#030256] hover:text-[#04036a] font-semibold">
                 Sign in
               </Link>
             </p>
