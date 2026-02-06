@@ -68,6 +68,12 @@ export default function Header() {
               Admin
             </Link>
             <Link
+              href={ROUTES.STUDENT.DASHBOARD}
+              className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
+            >
+              Student
+            </Link>
+            <Link
               href={ROUTES.INSTRUCTOR.DASHBOARD}
               className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
             >
@@ -159,6 +165,13 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Admin
+              </Link>
+              <Link
+                href={ROUTES.STUDENT.DASHBOARD}
+                className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Student
               </Link>
               <Link
                 href={ROUTES.INSTRUCTOR.DASHBOARD}
