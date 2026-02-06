@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { Play } from "lucide-react";
 import { crmLeads, leadStatusStyles } from "@/lib/crmData";
 import LogActivityModal from "@/components/crm/LogActivityModal";
 
@@ -182,7 +183,11 @@ export default function LeadProfilePage() {
                       Call Recording
                     </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-admin-primary">▶</span>
+                      <Play
+                        className="h-4 w-4 text-admin-primary shrink-0"
+                        strokeWidth={2}
+                        fill="currentColor"
+                      />
                       <span className="text-sm text-gray-600">5m 22s</span>
                       <a
                         href="#"

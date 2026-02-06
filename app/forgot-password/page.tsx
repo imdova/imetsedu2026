@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
+import { Lightbulb } from "lucide-react";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,14 +19,19 @@ export default function ForgotPasswordPage() {
       <div className="max-w-md w-full">
         {/* Logo and Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center mb-3 sm:mb-4"
+          >
             <img
               src="/images/logo.png"
               alt="IMETS school of business"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Forgot your password?</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            Forgot your password?
+          </h2>
           <p className="mt-2 text-sm sm:text-base text-gray-600">
             {isSubmitted
               ? "We've sent you a password reset link"
@@ -39,12 +45,17 @@ export default function ForgotPasswordPage() {
             {!isSubmitted ? (
               <>
                 <div className="mb-6 p-4 bg-[#e8e8f5] border border-[#0a0a7d]/30 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <span className="text-2xl">💡</span>
+                  <div className="flex items-start gap-3">
+                    <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#030256]/10 text-[#030256]">
+                      <Lightbulb className="h-5 w-5" strokeWidth={2} />
+                    </span>
                     <div>
-                      <p className="text-sm text-[#030256] font-semibold mb-1">How it works</p>
+                      <p className="text-sm text-[#030256] font-semibold mb-1">
+                        How it works
+                      </p>
                       <p className="text-xs text-[#030256]/90">
-                        Enter your email address and we'll send you a link to reset your password.
+                        Enter your email address and we'll send you a link to
+                        reset your password.
                       </p>
                     </div>
                   </div>
@@ -78,7 +89,9 @@ export default function ForgotPasswordPage() {
                 <div className="w-16 h-16 bg-[#e8e8f5] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl">✓</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Check your email</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Check your email
+                </h3>
                 <p className="text-gray-600 mb-6">
                   We've sent a password reset link to <strong>{email}</strong>
                 </p>

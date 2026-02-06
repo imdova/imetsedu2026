@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { mockQuizzes } from '@/lib/quizData';
-import { Question } from '@/types/quiz';
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { Pencil, Plus, X } from "lucide-react";
+import { mockQuizzes } from "@/lib/quizData";
+import { Question } from "@/types/quiz";
 
 export default function QuestionsPage() {
   const router = useRouter();
@@ -14,12 +15,12 @@ export default function QuestionsPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [formData, setFormData] = useState<Partial<Question>>({
-    questionText: '',
-    questionType: 'multiple-choice',
-    options: ['', '', '', ''],
-    correctAnswer: '',
+    questionText: "",
+    questionType: "multiple-choice",
+    options: ["", "", "", ""],
+    correctAnswer: "",
     points: 10,
-    explanation: '',
+    explanation: "",
   });
 
   useEffect(() => {
@@ -29,11 +30,15 @@ export default function QuestionsPage() {
     }
   }, [quizId]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'points' ? parseInt(value) || 0 : value,
+      [name]: name === "points" ? parseInt(value) || 0 : value,
     }));
   };
 
@@ -49,7 +54,7 @@ export default function QuestionsPage() {
   const handleAddOption = () => {
     setFormData((prev) => ({
       ...prev,
-      options: [...(prev.options || []), ''],
+      options: [...(prev.options || []), ""],
     }));
   };
 
@@ -64,16 +69,25 @@ export default function QuestionsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingQuestion) {
-      setQuestions(questions.map((q) => (q.id === editingQuestion.id ? { ...editingQuestion, ...formData } as Question : q)));
+      setQuestions(
+        questions.map((q) =>
+          q.id === editingQuestion.id
+            ? ({ ...editingQuestion, ...formData } as Question)
+            : q
+        )
+      );
       setEditingQuestion(null);
     } else {
       const newQuestion: Question = {
         id: `q${Date.now()}`,
         quizId,
-        questionText: formData.questionText || '',
-        questionType: formData.questionType || 'multiple-choice',
-        options: formData.questionType === 'multiple-choice' ? formData.options : undefined,
-        correctAnswer: formData.correctAnswer || '',
+        questionText: formData.questionText || "",
+        questionType: formData.questionType || "multiple-choice",
+        options:
+          formData.questionType === "multiple-choice"
+            ? formData.options
+            : undefined,
+        correctAnswer: formData.correctAnswer || "",
         points: formData.points || 10,
         explanation: formData.explanation,
         order: questions.length + 1,
@@ -82,12 +96,12 @@ export default function QuestionsPage() {
     }
     setShowAddForm(false);
     setFormData({
-      questionText: '',
-      questionType: 'multiple-choice',
-      options: ['', '', '', ''],
-      correctAnswer: '',
+      questionText: "",
+      questionType: "multiple-choice",
+      options: ["", "", "", ""],
+      correctAnswer: "",
       points: 10,
-      explanation: '',
+      explanation: "",
     });
   };
 
@@ -96,8 +110,10 @@ export default function QuestionsPage() {
     setFormData({
       questionText: question.questionText,
       questionType: question.questionType,
-      options: question.options || ['', '', '', ''],
-      correctAnswer: Array.isArray(question.correctAnswer) ? question.correctAnswer[0] : question.correctAnswer,
+      options: question.options || ["", "", "", ""],
+      correctAnswer: Array.isArray(question.correctAnswer)
+        ? question.correctAnswer[0]
+        : question.correctAnswer,
       points: question.points,
       explanation: question.explanation,
     });
@@ -105,7 +121,7 @@ export default function QuestionsPage() {
   };
 
   const handleDelete = (questionId: string) => {
-    if (confirm('Are you sure you want to delete this question?')) {
+    if (confirm("Are you sure you want to delete this question?")) {
       setQuestions(questions.filter((q) => q.id !== questionId));
     }
   };
@@ -113,7 +129,9 @@ export default function QuestionsPage() {
   const handleExcelImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    alert('Excel import functionality would parse the file and add questions. This requires a library like xlsx or exceljs.');
+    alert(
+      "Excel import functionality would parse the file and add questions. This requires a library like xlsx or exceljs."
+    );
   };
 
   const quiz = mockQuizzes.find((q) => q.id === quizId);
@@ -122,9 +140,11 @@ export default function QuestionsPage() {
     return (
       <div className="p-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Quiz not found</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Quiz not found
+          </h2>
           <button
-            onClick={() => router.push('/instructor/quizzes')}
+            onClick={() => router.push("/instructor/quizzes")}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Back to Quizzes
@@ -139,8 +159,12 @@ export default function QuestionsPage() {
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Manage Questions</h1>
-            <p className="text-gray-600">Add, edit, or import questions for: {quiz.title}</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Manage Questions
+            </h1>
+            <p className="text-gray-600">
+              Add, edit, or import questions for: {quiz.title}
+            </p>
           </div>
           <div className="flex space-x-4">
             <label className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors cursor-pointer">
@@ -157,12 +181,12 @@ export default function QuestionsPage() {
                 setShowAddForm(true);
                 setEditingQuestion(null);
                 setFormData({
-                  questionText: '',
-                  questionType: 'multiple-choice',
-                  options: ['', '', '', ''],
-                  correctAnswer: '',
+                  questionText: "",
+                  questionType: "multiple-choice",
+                  options: ["", "", "", ""],
+                  correctAnswer: "",
                   points: 10,
-                  explanation: '',
+                  explanation: "",
                 });
               }}
               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
@@ -171,24 +195,50 @@ export default function QuestionsPage() {
             </button>
           </div>
         </div>
-        
+
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
           <details className="cursor-pointer">
-            <summary className="font-semibold text-blue-900">📋 Excel Import Format Guide</summary>
+            <summary className="font-semibold text-blue-900">
+              📋 Excel Import Format Guide
+            </summary>
             <div className="mt-3 text-sm text-blue-800 space-y-2">
               <p>Your Excel file should have the following columns:</p>
               <ul className="list-disc list-inside ml-4 space-y-1">
-                <li><strong>questionText</strong> - The question text (required)</li>
-                <li><strong>questionType</strong> - multiple-choice, true-false, short-answer, or essay (required)</li>
-                <li><strong>option1, option2, option3, option4</strong> - For multiple-choice questions</li>
-                <li><strong>correctAnswer</strong> - The correct answer (required)</li>
-                <li><strong>points</strong> - Points for this question (default: 10)</li>
-                <li><strong>explanation</strong> - Explanation shown after quiz (optional)</li>
+                <li>
+                  <strong>questionText</strong> - The question text (required)
+                </li>
+                <li>
+                  <strong>questionType</strong> - multiple-choice, true-false,
+                  short-answer, or essay (required)
+                </li>
+                <li>
+                  <strong>option1, option2, option3, option4</strong> - For
+                  multiple-choice questions
+                </li>
+                <li>
+                  <strong>correctAnswer</strong> - The correct answer (required)
+                </li>
+                <li>
+                  <strong>points</strong> - Points for this question (default:
+                  10)
+                </li>
+                <li>
+                  <strong>explanation</strong> - Explanation shown after quiz
+                  (optional)
+                </li>
               </ul>
-              <p className="mt-2"><strong>Example:</strong></p>
+              <p className="mt-2">
+                <strong>Example:</strong>
+              </p>
               <div className="bg-white p-2 rounded text-xs font-mono overflow-x-auto">
-                <div>questionText | questionType | option1 | option2 | option3 | option4 | correctAnswer | points</div>
-                <div>What is React? | multiple-choice | A JS library | A database | A CSS framework | A server | A JS library | 10</div>
+                <div>
+                  questionText | questionType | option1 | option2 | option3 |
+                  option4 | correctAnswer | points
+                </div>
+                <div>
+                  What is React? | multiple-choice | A JS library | A database |
+                  A CSS framework | A server | A JS library | 10
+                </div>
               </div>
             </div>
           </details>
@@ -199,8 +249,8 @@ export default function QuestionsPage() {
         <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 overflow-hidden mb-6">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
             <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <span className="mr-3">{editingQuestion ? '✏️' : '➕'}</span>
-              {editingQuestion ? 'Edit Question' : 'Add New Question'}
+              <span className="mr-3">{editingQuestion ? "✏️" : "➕"}</span>
+              {editingQuestion ? "Edit Question" : "Add New Question"}
             </h2>
           </div>
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
@@ -236,18 +286,24 @@ export default function QuestionsPage() {
               </select>
             </div>
 
-            {(formData.questionType === 'multiple-choice' || formData.questionType === 'true-false') && (
+            {(formData.questionType === "multiple-choice" ||
+              formData.questionType === "true-false") && (
               <div className="bg-gray-50 p-6 rounded-lg border-2 border-gray-200">
                 <label className="block text-sm font-semibold text-gray-700 mb-4">
                   Options <span className="text-red-500">*</span>
                 </label>
                 <div className="space-y-3">
                   {formData.options?.map((option, index) => (
-                    <div key={index} className="flex items-center space-x-3 bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-3 bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200"
+                    >
                       <input
                         type="text"
                         value={option}
-                        onChange={(e) => handleOptionChange(index, e.target.value)}
+                        onChange={(e) =>
+                          handleOptionChange(index, e.target.value)
+                        }
                         placeholder={`Option ${index + 1}`}
                         className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                         required
@@ -258,24 +314,32 @@ export default function QuestionsPage() {
                           name="correctAnswer"
                           value={option}
                           checked={formData.correctAnswer === option}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, correctAnswer: e.target.value }))}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              correctAnswer: e.target.value,
+                            }))
+                          }
                           className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
                         />
-                        <span className="text-sm font-semibold text-gray-700">Correct</span>
+                        <span className="text-sm font-semibold text-gray-700">
+                          Correct
+                        </span>
                       </div>
                       {formData.options && formData.options.length > 2 && (
                         <button
                           type="button"
                           onClick={() => handleRemoveOption(index)}
-                          className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg font-semibold transition-colors"
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          aria-label="Remove option"
                         >
-                          ✕
+                          <X className="h-4 w-4" strokeWidth={2.5} />
                         </button>
                       )}
                     </div>
                   ))}
                 </div>
-                {formData.questionType === 'multiple-choice' && (
+                {formData.questionType === "multiple-choice" && (
                   <button
                     type="button"
                     onClick={handleAddOption}
@@ -287,7 +351,7 @@ export default function QuestionsPage() {
               </div>
             )}
 
-            {formData.questionType === 'short-answer' && (
+            {formData.questionType === "short-answer" && (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Correct Answer <span className="text-red-500">*</span>
@@ -303,7 +367,7 @@ export default function QuestionsPage() {
               </div>
             )}
 
-            {formData.questionType === 'essay' && (
+            {formData.questionType === "essay" && (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Sample Answer (for grading reference)
@@ -364,7 +428,7 @@ export default function QuestionsPage() {
                 type="submit"
                 className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                {editingQuestion ? 'Update Question' : 'Add Question'}
+                {editingQuestion ? "Update Question" : "Add Question"}
               </button>
             </div>
           </form>
@@ -395,7 +459,9 @@ export default function QuestionsPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <span className="text-sm font-semibold text-gray-500">Q{index + 1}</span>
+                        <span className="text-sm font-semibold text-gray-500">
+                          Q{index + 1}
+                        </span>
                         <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-semibold">
                           {question.questionType}
                         </span>
@@ -403,24 +469,30 @@ export default function QuestionsPage() {
                           {question.points} points
                         </span>
                       </div>
-                      <p className="text-lg font-semibold text-gray-900 mb-2">{question.questionText}</p>
+                      <p className="text-lg font-semibold text-gray-900 mb-2">
+                        {question.questionText}
+                      </p>
                       {question.options && (
                         <ul className="space-y-2 mb-4">
                           {question.options.map((option, optIndex) => {
-                            const isCorrect = option === question.correctAnswer || 
-                              (Array.isArray(question.correctAnswer) && question.correctAnswer.includes(option));
+                            const isCorrect =
+                              option === question.correctAnswer ||
+                              (Array.isArray(question.correctAnswer) &&
+                                question.correctAnswer.includes(option));
                             return (
                               <li
                                 key={optIndex}
                                 className={`px-4 py-2 rounded ${
                                   isCorrect
-                                    ? 'bg-green-50 border-2 border-green-500'
-                                    : 'bg-gray-50 border border-gray-200'
+                                    ? "bg-green-50 border-2 border-green-500"
+                                    : "bg-gray-50 border border-gray-200"
                                 }`}
                               >
                                 {option}
                                 {isCorrect && (
-                                  <span className="ml-2 text-green-600 font-semibold">✓ Correct</span>
+                                  <span className="ml-2 text-green-600 font-semibold">
+                                    ✓ Correct
+                                  </span>
                                 )}
                               </li>
                             );
@@ -429,8 +501,12 @@ export default function QuestionsPage() {
                       )}
                       {question.explanation && (
                         <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                          <p className="text-sm font-semibold text-blue-900 mb-1">Explanation:</p>
-                          <p className="text-sm text-blue-800">{question.explanation}</p>
+                          <p className="text-sm font-semibold text-blue-900 mb-1">
+                            Explanation:
+                          </p>
+                          <p className="text-sm text-blue-800">
+                            {question.explanation}
+                          </p>
                         </div>
                       )}
                     </div>

@@ -1,15 +1,18 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { categories, courses } from '@/lib/data';
+import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { categories, courses } from "@/lib/data";
 
 export default function CategoryMegaMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   const getCoursesByCategory = (categoryName: string) => {
-    return courses.filter((course) => course.category === categoryName).slice(0, 4);
+    return courses
+      .filter((course) => course.category === categoryName)
+      .slice(0, 4);
   };
 
   return (
@@ -32,36 +35,46 @@ export default function CategoryMegaMenu() {
             {/* Categories List */}
             <div className="bg-gray-50 border-r border-gray-200">
               <div className="p-4 border-b border-gray-200">
-                <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide">Categories</h3>
+                <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide">
+                  Categories
+                </h3>
               </div>
               <div className="max-h-[500px] overflow-y-auto">
                 {categories.map((category) => {
                   const categoryCourses = getCoursesByCategory(category.name);
                   const hasCourses = categoryCourses.length > 0;
                   const isHovered = hoveredCategory === category.id;
-                  
+
                   return (
                     <div
                       key={category.id}
                       className={`border-b border-gray-200 transition-colors ${
-                        isHovered
-                          ? 'bg-white shadow-sm'
-                          : 'hover:bg-white'
+                        isHovered ? "bg-white shadow-sm" : "hover:bg-white"
                       }`}
-                      onMouseEnter={() => hasCourses && setHoveredCategory(category.id)}
+                      onMouseEnter={() =>
+                        hasCourses && setHoveredCategory(category.id)
+                      }
                     >
                       <div className="p-4 cursor-pointer">
                         <div className="flex items-center space-x-3">
                           <span className="text-2xl">{category.icon}</span>
                           <div className="flex-1">
-                            <p className="font-semibold text-gray-900 text-sm">{category.name}</p>
-                            <p className="text-xs text-gray-500">{category.courseCount} courses</p>
+                            <p className="font-semibold text-gray-900 text-sm">
+                              {category.name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {category.courseCount} courses
+                            </p>
                           </div>
-                          {category.subCategories && category.subCategories.length > 0 && (
-                            <span className={`text-xs text-gray-400 transition-transform ${isHovered ? 'rotate-90' : ''}`}>
-                              ▶
-                            </span>
-                          )}
+                          {category.subCategories &&
+                            category.subCategories.length > 0 && (
+                              <ChevronRight
+                                className={`h-4 w-4 text-gray-400 shrink-0 transition-transform ${
+                                  isHovered ? "rotate-90" : ""
+                                }`}
+                                strokeWidth={2}
+                              />
+                            )}
                         </div>
                       </div>
                     </div>
@@ -74,7 +87,9 @@ export default function CategoryMegaMenu() {
             <div className="col-span-2 p-6">
               {hoveredCategory ? (
                 (() => {
-                  const selectedCategory = categories.find((c) => c.id === hoveredCategory);
+                  const selectedCategory = categories.find(
+                    (c) => c.id === hoveredCategory
+                  );
                   const categoryCourses = selectedCategory
                     ? getCoursesByCategory(selectedCategory.name)
                     : [];
@@ -82,37 +97,46 @@ export default function CategoryMegaMenu() {
                   return (
                     <div>
                       {/* Subcategories Section */}
-                      {selectedCategory?.subCategories && selectedCategory.subCategories.length > 0 && (
-                        <div className="mb-6">
-                          <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-3">
-                            Subcategories
-                          </h3>
-                          <div className="grid grid-cols-2 gap-2">
-                            {selectedCategory.subCategories.map((subCategory) => (
-                              <Link
-                                key={subCategory.id}
-                                href={`/courses?category=${selectedCategory.name}&subcategory=${subCategory.name}`}
-                                className="flex items-center space-x-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-200 hover:border-[#0a0a7d]"
-                              >
-                                <span className="text-lg">{subCategory.icon}</span>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-gray-700 group-hover:text-[#030256] font-medium truncate">
-                                    {subCategory.name}
-                                  </p>
-                                  <p className="text-xs text-gray-500">{subCategory.courseCount} courses</p>
-                                </div>
-                              </Link>
-                            ))}
+                      {selectedCategory?.subCategories &&
+                        selectedCategory.subCategories.length > 0 && (
+                          <div className="mb-6">
+                            <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-3">
+                              Subcategories
+                            </h3>
+                            <div className="grid grid-cols-2 gap-2">
+                              {selectedCategory.subCategories.map(
+                                (subCategory) => (
+                                  <Link
+                                    key={subCategory.id}
+                                    href={`/courses?category=${selectedCategory.name}&subcategory=${subCategory.name}`}
+                                    className="flex items-center space-x-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-200 hover:border-[#0a0a7d]"
+                                  >
+                                    <span className="text-lg">
+                                      {subCategory.icon}
+                                    </span>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm text-gray-700 group-hover:text-[#030256] font-medium truncate">
+                                        {subCategory.name}
+                                      </p>
+                                      <p className="text-xs text-gray-500">
+                                        {subCategory.courseCount} courses
+                                      </p>
+                                    </div>
+                                  </Link>
+                                )
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
                       {/* Featured Courses Section */}
                       <div className="border-t border-gray-200 pt-6">
                         <div className="mb-4">
                           <h3 className="font-bold text-gray-900 text-lg flex items-center space-x-2">
                             <span>{selectedCategory?.icon}</span>
-                            <span>Featured {selectedCategory?.name} Courses</span>
+                            <span>
+                              Featured {selectedCategory?.name} Courses
+                            </span>
                           </h3>
                           <p className="text-sm text-gray-600 mt-1">
                             {selectedCategory?.courseCount} courses available
@@ -135,12 +159,17 @@ export default function CategoryMegaMenu() {
                                   <h4 className="font-semibold text-gray-900 text-sm group-hover:text-[#030256] transition-colors line-clamp-2">
                                     {course.title}
                                   </h4>
-                                  <p className="text-xs text-gray-500 mt-1">{course.instructor}</p>
+                                  <p className="text-xs text-gray-500 mt-1">
+                                    {course.instructor}
+                                  </p>
                                   <div className="flex items-center space-x-2 mt-2">
-                                    <span className="text-yellow-500 text-xs">⭐ {course.rating}</span>
+                                    <span className="text-yellow-500 text-xs">
+                                      ⭐ {course.rating}
+                                    </span>
                                     <span className="text-gray-400">•</span>
                                     <span className="text-xs text-gray-500">
-                                      {course.studentCount.toLocaleString()} students
+                                      {course.studentCount.toLocaleString()}{" "}
+                                      students
                                     </span>
                                   </div>
                                   <div className="mt-2">
@@ -167,7 +196,9 @@ export default function CategoryMegaMenu() {
                           </div>
                         ) : (
                           <div className="text-center py-12">
-                            <p className="text-gray-500">No courses available in this category yet.</p>
+                            <p className="text-gray-500">
+                              No courses available in this category yet.
+                            </p>
                           </div>
                         )}
                       </div>
@@ -177,7 +208,10 @@ export default function CategoryMegaMenu() {
               ) : (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
-                    <p className="text-gray-500 text-sm">Hover over a category to see subcategories and featured courses</p>
+                    <p className="text-gray-500 text-sm">
+                      Hover over a category to see subcategories and featured
+                      courses
+                    </p>
                   </div>
                 </div>
               )}

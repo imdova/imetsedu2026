@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { SlidersHorizontal, LayoutGrid, List } from "lucide-react";
 import {
   crmLeads,
   activePipelineFilterPills,
@@ -130,7 +131,7 @@ export default function ActivePipelinePage() {
             type="button"
             className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
           >
-            <span>☰</span>
+            <SlidersHorizontal className="h-4 w-4" strokeWidth={2} />
             FILTERS
           </button>
           {activePipelineFilterPills.map((pill) => (
@@ -179,7 +180,7 @@ export default function ActivePipelinePage() {
               }`}
               title="Grid view"
             >
-              ⊞
+              <LayoutGrid className="h-4 w-4" strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -191,7 +192,7 @@ export default function ActivePipelinePage() {
               }`}
               title="List view"
             >
-              ☰
+              <List className="h-4 w-4" strokeWidth={2} />
             </button>
           </div>
         </div>

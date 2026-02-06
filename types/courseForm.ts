@@ -62,6 +62,7 @@ export interface CourseFormData {
   whoCanAttend: string;
   credits: string;
   language: string;
+  languages: string[];
   modules: CourseModule[];
   // Step 3: Pricing & Enrollment (extras)
   coupons: DiscountCoupon[];

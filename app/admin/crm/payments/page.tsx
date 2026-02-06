@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { X } from "lucide-react";
 import {
   paymentRecords,
   paymentFilterTabs,
@@ -296,8 +297,9 @@ function InstallmentSidebar({
           type="button"
           onClick={onClose}
           className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+          aria-label="Close"
         >
-          ✕
+          <X className="h-5 w-5" strokeWidth={2} />
         </button>
       </div>
       <div className="p-4 space-y-3 max-h-[420px] overflow-y-auto">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Search, SlidersHorizontal, FileText } from "lucide-react";
 import {
   crmLeads,
   leadStatusStyles,
@@ -158,8 +159,8 @@ export default function CRMLeadsPage() {
           </div>
           <div className="flex-1 flex items-end">
             <div className="relative w-full">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                🔍
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                <Search className="h-4 w-4" strokeWidth={2} />
               </span>
               <input
                 type="text"
@@ -233,7 +234,10 @@ export default function CRMLeadsPage() {
                     </td>
                     <td className="py-4 px-4">
                       <span className="flex items-center gap-1.5 text-sm text-gray-700">
-                        <span className="text-gray-400">📄</span>
+                        <FileText
+                          className="h-4 w-4 text-gray-400 shrink-0"
+                          strokeWidth={2}
+                        />
                         {lead.source}
                       </span>
                     </td>

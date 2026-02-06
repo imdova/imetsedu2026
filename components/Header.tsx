@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Search, Menu, X } from "lucide-react";
 import { ROUTES } from "@/constants";
 import { Container } from "@/components/ui";
 import CategoryMegaMenu from "./CategoryMegaMenu";
@@ -49,8 +50,12 @@ export default function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
-            <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors">
-              🔍
+            <button
+              type="button"
+              className="bg-gray-100 text-gray-600 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-4 w-4" strokeWidth={2} />
             </button>
           </div>
 
@@ -112,8 +117,12 @@ export default function Header() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
-              <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors">
-                🔍
+              <button
+                type="button"
+                className="bg-gray-100 text-gray-600 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors"
+                aria-label="Search"
+              >
+                <Search className="h-4 w-4" strokeWidth={2} />
               </button>
             </div>
           </div>

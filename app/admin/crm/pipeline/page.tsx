@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FileText, Reply } from "lucide-react";
 import {
   crmLeads,
   pipelineStages,
@@ -151,7 +152,7 @@ function LeadCard({ lead }: { lead: CRMLead }) {
             onClick={(e) => e.preventDefault()}
             className="w-full py-2 bg-admin-primary text-white text-sm font-medium rounded-lg hover:bg-admin-primary-hover transition-colors flex items-center justify-center gap-1"
           >
-            <span>📄</span>
+            <FileText className="h-4 w-4" strokeWidth={2} />
             Send Invoice
           </button>
         ) : isEnrolled ? (
@@ -162,7 +163,7 @@ function LeadCard({ lead }: { lead: CRMLead }) {
             onClick={(e) => e.preventDefault()}
             className="w-full py-2 bg-blue-50 text-admin-primary text-sm font-medium rounded-lg hover:bg-admin-primary/10 transition-colors flex items-center justify-center gap-1"
           >
-            <span>↩</span>
+            <Reply className="h-4 w-4" strokeWidth={2} />
             {lead.pipelineStage === "NEW INQUIRIES"
               ? "Quick Response"
               : "Follow Up"}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { X, User } from "lucide-react";
 import type { CRMLead } from "@/lib/crmData";
 import { coursesOfInterest } from "@/lib/crmData";
 
@@ -68,7 +69,7 @@ export default function LogActivityModal({
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  👤
+                  <User className="h-4 w-4" strokeWidth={2} />
                 </span>
                 <input
                   type="text"

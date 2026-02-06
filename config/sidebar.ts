@@ -116,3 +116,27 @@ export function getInstructorSidebarProps(): SidebarProps {
     variant: "instructor",
   };
 }
+
+export const studentNavItems: SidebarNavItem[] = [
+  { name: "Dashboard", href: ROUTES.STUDENT.DASHBOARD, icon: "📊" },
+  { name: "My Courses", href: ROUTES.STUDENT.COURSES, icon: "📚" },
+  { name: "Certificates", href: "/student/certificates", icon: "🏆" },
+];
+
+const studentFooterLinks: SidebarFooterLink[] = [
+  { href: ROUTES.STUDENT.PROFILE, label: "Profile", icon: "👤" },
+  { href: ROUTES.STUDENT.SETTINGS, label: "Settings", icon: "⚙️" },
+];
+
+export function getStudentSidebarProps(): SidebarProps {
+  return {
+    items: studentNavItems,
+    logoHref: ROUTES.HOME,
+    logoSrc: LOGO.src,
+    logoAlt: LOGO.alt,
+    subtitle: "Student Portal",
+    footerLinks: studentFooterLinks,
+    footerProfile: { initial: "A", name: "Alexander P.", role: "Student" },
+    variant: "instructor",
+  };
+}

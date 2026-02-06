@@ -1,0 +1,385 @@
+/**
+ * Payment Pending Verification page - bank transfer status.
+ */
+
+.vs-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px 40px;
+}
+
+.vs-breadcrumb {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.vs-breadcrumb a {
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.vs-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.vs-breadcrumb span {
+  margin: 0 6px;
+  color: #9ca3af;
+}
+
+.vs-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .vs-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left: Pending Verification card */
+.vs-main-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 32px;
+  margin-bottom: 0;
+}
+
+.vs-status-icon-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #fff7ed;
+  color: #ea580c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.vs-status-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.vs-status-desc {
+  font-size: 15px;
+  color: #374151;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0 0 28px 0;
+}
+
+.vs-status-desc strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Submission Details */
+.vs-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin: 0 0 12px 0;
+}
+
+.vs-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 560px) {
+  .vs-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vs-detail-box {
+  padding: 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.vs-detail-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.vs-detail-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.vs-detail-value.blue {
+  color: var(--color-primary);
+}
+
+/* What happens next */
+.vs-what-next {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.vs-what-next-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.vs-what-next-header .vs-info-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.vs-what-next-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.vs-steps {
+  position: relative;
+  padding-left: 28px;
+}
+
+.vs-steps::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.vs-step {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.vs-step:last-child {
+  margin-bottom: 0;
+}
+
+.vs-step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: absolute;
+  left: -28px;
+  top: 0;
+}
+
+.vs-step-icon.green {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.vs-step-icon.orange {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.vs-step-icon.grey {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+.vs-step-body h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.vs-step-body p {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Right: Quick Actions & Safe & Secure */
+.vs-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vs-sidebar-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+}
+
+.vs-quick-actions .vs-section-title {
+  margin-bottom: 16px;
+}
+
+.vs-quick-actions-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.vs-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  border: none;
+  font-family: inherit;
+  width: 100%;
+}
+
+.vs-quick-btn.primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.vs-quick-btn.primary:hover {
+  background: var(--color-primary-hover, #0c3a94);
+  color: #fff;
+}
+
+.vs-quick-btn.secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.vs-quick-btn.secondary:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.vs-need-help {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.vs-need-help a {
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.vs-need-help a:hover {
+  text-decoration: underline;
+}
+
+/* Safe & Secure card */
+.vs-safe-card {
+  background: var(--color-primary);
+  border-radius: 16px;
+  padding: 24px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.vs-safe-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+  height: 120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1.5'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E")
+    no-repeat bottom right;
+  pointer-events: none;
+}
+
+.vs-safe-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.vs-safe-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.vs-safe-text {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.95;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+.vs-footer {
+  text-align: center;
+  padding: 28px 0 0;
+  margin-top: 40px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.vs-footer a {
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.vs-footer a:hover {
+  color: #111827;
+}
+
+.vs-footer span {
+  margin: 0 8px;
+  color: #d1d5db;
+}

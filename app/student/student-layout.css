@@ -1,0 +1,114 @@
+/**
+ * Student layout - theme and top navigation bar.
+ * Main color theme: #0f49bd
+ */
+
+/* Student module main color theme */
+.student-theme {
+  --color-primary: #0f49bd;
+  --color-primary-hover: #0c3a94;
+  --color-primary-light: #1a5ad4;
+  --color-primary-muted: #e8eef9;
+}
+
+.student-header {
+  padding: 12px 24px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.student-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.student-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.student-header-nav a {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.student-header-nav a:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.student-header-nav a.active {
+  background: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.student-search-input {
+  padding: 8px 12px 8px 36px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 256px;
+  font-family: inherit;
+}
+
+.student-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.student-search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(3, 2, 86, 0.15);
+}
+
+.student-header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 12px;
+  border-left: 1px solid #e5e7eb;
+}
+
+.student-header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.student-header-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.25;
+}
+
+.student-header-role {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.25;
+}

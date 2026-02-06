@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import { Video, Phone, MoreVertical } from "lucide-react";
 
 const MAX_CHARS = 1024;
 const CATEGORIES = [
@@ -293,9 +294,18 @@ export default function EditWhatsAppTemplatePage() {
                       </p>
                       <p className="text-[#a8d4ce] text-xs">online</p>
                     </div>
-                    <span className="text-white text-lg">📹</span>
-                    <span className="text-white text-lg">📞</span>
-                    <span className="text-white text-lg">⋮</span>
+                    <Video
+                      className="h-5 w-5 text-white shrink-0"
+                      strokeWidth={2}
+                    />
+                    <Phone
+                      className="h-5 w-5 text-white shrink-0"
+                      strokeWidth={2}
+                    />
+                    <MoreVertical
+                      className="h-5 w-5 text-white shrink-0"
+                      strokeWidth={2}
+                    />
                   </div>
                   {/* Messages */}
                   <div className="px-3 py-4 min-h-[320px]">

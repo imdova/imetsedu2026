@@ -3,6 +3,15 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  ChevronRight,
+  Trash2,
+  X,
+  ImageIcon,
+  Lightbulb,
+  RefreshCw,
+  Info,
+} from "lucide-react";
 import { categories } from "@/lib/data";
 import CourseCompleteness from "@/components/CourseCompleteness";
 import {
@@ -29,6 +38,9 @@ export default function CreateCoursePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [tagInput, setTagInput] = useState("");
   const [pricingExpanded, setPricingExpanded] = useState(false);
+  const [collapsedModules, setCollapsedModules] = useState<Set<string>>(
+    new Set()
+  );
   const [formData, setFormData] = useState<CourseFormData>({
     title: "",
     category: "",
@@ -62,6 +74,7 @@ export default function CreateCoursePage() {
     whoCanAttend: "",
     credits: "4",
     language: "English",
+    languages: [],
     modules: [],
     coupons: [],
     enrollmentLimit: false,
@@ -312,7 +325,7 @@ export default function CreateCoursePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-6 py-8">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -364,7 +377,7 @@ export default function CreateCoursePage() {
 
             {/* Main body */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 space-y-8">
+              <div className="bg-[#ffffff] rounded-lg border border-gray-200 shadow-sm p-6 md:p-8 space-y-8">
                 {currentStep === 1 && (
                   <>
                     <section>
@@ -452,6 +465,33 @@ export default function CreateCoursePage() {
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                            Attendance Mode
+                          </label>
+                          <div className="flex flex-wrap gap-2 mt-1.5">
+                            {["Online", "In-person", "Hybrid"].map((mode) => (
+                              <button
+                                key={mode}
+                                type="button"
+                                onClick={() =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    attendanceMode: mode,
+                                  }))
+                                }
+                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:ring-offset-1 ${
+                                  formData.attendanceMode === mode
+                                    ? "bg-[#0f49bd] text-white border-[#0f49bd]"
+                                    : "bg-white text-gray-700 border-gray-300 hover:border-[#0f49bd]/50 hover:bg-[#0f49bd]/5"
+                                }`}
+                              >
+                                {mode}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1.5">
                             Description
                           </label>
                           <textarea
@@ -528,14 +568,13 @@ export default function CreateCoursePage() {
                               : "Show SAR & USD pricing"
                           }
                         >
-                          <span
-                            className={`inline-block transition-transform ${
+                          <ChevronRight
+                            className={`h-4 w-4 shrink-0 transition-transform ${
                               pricingExpanded ? "rotate-90" : ""
                             }`}
+                            strokeWidth={2.5}
                             aria-hidden
-                          >
-                            ▶
-                          </span>
+                          />
                           <span className="text-xs">
                             {pricingExpanded
                               ? "Hide SAR & USD"
@@ -792,35 +831,6 @@ export default function CreateCoursePage() {
                       </div>
                     </div>
 
-                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                          Duration
-                        </label>
-                        <input
-                          type="text"
-                          name="duration"
-                          value={formData.duration}
-                          onChange={handleInputChange}
-                          placeholder="e.g. 12 Weeks"
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                          Credits
-                        </label>
-                        <input
-                          type="text"
-                          name="credits"
-                          value={formData.credits}
-                          onChange={handleInputChange}
-                          placeholder="e.g. 4"
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
-                        />
-                      </div>
-                    </div>
-
                     <div className="mt-8">
                       <h3 className="text-base font-semibold text-gray-900 mb-2">
                         Curriculum
@@ -837,224 +847,130 @@ export default function CreateCoursePage() {
                             key={module.id}
                             className="border border-gray-200 rounded-lg"
                           >
-                            <div className="bg-gray-50 p-4 flex items-center justify-between">
-                              <div className="flex items-center space-x-3 flex-1">
-                                <span className="text-gray-400 cursor-move">
-                                  ⋮⋮
+                            <div className="bg-gray-50 p-4 flex items-center justify-between gap-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCollapsedModules((prev) => {
+                                    const next = new Set(prev);
+                                    if (next.has(module.id))
+                                      next.delete(module.id);
+                                    else next.add(module.id);
+                                    return next;
+                                  });
+                                }}
+                                className="flex items-center justify-center w-8 h-8 rounded shrink-0 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                aria-expanded={!collapsedModules.has(module.id)}
+                                title={
+                                  collapsedModules.has(module.id)
+                                    ? "Expand lessons"
+                                    : "Collapse lessons"
+                                }
+                              >
+                                <ChevronRight
+                                  className={`h-5 w-5 shrink-0 transition-transform ${
+                                    collapsedModules.has(module.id)
+                                      ? ""
+                                      : "rotate-90"
+                                  }`}
+                                  strokeWidth={2.5}
+                                  aria-hidden
+                                />
+                              </button>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-xs font-semibold text-gray-500 uppercase mr-2">
+                                  MODULE {moduleIndex + 1}
                                 </span>
-                                <div className="flex-1">
-                                  <span className="text-xs font-semibold text-green-600 uppercase mr-2">
-                                    MODULE {moduleIndex + 1}
-                                  </span>
-                                  <input
-                                    type="text"
-                                    value={module.title}
-                                    onChange={(e) =>
-                                      updateModule(module.id, e.target.value)
-                                    }
-                                    className="text-lg font-semibold text-gray-900 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-green-500 rounded px-2"
-                                    placeholder="Module title"
-                                  />
-                                </div>
+                                <input
+                                  type="text"
+                                  value={module.title}
+                                  onChange={(e) =>
+                                    updateModule(module.id, e.target.value)
+                                  }
+                                  className="text-lg font-semibold text-gray-900 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#0f49bd] rounded px-2 w-full"
+                                  placeholder="Module title"
+                                />
                               </div>
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const newTitle = prompt(
-                                      "Edit module title:",
-                                      module.title
-                                    );
-                                    if (newTitle)
-                                      updateModule(module.id, newTitle);
-                                  }}
-                                  className="p-2 text-gray-600 hover:text-green-600"
-                                  title="Edit"
-                                >
-                                  ✏️
-                                </button>
+                              <div className="flex items-center space-x-2 shrink-0">
                                 <button
                                   type="button"
                                   onClick={() => {
                                     if (confirm("Delete this module?"))
                                       deleteModule(module.id);
                                   }}
-                                  className="p-2 text-gray-600 hover:text-red-600"
-                                  title="Delete"
+                                  className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                                  title="Delete module"
                                 >
-                                  🗑️
+                                  <Trash2 className="h-4 w-4" strokeWidth={2} />
                                 </button>
                               </div>
                             </div>
 
-                            <div className="p-4 space-y-3">
-                              {module.lessons.length === 0 ? (
-                                <button
-                                  type="button"
-                                  onClick={() => addLesson(module.id)}
-                                  className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-green-500 hover:text-green-600 transition-colors"
-                                >
-                                  + Create first lesson
-                                </button>
-                              ) : (
-                                <>
-                                  {module.lessons.map((lesson, lessonIndex) => (
-                                    <div
-                                      key={lesson.id}
-                                      className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg"
-                                    >
-                                      <span className="text-gray-400 cursor-move">
-                                        ☰
-                                      </span>
-                                      <input
-                                        type="text"
-                                        value={lesson.title}
-                                        onChange={(e) =>
-                                          updateLesson(module.id, lesson.id, {
-                                            title: e.target.value,
-                                          })
-                                        }
-                                        placeholder="Lesson title"
-                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                                      />
-                                      <div className="flex items-center space-x-2">
-                                        {lesson.contentType === "video" ? (
-                                          <label className="px-3 py-2 bg-green-100 text-green-700 rounded-lg cursor-pointer hover:bg-green-200">
-                                            {lesson.fileName ? (
-                                              <span className="flex items-center">
-                                                <span className="mr-2">✓</span>
-                                                {lesson.fileName}
-                                              </span>
-                                            ) : (
-                                              <span className="flex items-center">
-                                                📹 Video
-                                                <input
-                                                  type="file"
-                                                  accept="video/*"
-                                                  onChange={(e) => {
-                                                    const file =
-                                                      e.target.files?.[0];
-                                                    if (file)
-                                                      handleLessonFileUpload(
-                                                        module.id,
-                                                        lesson.id,
-                                                        file,
-                                                        "video"
-                                                      );
-                                                  }}
-                                                  className="hidden"
-                                                />
-                                              </span>
-                                            )}
-                                          </label>
-                                        ) : (
-                                          <button
-                                            type="button"
-                                            onClick={() =>
-                                              updateLesson(
-                                                module.id,
-                                                lesson.id,
-                                                {
-                                                  contentType: "video",
-                                                }
-                                              )
-                                            }
-                                            className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-                                          >
-                                            📹 Video
-                                          </button>
-                                        )}
-                                        {lesson.contentType === "pdf" ? (
-                                          <label className="px-3 py-2 bg-green-100 text-green-700 rounded-lg cursor-pointer hover:bg-green-200">
-                                            {lesson.fileName ? (
-                                              <span className="flex items-center">
-                                                <span className="mr-2">✓</span>
-                                                {lesson.fileName}
-                                              </span>
-                                            ) : (
-                                              <span className="flex items-center">
-                                                📄 PDF
-                                                <input
-                                                  type="file"
-                                                  accept=".pdf"
-                                                  onChange={(e) => {
-                                                    const file =
-                                                      e.target.files?.[0];
-                                                    if (file)
-                                                      handleLessonFileUpload(
-                                                        module.id,
-                                                        lesson.id,
-                                                        file,
-                                                        "pdf"
-                                                      );
-                                                  }}
-                                                  className="hidden"
-                                                />
-                                              </span>
-                                            )}
-                                          </label>
-                                        ) : (
-                                          <button
-                                            type="button"
-                                            onClick={() =>
-                                              updateLesson(
-                                                module.id,
-                                                lesson.id,
-                                                {
-                                                  contentType: "pdf",
-                                                }
-                                              )
-                                            }
-                                            className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-                                          >
-                                            📄 PDF
-                                          </button>
-                                        )}
-                                      </div>
-                                      <label className="flex items-center space-x-2">
-                                        <input
-                                          type="checkbox"
-                                          checked={lesson.isPreview}
-                                          onChange={(e) =>
-                                            updateLesson(module.id, lesson.id, {
-                                              isPreview: e.target.checked,
-                                            })
-                                          }
-                                          className="w-5 h-5 text-green-600 rounded focus:ring-green-500"
-                                        />
-                                        <span className="text-sm text-gray-700">
-                                          Free Preview
-                                        </span>
-                                      </label>
-                                      <button
-                                        type="button"
-                                        onClick={() => {
-                                          if (confirm("Delete this lesson?"))
-                                            deleteLesson(module.id, lesson.id);
-                                        }}
-                                        className="p-2 text-gray-400 hover:text-red-600"
-                                      >
-                                        ✕
-                                      </button>
-                                    </div>
-                                  ))}
+                            {!collapsedModules.has(module.id) && (
+                              <div className="p-4 space-y-3">
+                                {module.lessons.length === 0 ? (
                                   <button
                                     type="button"
                                     onClick={() => addLesson(module.id)}
-                                    className="w-full py-2 border border-gray-300 rounded-lg text-gray-600 hover:border-green-500 hover:text-green-600 transition-colors"
+                                    className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#6fb7fc] hover:text-[#6fb7fc] transition-colors"
                                   >
-                                    + Add Lesson
+                                    + Create first lesson
                                   </button>
-                                </>
-                              )}
-                            </div>
+                                ) : (
+                                  <>
+                                    {module.lessons.map((lesson) => (
+                                      <div
+                                        key={lesson.id}
+                                        className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                                      >
+                                        <input
+                                          type="text"
+                                          value={lesson.title}
+                                          onChange={(e) =>
+                                            updateLesson(module.id, lesson.id, {
+                                              title: e.target.value,
+                                            })
+                                          }
+                                          placeholder="Lesson title"
+                                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                        />
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            if (confirm("Delete this lesson?"))
+                                              deleteLesson(
+                                                module.id,
+                                                lesson.id
+                                              );
+                                          }}
+                                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md shrink-0 transition-colors"
+                                          title="Delete lesson"
+                                        >
+                                          <X
+                                            className="h-4 w-4"
+                                            strokeWidth={2.5}
+                                          />
+                                        </button>
+                                      </div>
+                                    ))}
+                                    <button
+                                      type="button"
+                                      onClick={() => addLesson(module.id)}
+                                      className="w-full py-2 border border-gray-300 rounded-lg text-gray-600 hover:border-[#6fb7fc] hover:text-[#6fb7fc] transition-colors"
+                                    >
+                                      + Add Lesson
+                                    </button>
+                                  </>
+                                )}
+                              </div>
+                            )}
                           </div>
                         ))}
 
                         <button
                           type="button"
                           onClick={addModule}
-                          className="w-full py-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-green-500 hover:text-green-600 transition-colors font-semibold flex items-center justify-center"
+                          className="w-full py-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#6fb7fc] hover:text-[#6fb7fc] transition-colors font-semibold flex items-center justify-center"
                         >
                           <span className="text-2xl mr-2">+</span>
                           Add New Module
@@ -1151,7 +1067,12 @@ export default function CreateCoursePage() {
                         </div>
                       ) : (
                         <label className="cursor-pointer block">
-                          <div className="text-4xl text-gray-400 mb-2">🖼️</div>
+                          <div className="flex justify-center mb-2">
+                            <ImageIcon
+                              className="h-14 w-14 text-gray-300"
+                              strokeWidth={1.2}
+                            />
+                          </div>
                           <p className="text-sm text-gray-600">
                             Drag and drop or{" "}
                             <span className="text-[#0f49bd] font-medium">
@@ -1176,33 +1097,48 @@ export default function CreateCoursePage() {
                       <label className="block text-sm font-medium text-gray-700 mb-1.5">
                         Language
                       </label>
-                      <select
-                        name="language"
-                        value={formData.language}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
-                      >
-                        <option value="English">English</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="French">French</option>
-                        <option value="Spanish">Spanish</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Attendance Mode
-                      </label>
-                      <select
-                        name="attendanceMode"
-                        value={formData.attendanceMode}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
-                      >
-                        <option value="">Select mode</option>
-                        <option value="Online">Online</option>
-                        <option value="In-person">In-person</option>
-                        <option value="Hybrid">Hybrid</option>
-                      </select>
+                      <div className="flex flex-wrap gap-2 mt-1.5">
+                        {["English", "Arabic", "French", "Spanish"].map(
+                          (lang) => {
+                            const selected =
+                              formData.languages?.includes(lang) ?? false;
+                            return (
+                              <button
+                                key={lang}
+                                type="button"
+                                onClick={() => {
+                                  setFormData((prev) => {
+                                    const current = prev.languages ?? [];
+                                    const next = selected
+                                      ? current.filter((l) => l !== lang)
+                                      : [...current, lang];
+                                    return {
+                                      ...prev,
+                                      languages: next,
+                                      language:
+                                        next.length > 0
+                                          ? next.join(", ")
+                                          : prev.language,
+                                    };
+                                  });
+                                }}
+                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:ring-offset-1 ${
+                                  selected
+                                    ? "bg-[#0f49bd] text-white border-[#0f49bd]"
+                                    : "bg-white text-gray-700 border-gray-300 hover:border-[#0f49bd]/50 hover:bg-[#0f49bd]/5"
+                                }`}
+                              >
+                                {lang}
+                              </button>
+                            );
+                          }
+                        )}
+                      </div>
+                      {formData.languages?.length > 0 && (
+                        <p className="text-xs text-gray-500 mt-1.5">
+                          Selected: {formData.languages.join(", ")}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -1219,10 +1155,10 @@ export default function CreateCoursePage() {
                           <button
                             type="button"
                             onClick={() => removeTag(tag)}
-                            className="text-gray-500 hover:text-red-600"
+                            className="text-gray-500 hover:text-red-600 p-0.5 rounded"
                             aria-label={`Remove ${tag}`}
                           >
-                            ×
+                            <X className="h-3.5 w-3.5" strokeWidth={2.5} />
                           </button>
                         </span>
                       ))}
@@ -1268,8 +1204,10 @@ export default function CreateCoursePage() {
 
       {/* Footer info boxes */}
       <div className="max-w-6xl mx-auto px-6 mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd] text-lg font-bold">i</span>
+        <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+          <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-[#0f49bd]/10 text-[#0f49bd]">
+            <Info className="h-5 w-5" strokeWidth={2} />
+          </span>
           <div>
             <p className="text-sm font-medium text-gray-900">Validation Tip</p>
             <p className="text-sm text-gray-700">
@@ -1278,9 +1216,9 @@ export default function CreateCoursePage() {
             </p>
           </div>
         </div>
-        <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd]" aria-hidden>
-            💡
+        <div className="flex gap-3 p-4 bg-amber-50 border border-amber-100 rounded-xl">
+          <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-amber-100 text-amber-600">
+            <Lightbulb className="h-5 w-5" strokeWidth={2} />
           </span>
           <div>
             <p className="text-sm font-medium text-gray-900">Best Practice</p>
@@ -1290,9 +1228,9 @@ export default function CreateCoursePage() {
             </p>
           </div>
         </div>
-        <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd]" aria-hidden>
-            ↻
+        <div className="flex gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-xl">
+          <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600">
+            <RefreshCw className="h-5 w-5" strokeWidth={2} aria-hidden />
           </span>
           <div>
             <p className="text-sm font-medium text-gray-900">Autosave Active</p>

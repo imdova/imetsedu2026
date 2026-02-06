@@ -1,29 +1,32 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import { Lightbulb, Globe } from "lucide-react";
 
 export default function ProfilePage() {
   const [formData, setFormData] = useState({
-    firstName: 'Alex',
-    lastName: 'Rivera',
-    email: 'alex.rivera@example.com',
-    bio: 'Experienced educator with 10+ years of teaching experience. Passionate about sharing knowledge and helping students achieve their goals.',
-    title: 'Senior Instructor',
-    website: 'https://alexrivera.com',
+    firstName: "Alex",
+    lastName: "Rivera",
+    email: "alex.rivera@example.com",
+    bio: "Experienced educator with 10+ years of teaching experience. Passionate about sharing knowledge and helping students achieve their goals.",
+    title: "Senior Instructor",
+    website: "https://alexrivera.com",
     socialLinks: {
-      twitter: '@alexrivera',
-      linkedin: 'alex-rivera',
-      youtube: 'AlexRiveraEducation',
+      twitter: "@alexrivera",
+      linkedin: "alex-rivera",
+      youtube: "AlexRiveraEducation",
     },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    if (name.includes('.')) {
-      const [parent, child] = name.split('.');
+    if (name.includes(".")) {
+      const [parent, child] = name.split(".");
       setFormData((prev) => {
         const parentValue = prev[parent as keyof typeof prev];
-        if (typeof parentValue === 'object' && parentValue !== null) {
+        if (typeof parentValue === "object" && parentValue !== null) {
           return {
             ...prev,
             [parent]: {
@@ -45,15 +48,19 @@ export default function ProfilePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    alert('Profile updated successfully!');
+    alert("Profile updated successfully!");
   };
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Profile Settings</h1>
-          <p className="text-gray-600">Manage your profile information and preferences</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Profile Settings
+          </h1>
+          <p className="text-gray-600">
+            Manage your profile information and preferences
+          </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
@@ -79,7 +86,9 @@ export default function ProfilePage() {
                   >
                     Upload Photo
                   </button>
-                  <p className="text-sm text-gray-600">JPG, PNG or GIF. Max size 2MB</p>
+                  <p className="text-sm text-gray-600">
+                    JPG, PNG or GIF. Max size 2MB
+                  </p>
                 </div>
               </div>
             </div>
@@ -156,8 +165,11 @@ export default function ProfilePage() {
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white resize-none"
                   placeholder="Tell students about yourself..."
                 />
-                <p className="text-sm text-gray-500 mt-2 flex items-center">
-                  <span className="mr-2">💡</span>
+                <p className="text-sm text-gray-500 mt-2 flex items-center gap-2">
+                  <Lightbulb
+                    className="h-4 w-4 text-amber-500 shrink-0"
+                    strokeWidth={2}
+                  />
                   A brief description about yourself and your expertise
                 </p>
               </div>
@@ -167,7 +179,9 @@ export default function ProfilePage() {
                   Website
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">🌐</span>
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <Globe className="h-4 w-4" strokeWidth={2} />
+                  </span>
                   <input
                     type="url"
                     name="website"

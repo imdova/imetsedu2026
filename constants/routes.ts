@@ -48,4 +48,18 @@ export const ROUTES = {
     PROFILE: "/instructor/profile",
     SETTINGS: "/instructor/settings",
   },
+
+  STUDENT: {
+    DASHBOARD: "/student/dashboard",
+    COURSES: "/student/courses",
+    SCHEDULE: "/student/schedule",
+    CERTIFICATES: "/student/certificates",
+    FAVORITES: "/student/favorites",
+    BILLING: "/student/billing",
+    VERIFICATION_STATUS: "/student/verification-status",
+    PAYMENT_METHODS: "/student/payment-methods",
+    CHECKOUT: "/student/checkout",
+    PROFILE: "/student/profile",
+    SETTINGS: "/student/settings",
+  },
 } as const;

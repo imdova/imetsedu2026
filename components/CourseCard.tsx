@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Video,
+  Play,
+  Heart,
+  BookOpen,
+  Clock,
+  GraduationCap,
+} from "lucide-react";
 import type { Course } from "@/types/course";
 import {
   getCourseLessonCount,
@@ -68,16 +76,15 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           {/* Save Button - Top Right */}
           <button
             onClick={handleSave}
-            className="absolute top-2 right-2 bg-white bg-opacity-90 hover:bg-opacity-100 p-1.5 rounded-full transition-all shadow-sm"
-            aria-label="Save course"
+            className="absolute top-2 right-2 bg-white/90 hover:bg-white p-1.5 rounded-full transition-all shadow-sm text-gray-600 hover:text-red-500"
+            aria-label={isSaved ? "Unsave course" : "Save course"}
           >
-            <span
-              className={`text-lg ${
-                isSaved ? "text-red-500" : "text-gray-600"
+            <Heart
+              className={`h-5 w-5 ${
+                isSaved ? "fill-red-500 text-red-500" : ""
               }`}
-            >
-              {isSaved ? "❤️" : "🤍"}
-            </span>
+              strokeWidth={2}
+            />
           </button>
 
           {/* Discount Tag - Top Right (below save button) */}
@@ -88,8 +95,12 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           )}
 
           {/* Play Icon - Bottom Right */}
-          <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 rounded-full p-2.5 hover:bg-opacity-90 transition-all">
-            <span className="text-white text-lg">▶</span>
+          <div className="absolute bottom-3 right-3 bg-black/70 text-white rounded-full p-2.5 hover:bg-black/90 transition-all flex items-center justify-center">
+            <Play
+              className="h-5 w-5 ml-0.5"
+              strokeWidth={2.5}
+              fill="currentColor"
+            />
           </div>
         </div>
       </Link>
@@ -117,17 +128,26 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         </div>
 
         {/* Course Metrics */}
-        <div className="flex items-center space-x-3 mb-4 text-sm text-gray-600">
-          <div className="flex items-center">
-            <span className="mr-1.5 text-base">📖</span>
+        <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
+          <div className="flex items-center gap-1.5">
+            <BookOpen
+              className="h-4 w-4 text-primary shrink-0"
+              strokeWidth={2}
+            />
             <span>{totalLessons} Lessons</span>
           </div>
-          <div className="flex items-center">
-            <span className="mr-1.5 text-base">🕒</span>
+          <div className="flex items-center gap-1.5">
+            <Clock
+              className="h-4 w-4 text-amber-500 shrink-0"
+              strokeWidth={2}
+            />
             <span>{weeksLabel}</span>
           </div>
-          <div className="flex items-center">
-            <span className="mr-1.5 text-base">🎓</span>
+          <div className="flex items-center gap-1.5">
+            <GraduationCap
+              className="h-4 w-4 text-emerald-600 shrink-0"
+              strokeWidth={2}
+            />
             <span>{course.studentCount} Students</span>
           </div>
         </div>
