@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -38,7 +38,7 @@ function slugFromName(name: string) {
     .replace(/[^a-z0-9-]/g, "");
 }
 
-export default function CourseSettingsPage() {
+function CourseSettingsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab") as TabId | null;
   const tab: TabId =
@@ -503,6 +503,33 @@ export default function CourseSettingsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+function CourseSettingsFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-white border-b border-gray-200 px-6 py-5">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
+          {TABS.map((t) => (
+            <span key={t.id} className="px-4 py-2 rounded-lg bg-gray-100">
+              {t.label}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="p-6 lg:p-8 flex items-center justify-center min-h-[40vh]">
+        <p className="text-gray-500">Loading settings…</p>
+      </div>
+    </div>
+  );
+}
+
+export default function CourseSettingsPage() {
+  return (
+    <Suspense fallback={<CourseSettingsFallback />}>
+      <CourseSettingsContent />
+    </Suspense>
   );
 }
 
