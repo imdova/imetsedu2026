@@ -884,14 +884,14 @@ export default function UserOverviewPage() {
                           <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} />
                           <Tooltip
                             formatter={(
-                              val: number,
+                              val: number | undefined,
                               name: string,
                               props?: {
                                 payload?: (typeof conversionFunnelStages)[0];
                               }
                             ) => {
                               const p = props?.payload;
-                              if (!p) return [val, name];
+                              if (!p) return [val ?? "", name];
                               const detail =
                                 p.stage === "Enrolled"
                                   ? `${p.leads} Students`
