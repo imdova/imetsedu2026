@@ -36,17 +36,13 @@ export const adminNavItems: SidebarNavItem[] = [
     href: ROUTES.ADMIN.LMS_MANAGEMENT,
     icon: "⚙️",
   },
+  { name: "Groups", href: ROUTES.ADMIN.GROUPS, icon: "👥" },
   { name: "Quizzes", href: ROUTES.ADMIN.QUIZZES, icon: "📝" },
   { name: "Certificates", href: "/admin/certificates", icon: "🏆" },
-  { name: "Assignments", href: "/admin/assignments", icon: "📋" },
+  { name: "Assignments", href: ROUTES.ADMIN.ASSIGNMENTS, icon: "📋" },
   { name: "Users Management", href: "/admin/users", icon: "👥" },
   { name: "Students", href: ROUTES.ADMIN.STUDENTS, icon: "🎓" },
-  { name: "Groups", href: ROUTES.ADMIN.GROUPS, icon: "👥" },
   { name: "Instructors", href: ROUTES.ADMIN.INSTRUCTORS, icon: "👨‍🏫" },
-  { name: "Academies", href: "/admin/academies", icon: "🏛️" },
-  { name: "Events", href: ROUTES.ADMIN.EVENTS, icon: "📅" },
-  { name: "Financial-1", href: "/admin/financial-1", icon: "💰" },
-  { name: "Financial-2", href: "/admin/financial-2", icon: "💵" },
 ];
 
 export const instructorNavItems: SidebarNavItem[] = [
@@ -85,11 +81,6 @@ export const instructorNavItems: SidebarNavItem[] = [
 
 export const adminFooterLinks: SidebarFooterLink[] = [
   { href: ROUTES.ADMIN.SETTINGS, label: "Settings", icon: "⚙️" },
-  {
-    href: ROUTES.ADMIN.WHATSAPP_TEMPLATES,
-    label: "WhatsApp Templates",
-    icon: "💬",
-  },
 ];
 
 const instructorFooterLinks: SidebarFooterLink[] = [

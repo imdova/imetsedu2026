@@ -25,6 +25,7 @@ export const ROUTES = {
     LMS_MANAGEMENT: "/admin/lms",
     LMS_NEW: "/admin/lms/new",
     QUIZZES: "/admin/quizzes",
+    ASSIGNMENTS: "/admin/assignments",
     STUDENTS: "/admin/students",
     GROUPS: "/admin/groups",
     GROUP: (id: string) => `/admin/groups/${id}`,
