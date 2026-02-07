@@ -12,6 +12,7 @@ import {
   Clock,
   PieChart,
   Sparkles,
+  Atom,
 } from "lucide-react";
 import {
   reportCards,
@@ -27,6 +28,7 @@ const ICON_MAP: Record<
   React.ComponentType<{ className?: string }>
 > = {
   dollar: DollarSign,
+  atom: Atom,
   sparkles: Sparkles,
   "bar-chart": BarChart3,
   trend: TrendingUp,
