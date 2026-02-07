@@ -310,9 +310,9 @@ function TableRow({ course }: { course: LMSCourseRow }) {
     Scheduled: "bg-amber-100 text-amber-800",
     Draft: "bg-gray-100 text-gray-700",
   };
-  const displayGroups =
+  const displayGroupsList: string[] =
     course.assignedGroups.length === 0
-      ? "No groups assigned"
+      ? []
       : course.assignedGroups
           .slice(0, 2)
           .concat(
@@ -347,11 +347,11 @@ function TableRow({ course }: { course: LMSCourseRow }) {
         {course.modulesDone}/{course.modulesTotal} Modules/Lessons
       </td>
       <td className="px-5 py-4">
-        {course.assignedGroups.length === 0 ? (
+        {displayGroupsList.length === 0 ? (
           <span className="text-sm text-gray-500">No groups assigned</span>
         ) : (
           <div className="flex flex-wrap gap-1">
-            {displayGroups.map((g) => (
+            {displayGroupsList.map((g) => (
               <span
                 key={g}
                 className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-xs font-medium text-gray-700"
