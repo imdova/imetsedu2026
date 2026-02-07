@@ -29,6 +29,12 @@ export default function StudentLayout({
 }) {
   const pathname = usePathname();
   const isCoursesPage = pathname === ROUTES.STUDENT.COURSES;
+  const isLessonPage =
+    typeof pathname === "string" &&
+    /^\/student\/courses\/[^/]+\/lesson\/.+/.test(pathname);
+  const isQuizPage =
+    typeof pathname === "string" &&
+    /^\/student\/courses\/[^/]+\/quiz\/.+/.test(pathname);
 
   const mainNav = [
     {
@@ -46,6 +52,10 @@ export default function StudentLayout({
     { label: "Billing", href: ROUTES.STUDENT.BILLING, icon: CreditCard },
     { label: "Settings", href: ROUTES.STUDENT.SETTINGS, icon: Settings },
   ];
+
+  if (isLessonPage || isQuizPage) {
+    return <div className="student-theme min-h-screen">{children}</div>;
+  }
 
   return (
     <div className="student-theme min-h-screen bg-[#f3f4f6] flex flex-col">

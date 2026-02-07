@@ -9,17 +9,19 @@ import {
   Play,
   Heart,
   User,
-  Award,
   Clock,
   Trophy,
   Flame,
   BadgeCheck,
+  Map,
 } from "lucide-react";
+import { ROUTES } from "@/constants";
 import {
   myCoursesData,
   learningStats,
   type MyCourseCard,
 } from "./courses-data";
+import { DEFAULT_LESSON_SLUG } from "./[id]/lesson/[lessonId]/lesson-data";
 
 type FilterKey = "all" | "active" | "completed" | "favorites";
 
@@ -188,15 +190,31 @@ function CourseCard({ course }: { course: MyCourseCard }) {
             <span className="mc-card-progress-pct">{course.progress}%</span>
           </div>
         )}
-        <Link href="#" className={`mc-card-btn ${course.buttonVariant}`}>
-          {course.buttonLabel === "Resume Learning" && (
-            <Play className="w-4 h-4" strokeWidth={2} />
-          )}
-          {course.buttonLabel === "View Certificate" && (
-            <BadgeCheck className="w-4 h-4" strokeWidth={2} />
-          )}
-          {course.buttonLabel}
-        </Link>
+        <div className="mc-card-actions">
+          <Link
+            href={ROUTES.STUDENT.COURSE_ROADMAP(course.id)}
+            className="mc-card-btn mc-card-btn-roadmap"
+          >
+            <Map className="w-4 h-4" strokeWidth={2} />
+            View Roadmap
+          </Link>
+          <Link
+            href={
+              course.buttonLabel === "Resume Learning"
+                ? ROUTES.STUDENT.COURSE_LESSON(course.id, DEFAULT_LESSON_SLUG)
+                : "#"
+            }
+            className={`mc-card-btn ${course.buttonVariant}`}
+          >
+            {course.buttonLabel === "Resume Learning" && (
+              <Play className="w-4 h-4" strokeWidth={2} />
+            )}
+            {course.buttonLabel === "View Certificate" && (
+              <BadgeCheck className="w-4 h-4" strokeWidth={2} />
+            )}
+            {course.buttonLabel}
+          </Link>
+        </div>
       </div>
     </article>
   );

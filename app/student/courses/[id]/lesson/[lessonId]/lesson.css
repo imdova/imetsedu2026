@@ -1,0 +1,739 @@
+/**
+ * Student Lesson page - matches design.
+ */
+
+.slp-page {
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.slp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.slp-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #111827;
+}
+
+.slp-logo-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.slp-logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.slp-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slp-nav a {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.slp-nav a:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.slp-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slp-search-wrap {
+  position: relative;
+  width: 220px;
+}
+
+.slp-search-wrap input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  font-size: 14px;
+  color: #374151;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.slp-search-wrap input::placeholder {
+  color: #9ca3af;
+}
+
+.slp-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.slp-icon-btn {
+  padding: 8px;
+  border-radius: 8px;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.slp-icon-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.slp-profile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #374151;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.slp-profile:hover {
+  background: #f3f4f6;
+}
+
+.slp-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+/* Breadcrumb */
+.slp-breadcrumb {
+  padding: 12px 24px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.slp-breadcrumb a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.slp-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.slp-breadcrumb span:last-child {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Main layout: sidebar + content */
+.slp-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.slp-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.slp-sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.slp-sidebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 12px 0;
+}
+
+.slp-progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.slp-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 999px;
+}
+
+.slp-progress-text {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.slp-module-list {
+  flex: 1;
+  overflow: auto;
+  padding: 12px 0;
+}
+
+.slp-module {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.slp-module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.slp-module-header:hover {
+  background: #f9fafb;
+}
+
+.slp-module-chevron {
+  color: #6b7280;
+  transition: transform 0.2s;
+}
+
+.slp-module.open .slp-module-chevron {
+  transform: rotate(180deg);
+}
+
+.slp-lesson {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px 12px 28px;
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+}
+
+.slp-lesson:hover {
+  background: #f9fafb;
+}
+
+.slp-lesson.active {
+  background: #eff6ff;
+  border-left-color: var(--color-primary);
+  color: #111827;
+}
+
+.slp-lesson-icon {
+  flex-shrink: 0;
+  color: #059669;
+}
+
+.slp-lesson-icon.locked {
+  color: #9ca3af;
+}
+
+.slp-lesson-icon.play {
+  color: var(--color-primary);
+}
+
+.slp-lesson-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.slp-lesson-title {
+  font-weight: 500;
+  margin: 0 0 2px 0;
+}
+
+.slp-lesson-meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.slp-lesson-duration {
+  font-size: 12px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.slp-sidebar-quiz-section {
+  border-bottom: 1px solid #f3f4f6;
+  padding: 8px 0;
+}
+
+.slp-sidebar-quiz {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+}
+
+.slp-sidebar-quiz:hover {
+  background: #f9fafb;
+}
+
+.slp-sidebar-quiz:hover .slp-sidebar-quiz-icon {
+  color: var(--color-primary);
+}
+
+.slp-sidebar-quiz-active {
+  background: #eff6ff;
+  border-left: 3px solid var(--color-primary);
+  cursor: default;
+}
+
+.slp-sidebar-quiz-active .slp-sidebar-quiz-icon {
+  color: var(--color-primary);
+}
+
+.slp-sidebar-quiz-icon {
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.slp-sidebar-quiz-arrow {
+  flex-shrink: 0;
+  color: #9ca3af;
+}
+
+.slp-course-overview {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.slp-course-overview:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* Content area */
+.slp-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background: #f9fafb;
+}
+
+.slp-video-wrap {
+  background: #111827;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 480px;
+}
+
+.slp-video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.slp-video-play-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.slp-video-play-btn:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+.slp-video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.slp-video-controls button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.slp-video-controls button:hover {
+  color: #fff;
+}
+
+.slp-video-time {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.slp-video-progress {
+  flex: 1;
+  min-width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.slp-video-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  width: 28%;
+}
+
+.slp-video-speed {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.slp-body {
+  flex: 1;
+  padding: 24px 32px 32px;
+  max-width: 900px;
+}
+
+.slp-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.slp-tab {
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+}
+
+.slp-tab:hover {
+  color: #111827;
+}
+
+.slp-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.slp-body .slp-lesson-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.slp-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0 0 24px 0;
+}
+
+.slp-objectives-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 12px 0;
+}
+
+.slp-objectives-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.slp-objectives-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.slp-objectives-list li::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+}
+
+.slp-resource-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 32px;
+}
+
+.slp-resource-icon {
+  width: 48px;
+  height: 48px;
+  background: #dc2626;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.slp-resource-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.slp-resource-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.slp-resource-meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.slp-resource-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.slp-resource-download:hover {
+  text-decoration: underline;
+}
+
+.slp-quiz-card {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.slp-quiz-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0 0 12px 0;
+}
+
+.slp-quiz-start-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.slp-quiz-start-btn:hover {
+  background: var(--color-primary-hover);
+  color: #fff;
+}
+
+.slp-quiz-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.slp-quiz-strip-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin: 0;
+}
+
+.slp-quiz-strip-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.slp-quiz-strip-link:hover {
+  text-decoration: underline;
+}
+
+.slp-nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.slp-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.slp-nav-btn.prev {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid #e5e7eb;
+}
+
+.slp-nav-btn.prev:hover {
+  background: #f9fafb;
+}
+
+.slp-nav-btn.next {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+.slp-nav-btn.next:hover {
+  background: var(--color-primary-hover);
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .slp-sidebar {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slp-main {
+    flex-direction: column;
+  }
+
+  .slp-sidebar {
+    width: 100%;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}

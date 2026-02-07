@@ -52,6 +52,11 @@ export const ROUTES = {
   STUDENT: {
     DASHBOARD: "/student/dashboard",
     COURSES: "/student/courses",
+    COURSE_ROADMAP: (id: string) => `/student/courses/${id}/roadmap`,
+    COURSE_LESSON: (courseId: string, lessonId: string) =>
+      `/student/courses/${courseId}/lesson/${lessonId}`,
+    COURSE_QUIZ: (courseId: string, quizId: string) =>
+      `/student/courses/${courseId}/quiz/${quizId}`,
     SCHEDULE: "/student/schedule",
     CERTIFICATES: "/student/certificates",
     FAVORITES: "/student/favorites",

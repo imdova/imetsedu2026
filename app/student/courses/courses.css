@@ -364,6 +364,13 @@
   margin-bottom: 14px;
 }
 
+.mc-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
 .mc-card-btn {
   display: inline-flex;
   align-items: center;
@@ -377,7 +384,17 @@
   transition: background 0.15s, color 0.15s;
   text-decoration: none;
   border: none;
-  margin-top: auto;
+}
+
+.mc-card-btn-roadmap {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.mc-card-btn-roadmap:hover {
+  background: #e5e7eb;
+  color: #111827;
 }
 
 .mc-card-btn.primary {
