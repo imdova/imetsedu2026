@@ -17,7 +17,14 @@ export interface ReportCard {
   tagLabel: string;
   tagValue: string;
   tagTrend?: "up" | "down" | "neutral";
-  icon: "dollar" | "atom" | "bar-chart" | "trend" | "clock" | "pie";
+  icon:
+    | "dollar"
+    | "atom"
+    | "bar-chart"
+    | "trend"
+    | "clock"
+    | "pie"
+    | "sparkles";
   pinned?: boolean;
   section: "pinned" | "sales" | "lead";
 }
