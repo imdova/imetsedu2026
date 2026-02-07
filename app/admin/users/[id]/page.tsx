@@ -792,12 +792,17 @@ export default function UserOverviewPage() {
                           <LabelList
                             dataKey="actual"
                             position="right"
-                            formatter={(
-                              val: number,
-                              _name: string,
-                              props: { payload?: { target?: number } }
-                            ) => {
-                              const target = props?.payload?.target;
+                            content={({
+                              value,
+                              payload,
+                            }: {
+                              value?: number;
+                              payload?: { target?: number; actual?: number };
+                            }) => {
+                              const val =
+                                value ??
+                                (payload?.actual as number | undefined);
+                              const target = payload?.target;
                               if (target == null || typeof val !== "number")
                                 return "";
                               return `${Math.round((val / target) * 100)}%`;
@@ -917,13 +922,17 @@ export default function UserOverviewPage() {
                             <LabelList
                               dataKey="leads"
                               position="center"
-                              formatter={(
-                                v: number,
-                                _: unknown,
-                                props?: { payload?: (typeof conversionFunnelStages)[0] }
-                              ) => {
-                                const s = props?.payload;
-                                if (s?.stage === "Enrolled") return `${v} Students`;
+                              content={({
+                                value,
+                                payload,
+                              }: {
+                                value?: number;
+                                payload?: (typeof conversionFunnelStages)[0];
+                              }) => {
+                                const v = value ?? payload?.leads;
+                                const s = payload;
+                                if (s?.stage === "Enrolled")
+                                  return `${v} Students`;
                                 return `${v} Leads`;
                               }}
                             />
