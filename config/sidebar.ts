@@ -19,6 +19,7 @@ export const adminNavItems: SidebarNavItem[] = [
       { name: "Lead Pipeline", href: ROUTES.ADMIN.CRM_PIPELINE },
       { name: "Active Pipeline", href: ROUTES.ADMIN.CRM_ACTIVE_PIPELINE },
       { name: "Payments", href: ROUTES.ADMIN.CRM_PAYMENTS },
+      { name: "CRM Reports", href: ROUTES.ADMIN.CRM_REPORTS },
     ],
   },
   {
@@ -40,7 +41,14 @@ export const adminNavItems: SidebarNavItem[] = [
   { name: "Quizzes", href: ROUTES.ADMIN.QUIZZES, icon: "📝" },
   { name: "Certificates", href: "/admin/certificates", icon: "🏆" },
   { name: "Assignments", href: ROUTES.ADMIN.ASSIGNMENTS, icon: "📋" },
-  { name: "Users Management", href: "/admin/users", icon: "👥" },
+  {
+    name: "Users Management",
+    href: ROUTES.ADMIN.USERS,
+    icon: "👥",
+    children: [
+      { name: "Roles and Permissions", href: ROUTES.ADMIN.USERS_ROLES },
+    ],
+  },
   { name: "Students", href: ROUTES.ADMIN.STUDENTS, icon: "🎓" },
   { name: "Instructors", href: ROUTES.ADMIN.INSTRUCTORS, icon: "👨‍🏫" },
 ];

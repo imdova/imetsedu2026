@@ -1,0 +1,607 @@
+/**
+ * Invite New User form - single page, matches IMETS CRM design.
+ */
+
+.aui-page {
+  min-height: 100vh;
+  background: #eff6ff;
+  padding-bottom: 48px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Breadcrumb */
+.aui-breadcrumb {
+  padding: 16px 28px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.aui-breadcrumb a {
+  color: var(--color-admin-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.aui-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.aui-breadcrumb-sep {
+  width: 16px;
+  height: 16px;
+  margin: 0 6px;
+  vertical-align: middle;
+  color: #94a3b8;
+}
+
+.aui-breadcrumb-current {
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Header */
+.aui-header {
+  padding: 28px 28px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.aui-title {
+  margin: 0 0 8px 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e3a8a;
+  letter-spacing: -0.02em;
+}
+
+.aui-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Step indicator (visual) */
+.aui-stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 24px 28px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.aui-stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.aui-stepper-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aui-stepper-dot.active {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.aui-stepper-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.aui-stepper-label.active {
+  color: #1e3a8a;
+}
+
+.aui-stepper-line {
+  width: 56px;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 6px;
+  align-self: flex-start;
+  margin-top: 18px;
+}
+
+.aui-stepper-line.active {
+  background: #1e3a8a;
+}
+
+/* Single white form card */
+.aui-card {
+  max-width: 800px;
+  margin: 28px auto;
+  padding: 0 28px;
+}
+
+.aui-card-inner {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 32px 40px 40px;
+}
+
+/* Section */
+.aui-section {
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.aui-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.aui-section-title {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aui-section-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+/* User type cards */
+.aui-type-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .aui-type-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aui-type-card {
+  position: relative;
+  padding: 24px 20px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.aui-type-card:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.aui-type-card.selected {
+  border-color: #1e3a8a;
+  background: #eff6ff;
+}
+
+.aui-type-icon-wrap {
+  margin-bottom: 12px;
+}
+
+.aui-type-icon {
+  width: 32px;
+  height: 32px;
+  color: #64748b;
+}
+
+.aui-type-card.selected .aui-type-icon {
+  color: #1e3a8a;
+}
+
+.aui-type-name {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.aui-type-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.aui-type-check {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1e3a8a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form fields */
+.aui-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.aui-fields-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .aui-fields-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aui-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.aui-input,
+.aui-select {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.aui-input:focus,
+.aui-select:focus {
+  outline: none;
+  border-color: var(--color-admin-primary, #0f49bd);
+  box-shadow: 0 0 0 3px rgba(15, 73, 189, 0.1);
+}
+
+/* Role & Department row */
+.aui-role-dept-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .aui-role-dept-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sales agents (Team Leader) */
+.aui-sales-agents {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.aui-sales-agents-label {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.aui-sales-agents-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.aui-sales-agent-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+}
+
+.aui-sales-agent-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #1e3a8a;
+}
+
+.aui-input::placeholder {
+  color: #94a3b8;
+}
+
+.aui-input-wrap {
+  position: relative;
+}
+
+.aui-input-wrap .aui-input {
+  padding-left: 42px;
+}
+
+.aui-input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.aui-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+/* Capabilities */
+.aui-capabilities {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.aui-capabilities-title {
+  margin: 0 0 12px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aui-capabilities-info {
+  width: 16px;
+  height: 16px;
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+.aui-capabilities-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 32px;
+}
+
+@media (max-width: 600px) {
+  .aui-capabilities-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aui-capability-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.aui-capability-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.aui-capability-icon.allowed {
+  color: #16a34a;
+}
+
+.aui-capability-x {
+  width: 18px;
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #dc2626;
+  line-height: 1;
+}
+
+.aui-capability-disallowed {
+  color: #64748b;
+}
+
+/* Assignment row */
+.aui-assignment-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .aui-assignment-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Smart Invite - single horizontal bar */
+.aui-smart-invite {
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.aui-smart-invite-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aui-smart-invite-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+.aui-smart-invite-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.aui-smart-invite-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Toggle */
+.aui-toggle {
+  width: 48px;
+  height: 26px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.aui-toggle.on {
+  background: #1e3a8a;
+}
+
+.aui-toggle-thumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.aui-toggle.on .aui-toggle-thumb {
+  transform: translateX(22px);
+}
+
+/* Actions */
+.aui-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px 0 0;
+  margin-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.aui-actions-left {
+  display: flex;
+  align-items: center;
+}
+
+.aui-btn-cancel,
+.aui-btn-back {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.aui-btn-cancel:hover,
+.aui-btn-back:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.aui-btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #1e3a8a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.aui-btn-submit:hover {
+  filter: brightness(1.08);
+}
+
+.aui-btn-arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* Footer note */
+.aui-footer-note {
+  max-width: 800px;
+  margin: 24px auto 0;
+  padding: 0 28px;
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aui-footer-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}

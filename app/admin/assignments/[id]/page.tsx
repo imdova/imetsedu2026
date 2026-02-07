@@ -130,7 +130,10 @@ export default function AdminAssignmentDetailPage() {
             <div className="aad-card-body">
               <p className="aad-card-label">Plagiarism Alerts</p>
               <p className="aad-card-value aad-card-value-danger">
-                {stats.plagiarismAlerts} High Risk
+                <span className="aad-card-value-num">
+                  {stats.plagiarismAlerts}
+                </span>
+                <span className="aad-card-value-suffix"> High Risk</span>
               </p>
               <p className="aad-card-trend danger">
                 {stats.plagiarismAlertLabel}
@@ -202,7 +205,13 @@ export default function AdminAssignmentDetailPage() {
                   <tr key={row.id}>
                     <td>
                       <div className="aad-student-cell">
-                        <div className="aad-student-avatar">
+                        <div
+                          className={`aad-student-avatar ${
+                            row.status === "not-submitted"
+                              ? "aad-avatar-placeholder"
+                              : ""
+                          }`}
+                        >
                           {row.avatarInitials}
                         </div>
                         <div>
@@ -211,18 +220,32 @@ export default function AdminAssignmentDetailPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="aad-date-cell">
-                      {row.submissionDate ?? "—"}
+                    <td
+                      className={`aad-date-cell ${
+                        row.status === "not-submitted"
+                          ? "aad-date-not-submitted"
+                          : ""
+                      }`}
+                    >
+                      {row.status === "not-submitted"
+                        ? "Not Submitted"
+                        : row.submissionDate ?? "—"}
                     </td>
                     <td>
-                      <span className={`aad-status-pill ${row.status}`}>
+                      <span
+                        className={`aad-status-pill ${
+                          row.status === "not-submitted"
+                            ? "overdue"
+                            : row.status
+                        }`}
+                      >
                         {row.status === "graded"
                           ? "Graded"
                           : row.status === "submitted"
                           ? "Submitted"
                           : row.status === "late"
                           ? "Late"
-                          : "Not Submitted"}
+                          : "Overdue"}
                       </span>
                     </td>
                     <td>
@@ -245,24 +268,30 @@ export default function AdminAssignmentDetailPage() {
                         "—"
                       )}
                     </td>
-                    <td className="aad-grade-cell">{row.finalGrade ?? "—"}</td>
+                    <td
+                      className={`aad-grade-cell ${
+                        row.finalGrade === "Pending" ? "aad-grade-pending" : ""
+                      }`}
+                    >
+                      {row.finalGrade ?? "—"}
+                    </td>
                     <td>
                       <div className="aad-row-actions">
                         {row.status === "graded" && (
-                          <button type="button" className="aad-action-link">
+                          <button type="button" className="aad-btn-action">
                             View Feedback
                           </button>
                         )}
                         {(row.status === "submitted" ||
                           row.status === "late") && (
-                          <button type="button" className="aad-action-link">
+                          <button type="button" className="aad-btn-action">
                             Open Workspace
                           </button>
                         )}
                         {row.status === "not-submitted" && (
                           <button
                             type="button"
-                            className="aad-action-link muted"
+                            className="aad-btn-action-outline"
                           >
                             Send Reminder
                           </button>
