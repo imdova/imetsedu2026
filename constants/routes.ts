@@ -41,6 +41,7 @@ export const ROUTES = {
     STUDENTS: "/admin/students",
     STUDENT_OVERVIEW: (id: string) => `/admin/students/${id}`,
     GROUPS: "/admin/groups",
+    GROUPS_SETTINGS: "/admin/groups/settings",
     GROUP: (id: string) => `/admin/groups/${id}`,
     INSTRUCTORS: "/admin/instructors",
     EVENTS: "/admin/events",

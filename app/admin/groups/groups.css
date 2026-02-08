@@ -398,6 +398,111 @@
   color: #2b6fff;
 }
 
+.gm-study-days,
+.gm-created-at,
+.gm-assigned-lms {
+  font-size: 13px;
+  color: #4a5568;
+}
+
+/* Status toggle */
+.gm-status-toggle {
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #cbd5e0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.gm-status-toggle-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateX(3px);
+  transition: transform 0.2s;
+}
+
+.gm-status-toggle-on {
+  background: #10b981;
+}
+
+.gm-status-toggle-on .gm-status-toggle-dot {
+  transform: translateX(23px);
+}
+
+/* Action icons (smart, compact) */
+.gm-action-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gm-action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.gm-action-icon-svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.gm-action-icon:hover {
+  transform: scale(1.08);
+}
+
+.gm-action-icon:active {
+  transform: scale(0.96);
+}
+
+.gm-action-icon-edit {
+  color: #64748b;
+  background: transparent;
+}
+
+.gm-action-icon-edit:hover {
+  color: #2b6fff;
+  background: rgba(43, 111, 255, 0.12);
+}
+
+.gm-action-icon-duplicate {
+  color: #64748b;
+  background: transparent;
+}
+
+.gm-action-icon-duplicate:hover {
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.12);
+}
+
+.gm-action-icon-delete {
+  color: #64748b;
+  background: transparent;
+}
+
+.gm-action-icon-delete:hover {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.12);
+}
+
 /* Pagination */
 .gm-pagination {
   display: flex;

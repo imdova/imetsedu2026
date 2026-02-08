@@ -5,43 +5,40 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { ROUTES } from "@/constants";
 import {
-  Search,
   ChevronDown,
-  Filter,
   Plus,
   Users,
   UserPlus,
   Clock,
   GraduationCap,
-  Calendar,
   ChevronLeft,
   ChevronRight,
+  Pencil,
+  Copy,
+  Trash2,
 } from "lucide-react";
 import {
   groupsSummary,
   groupsList,
-  TOTAL_GROUPS,
   type GroupRow,
 } from "./groups-data";
 
 const PER_PAGE = 4;
 
 export default function GroupsManagementPage() {
-  const [search, setSearch] = useState("");
   const [courseCategory, setCourseCategory] = useState("All");
-  const [academicPeriod, setAcademicPeriod] = useState("All");
+  const [subCategory, setSubCategory] = useState("All");
   const [page, setPage] = useState(1);
 
   const filteredGroups = useMemo(() => {
     return groupsList.filter((g) => {
-      const matchSearch =
-        !search ||
-        g.groupName.toLowerCase().includes(search.toLowerCase()) ||
-        g.courseTitle.toLowerCase().includes(search.toLowerCase()) ||
-        g.instructorName.toLowerCase().includes(search.toLowerCase());
-      return matchSearch;
+      const matchCategory =
+        courseCategory === "All" || g.category === courseCategory;
+      const matchSubCategory =
+        subCategory === "All" || g.subCategory === subCategory;
+      return matchCategory && matchSubCategory;
     });
-  }, [search]);
+  }, [courseCategory, subCategory]);
 
   const totalPages = Math.ceil(filteredGroups.length / PER_PAGE) || 1;
   const currentPage = Math.min(page, totalPages);
@@ -84,53 +81,41 @@ export default function GroupsManagementPage() {
           </Link>
         </div>
 
-        {/* Search and filters */}
+        {/* Filters */}
         <div className="gm-filter-card">
           <div className="gm-filter-row">
-            <div className="gm-search-wrap">
-              <Search className="gm-search-icon" strokeWidth={2} />
-              <input
-                type="text"
-                placeholder="Search groups by name, course, or instructor..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="gm-search-input"
-              />
-            </div>
             <div className="gm-select-wrap">
               <GraduationCap className="gm-select-icon" strokeWidth={2} />
               <select
                 value={courseCategory}
-                onChange={(e) => setCourseCategory(e.target.value)}
-                aria-label="Course Category"
+                onChange={(e) => {
+                  setCourseCategory(e.target.value);
+                  setSubCategory("All");
+                }}
+                aria-label="Category"
               >
-                <option value="All">Course Category</option>
-                <option value="MBA">MBA</option>
-                <option value="Technical">Technical</option>
+                <option value="All">Category</option>
+                <option value="Technology">Technology</option>
+                <option value="Business">Business</option>
                 <option value="Management">Management</option>
               </select>
               <ChevronDown className="gm-chevron" strokeWidth={2} />
             </div>
             <div className="gm-select-wrap">
-              <Calendar className="gm-select-icon" strokeWidth={2} />
+              <GraduationCap className="gm-select-icon" strokeWidth={2} />
               <select
-                value={academicPeriod}
-                onChange={(e) => setAcademicPeriod(e.target.value)}
-                aria-label="Academic Period"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+                aria-label="Sub-Category"
               >
-                <option value="All">Academic Period</option>
-                <option value="2024-Q1">Jan - Jun 2024</option>
-                <option value="2024-Q2">Apr - Sep 2024</option>
+                <option value="All">Sub-Category</option>
+                <option value="Programming">Programming</option>
+                <option value="Data Science">Data Science</option>
+                <option value="MBA">MBA</option>
+                <option value="Project Management">Project Management</option>
               </select>
               <ChevronDown className="gm-chevron" strokeWidth={2} />
             </div>
-            <button
-              type="button"
-              className="gm-filter-btn"
-              aria-label="Filters"
-            >
-              <Filter strokeWidth={2} />
-            </button>
           </div>
         </div>
 
@@ -141,10 +126,12 @@ export default function GroupsManagementPage() {
               <thead>
                 <tr>
                   <th>Group Name</th>
-                  <th>Course Title</th>
                   <th>Period</th>
-                  <th>Students</th>
+                  <th>Study Days</th>
+                  <th>Created At</th>
                   <th>Instructor</th>
+                  <th>Assigned LMS</th>
+                  <th>Status</th>
                   <th style={{ textAlign: "right" }}>Actions</th>
                 </tr>
               </thead>
@@ -159,7 +146,7 @@ export default function GroupsManagementPage() {
           {/* Pagination */}
           <div className="gm-pagination">
             <p className="gm-pagination-text">
-              Showing {startItem} to {endItem} of {TOTAL_GROUPS} groups
+              Showing {startItem} to {endItem} of {filteredGroups.length} groups
             </p>
             <div className="gm-pagination-controls">
               <button
@@ -248,8 +235,12 @@ export default function GroupsManagementPage() {
 }
 
 function GroupRow({ group }: { group: GroupRow }) {
-  const isFull = group.studentsCurrent >= group.studentsMax;
-  const percent = Math.round((group.studentsCurrent / group.studentsMax) * 100);
+  const [status, setStatus] = useState(group.status);
+  const isActive = status === "ACTIVE";
+
+  const handleToggle = () => {
+    setStatus((s) => (s === "ACTIVE" ? "UPCOMING" : "ACTIVE"));
+  };
 
   return (
     <tr>
@@ -260,43 +251,60 @@ function GroupRow({ group }: { group: GroupRow }) {
         >
           <p className="gm-group-name">{group.groupName}</p>
         </Link>
-        <span
-          className={`gm-tag ${
-            group.status === "ACTIVE" ? "gm-tag-active" : "gm-tag-upcoming"
-          }`}
-        >
-          {group.status}
-        </span>
       </td>
-      <td className="gm-course-title">{group.courseTitle}</td>
       <td className="gm-period">
         {group.periodStart} to {group.periodEnd}
       </td>
-      <td>
-        <div className="gm-students-wrap">
-          <span className="gm-students-count">
-            {group.studentsCurrent}/{group.studentsMax}
-          </span>
-          <div className="gm-progress-track">
-            <div
-              className={`gm-progress-fill ${
-                isFull ? "gm-progress-fill-red" : "gm-progress-fill-blue"
-              }`}
-              style={{ width: `${Math.min(100, percent)}%` }}
-            />
-          </div>
-        </div>
-      </td>
+      <td className="gm-study-days">{group.studyDays.join(", ")}</td>
+      <td className="gm-created-at">{group.createdAt}</td>
       <td>
         <div className="gm-instructor">
           <div className="gm-instructor-avatar">{group.instructorInitials}</div>
           <span className="gm-instructor-name">{group.instructorName}</span>
         </div>
       </td>
+      <td className="gm-assigned-lms">
+        {group.assignedLms.length > 0 ? group.assignedLms.join(", ") : "—"}
+      </td>
+      <td>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isActive}
+          className={`gm-status-toggle ${isActive ? "gm-status-toggle-on" : ""}`}
+          onClick={handleToggle}
+          title={isActive ? "Active" : "Upcoming"}
+        >
+          <span className="gm-status-toggle-dot" />
+        </button>
+      </td>
       <td style={{ textAlign: "right" }}>
-        <Link href={ROUTES.ADMIN.GROUP(group.id)} className="gm-btn-manage">
-          Manage
-        </Link>
+        <div className="gm-action-icons">
+          <Link
+            href={ROUTES.ADMIN.GROUP(group.id) + "/edit"}
+            className="gm-action-icon gm-action-icon-edit"
+            title="Edit"
+            aria-label="Edit"
+          >
+            <Pencil className="gm-action-icon-svg" strokeWidth={2} />
+          </Link>
+          <button
+            type="button"
+            className="gm-action-icon gm-action-icon-duplicate"
+            title="Duplicate"
+            aria-label="Duplicate"
+          >
+            <Copy className="gm-action-icon-svg" strokeWidth={2} />
+          </button>
+          <button
+            type="button"
+            className="gm-action-icon gm-action-icon-delete"
+            title="Delete"
+            aria-label="Delete"
+          >
+            <Trash2 className="gm-action-icon-svg" strokeWidth={2} />
+          </button>
+        </div>
       </td>
     </tr>
   );

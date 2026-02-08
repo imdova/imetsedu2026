@@ -4,33 +4,28 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   Briefcase,
-  GraduationCap,
   Calendar,
-  Search,
-  UserSearch,
+  BookOpen,
   CalendarIcon,
   X,
   Info,
+  Plus,
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import "./add-group-form.css";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 
-const MOCK_INSTRUCTOR = {
-  id: "1",
-  name: "Dr. Sarah Chen",
-  title: "Senior Tech Lead",
-  avatar: null,
-};
+const MOCK_LMS_COURSES = [
+  { id: "1", title: "Computer Science Fundamentals", code: "CS-101" },
+  { id: "2", title: "Data Analytics Bootcamp", code: "DA-200" },
+  { id: "3", title: "MBA Core Curriculum", code: "MBA-100" },
+];
 
 export default function AddNewGroupPage() {
   const [groupName, setGroupName] = useState("");
-  const [maxCapacity, setMaxCapacity] = useState("");
   const [courseCategory, setCourseCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [studyMode, setStudyMode] = useState("Online - Asynchronous");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [studyDays, setStudyDays] = useState<(typeof DAYS)[number][]>([
@@ -38,10 +33,23 @@ export default function AddNewGroupPage() {
     "Wed",
     "Fri",
   ]);
-  const [instructorSearch, setInstructorSearch] = useState("");
-  const [selectedInstructor, setSelectedInstructor] = useState<
-    typeof MOCK_INSTRUCTOR | null
-  >(MOCK_INSTRUCTOR);
+  const [selectedLmsCourses, setSelectedLmsCourses] = useState<
+    (typeof MOCK_LMS_COURSES)[number][]
+  >([]);
+  const [lmsCourseToAdd, setLmsCourseToAdd] = useState("");
+
+  const addLmsCourse = () => {
+    if (!lmsCourseToAdd) return;
+    const course = MOCK_LMS_COURSES.find((c) => c.id === lmsCourseToAdd);
+    if (course && !selectedLmsCourses.some((c) => c.id === course.id)) {
+      setSelectedLmsCourses((prev) => [...prev, course]);
+      setLmsCourseToAdd("");
+    }
+  };
+
+  const removeLmsCourse = (id: string) => {
+    setSelectedLmsCourses((prev) => prev.filter((c) => c.id !== id));
+  };
 
   const toggleDay = (day: (typeof DAYS)[number]) => {
     setStudyDays((prev) =>
@@ -82,10 +90,10 @@ export default function AddNewGroupPage() {
               <Briefcase className="agn-card-icon" strokeWidth={2} />
               Group Identity
             </h2>
-            <div className="agn-card-fields agn-grid-2">
+            <div className="agn-card-fields agn-grid-2x2">
               <div className="agn-field">
                 <label className="agn-label" htmlFor="group-name">
-                  Group Name / Code
+                  Group Title
                 </label>
                 <input
                   id="group-name"
@@ -96,29 +104,6 @@ export default function AddNewGroupPage() {
                   onChange={(e) => setGroupName(e.target.value)}
                 />
               </div>
-              <div className="agn-field">
-                <label className="agn-label" htmlFor="max-capacity">
-                  Max Student Capacity
-                </label>
-                <input
-                  id="max-capacity"
-                  type="text"
-                  className="agn-input"
-                  placeholder="e.g. 30"
-                  value={maxCapacity}
-                  onChange={(e) => setMaxCapacity(e.target.value)}
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Course Association */}
-          <section className="agn-card">
-            <h2 className="agn-card-title">
-              <GraduationCap className="agn-card-icon" strokeWidth={2} />
-              Course Association
-            </h2>
-            <div className="agn-card-fields agn-grid-2x2">
               <div className="agn-field">
                 <label className="agn-label" htmlFor="course-category">
                   Course Category
@@ -148,41 +133,6 @@ export default function AddNewGroupPage() {
                   <option value="">Select Sub-Category</option>
                   <option value="programming">Programming</option>
                   <option value="data">Data Science</option>
-                </select>
-              </div>
-              <div className="agn-field">
-                <label className="agn-label" htmlFor="course-name">
-                  Course Name
-                </label>
-                <select
-                  id="course-name"
-                  className="agn-select"
-                  value={courseName}
-                  onChange={(e) => setCourseName(e.target.value)}
-                >
-                  <option value="">Select Course</option>
-                  <option value="cs101">Computer Science Fundamentals</option>
-                  <option value="mba">MBA Core</option>
-                </select>
-              </div>
-              <div className="agn-field">
-                <label className="agn-label" htmlFor="study-mode">
-                  Study Mode
-                </label>
-                <select
-                  id="study-mode"
-                  className="agn-select"
-                  value={studyMode}
-                  onChange={(e) => setStudyMode(e.target.value)}
-                >
-                  <option value="Online - Asynchronous">
-                    Online - Asynchronous
-                  </option>
-                  <option value="Online - Synchronous">
-                    Online - Synchronous
-                  </option>
-                  <option value="On-Campus">On-Campus</option>
-                  <option value="Hybrid">Hybrid</option>
                 </select>
               </div>
             </div>
@@ -259,53 +209,65 @@ export default function AddNewGroupPage() {
             </div>
           </section>
 
-          {/* Assign Primary Instructor */}
+          {/* Assign to LMS Course */}
           <section className="agn-card">
             <h2 className="agn-card-title">
-              <UserSearch className="agn-card-icon" strokeWidth={2} />
-              Assign Primary Instructor
+              <BookOpen className="agn-card-icon" strokeWidth={2} />
+              Assign to LMS Course
             </h2>
             <div className="agn-card-fields">
-              <div className="agn-field">
-                <div className="agn-search-wrap">
-                  <Search
-                    className="agn-search-icon"
-                    strokeWidth={2}
-                    aria-hidden
-                  />
-                  <input
-                    type="text"
-                    className="agn-input agn-search-input"
-                    placeholder="Search by name, ID or specialty..."
-                    value={instructorSearch}
-                    onChange={(e) => setInstructorSearch(e.target.value)}
-                  />
-                </div>
-              </div>
-              {selectedInstructor && (
-                <div className="agn-instructor-chip">
-                  <div className="agn-chip-avatar" aria-hidden>
-                    {selectedInstructor.name
-                      .split(" ")
-                      .map((s) => s[0])
-                      .join("")}
-                  </div>
-                  <div className="agn-chip-info">
-                    <span className="agn-chip-name">
-                      {selectedInstructor.name}
-                    </span>
-                    <span className="agn-chip-title">
-                      {selectedInstructor.title}
-                    </span>
-                  </div>
+              <div className="agn-field agn-lms-add-row">
+                <label className="agn-label" htmlFor="lms-course">
+                  Choose LMS Course
+                </label>
+                <div className="agn-lms-add-wrap">
+                  <select
+                    id="lms-course"
+                    className="agn-select"
+                    value={lmsCourseToAdd}
+                    onChange={(e) => setLmsCourseToAdd(e.target.value)}
+                  >
+                    <option value="">Select course...</option>
+                    {MOCK_LMS_COURSES.filter(
+                      (c) => !selectedLmsCourses.some((s) => s.id === c.id)
+                    ).map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.code} – {c.title}
+                      </option>
+                    ))}
+                  </select>
                   <button
                     type="button"
-                    className="agn-chip-remove"
-                    onClick={() => setSelectedInstructor(null)}
-                    aria-label="Remove instructor"
+                    className="agn-btn-add-course"
+                    onClick={addLmsCourse}
+                    disabled={!lmsCourseToAdd}
+                    aria-label="Add course"
                   >
-                    <X className="w-4 h-4" strokeWidth={2} />
+                    <Plus className="w-4 h-4" /> Add
                   </button>
+                </div>
+              </div>
+              {selectedLmsCourses.length > 0 && (
+                <div className="agn-lms-chips">
+                  {selectedLmsCourses.map((course) => (
+                    <div key={course.id} className="agn-instructor-chip">
+                      <div className="agn-chip-avatar" aria-hidden>
+                        <BookOpen className="w-4 h-4" strokeWidth={2} />
+                      </div>
+                      <div className="agn-chip-info">
+                        <span className="agn-chip-name">{course.title}</span>
+                        <span className="agn-chip-title">{course.code}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="agn-chip-remove"
+                        onClick={() => removeLmsCourse(course.id)}
+                        aria-label={`Remove ${course.code}`}
+                      >
+                        <X className="w-4 h-4" strokeWidth={2} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
