@@ -1,0 +1,547 @@
+/**
+ * Enrolled Groups tab – group cards, actions, upcoming sessions, related sections.
+ */
+
+.asm-eg-wrap {
+  background: #f8fafc;
+  padding: 24px 28px 32px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+.asm-eg-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.asm-eg-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.asm-eg-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.asm-eg-count {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.asm-eg-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.asm-eg-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-admin-primary, #0f49bd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+
+.asm-eg-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.asm-eg-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.asm-eg-btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.asm-eg-btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Summary chips */
+.asm-eg-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.asm-eg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #334155;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.asm-eg-chip-value {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.asm-eg-chip.active .asm-eg-chip-value {
+  color: #15803d;
+}
+
+.asm-eg-chip.upcoming .asm-eg-chip-value {
+  color: #0f49bd;
+}
+
+/* Main + sidebar layout */
+.asm-eg-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .asm-eg-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.asm-eg-main {
+  min-width: 0;
+}
+
+/* Group cards list */
+.asm-eg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.asm-eg-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
+}
+
+.asm-eg-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.asm-eg-card-inner {
+  padding: 20px;
+}
+
+.asm-eg-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.asm-eg-card-title {
+  margin: 0 0 4px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.asm-eg-card-course {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.asm-eg-card-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.asm-eg-card-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.asm-eg-card-badge.upcoming {
+  background: #eff6ff;
+  color: #0f49bd;
+}
+
+.asm-eg-card-badge.completed {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Smart card: progress + capacity row */
+.asm-eg-card-stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 500px) {
+  .asm-eg-card-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+.asm-eg-card-progress-wrap {
+  min-width: 0;
+}
+
+.asm-eg-card-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.asm-eg-card-progress-value {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.asm-eg-card-progress-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.asm-eg-card-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-admin-primary, #0f49bd),
+    #3b82f6
+  );
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.asm-eg-card-capacity {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asm-eg-card-capacity-bar {
+  width: 64px;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.asm-eg-card-capacity-fill {
+  height: 100%;
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+.asm-eg-card-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  color: #475569;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.asm-eg-card-next svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-admin-primary, #0f49bd);
+  flex-shrink: 0;
+}
+
+.asm-eg-card-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px 20px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.asm-eg-card-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.asm-eg-card-meta-item svg {
+  width: 14px;
+  height: 14px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.asm-eg-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.asm-eg-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-admin-primary, #0f49bd);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.asm-eg-card-btn:hover {
+  background: #eff6ff;
+  color: #0c3d99;
+}
+
+.asm-eg-card-btn.outline {
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.asm-eg-card-btn.outline:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.asm-eg-card-btn.danger {
+  color: #dc2626;
+}
+
+.asm-eg-card-btn.danger:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.asm-eg-card-btn.transfer {
+  color: #7c3aed;
+}
+
+.asm-eg-card-btn.transfer:hover {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.asm-eg-card-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Empty state */
+.asm-eg-empty {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.asm-eg-empty-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.asm-eg-empty-desc {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Sidebar – related sections */
+.asm-eg-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.asm-eg-sidebar-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.asm-eg-sidebar-title {
+  margin: 0 0 16px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.asm-eg-session-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asm-eg-session-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.asm-eg-session-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.asm-eg-session-item:first-child {
+  padding-top: 0;
+}
+
+.asm-eg-session-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.asm-eg-session-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 2px 0;
+}
+
+.asm-eg-session-type {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #475569;
+  margin-top: 4px;
+}
+
+.asm-eg-session-type.live {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.asm-eg-session-type.workshop {
+  background: #eff6ff;
+  color: #0f49bd;
+}
+
+.asm-eg-view-all {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-admin-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.asm-eg-view-all:hover {
+  text-decoration: underline;
+}
+
+/* Quick actions in sidebar */
+.asm-eg-quick-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asm-eg-quick-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.asm-eg-quick-item:hover {
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+.asm-eg-quick-item svg {
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.asm-eg-quick-item:hover svg {
+  color: var(--color-admin-primary, #0f49bd);
+}

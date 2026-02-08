@@ -1,0 +1,670 @@
+/**
+ * Student Overview tab – profile header, 3-column layout, cards, timeline, gauge.
+ */
+
+/* Back link */
+.asm-so-back {
+  margin-bottom: 20px;
+}
+
+/* Profile header card */
+.asm-so-header-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 24px 28px;
+  margin-bottom: 0;
+}
+
+.asm-so-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.asm-so-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+.asm-so-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.asm-so-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.asm-so-avatar-initials {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.asm-so-avatar-dot {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 3px solid #fff;
+}
+
+.asm-so-profile-body {
+  min-width: 0;
+}
+
+.asm-so-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.asm-so-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.asm-so-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.asm-so-badge-active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.asm-so-id-course {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+
+.asm-so-id-course a {
+  color: var(--color-admin-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.asm-so-id-course a:hover {
+  text-decoration: underline;
+}
+
+.asm-so-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.asm-so-btn-voip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--color-admin-primary, #0f49bd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.asm-so-btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: #25d366;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.asm-so-btn-icon-only {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.asm-so-btn-icon-only:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.asm-so-header-right {
+  text-align: right;
+}
+
+.asm-so-enrollment-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.asm-so-enrollment-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.asm-so-advisor {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-admin-primary, #0f49bd);
+  background: #eff6ff;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Tabs */
+.asm-so-tabs {
+  display: flex;
+  gap: 24px;
+  padding: 0 28px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #fff;
+  margin: 0 -1px -1px -1px;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+}
+
+.asm-so-tab {
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.asm-so-tab:hover {
+  color: #334155;
+}
+
+.asm-so-tab.active {
+  font-weight: 600;
+  color: var(--color-admin-primary, #0f49bd);
+  border-bottom-color: var(--color-admin-primary, #0f49bd);
+}
+
+/* Overview content - 3 columns */
+.asm-so-content {
+  background: #f8fafc;
+  padding: 24px 28px 32px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.asm-so-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: 24px;
+  max-width: 1280px;
+}
+
+@media (max-width: 1100px) {
+  .asm-so-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .asm-so-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.asm-so-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card base */
+.asm-so-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 18px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.asm-so-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.asm-so-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.asm-so-card-icon.blue {
+  background: #eff6ff;
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+.asm-so-card-icon.gray {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.asm-so-card-icon.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.asm-so-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.asm-so-card-body {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.asm-so-card-body p {
+  margin: 0 0 8px 0;
+}
+
+.asm-so-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.asm-so-progress-wrap {
+  margin-top: 12px;
+}
+
+.asm-so-progress-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.asm-so-progress-fill {
+  height: 100%;
+  background: var(--color-admin-primary, #0f49bd);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.asm-so-progress-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* Student score gauge */
+.asm-so-score-card {
+  align-items: center;
+  text-align: center;
+}
+
+.asm-so-gauge-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 8px;
+}
+
+.asm-so-gauge-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.asm-so-gauge-bg {
+  fill: none;
+  stroke: #e2e8f0;
+  stroke-width: 8;
+}
+
+.asm-so-gauge-fill {
+  fill: none;
+  stroke: var(--color-admin-primary, #0f49bd);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.asm-so-gauge-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.asm-so-gauge-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* New activity / Internal note */
+.asm-so-activity-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.asm-so-activity-tab {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.asm-so-activity-tab.active {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.asm-so-activity-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+
+.asm-so-activity-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.asm-so-activity-textarea:focus {
+  outline: none;
+  border-color: var(--color-admin-primary, #0f49bd);
+  background: #fff;
+}
+
+.asm-so-post-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-admin-primary, #0f49bd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.asm-so-post-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* Interaction timeline */
+.asm-so-timeline-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.asm-so-timeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asm-so-timeline-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.asm-so-timeline-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.asm-so-timeline-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.asm-so-timeline-icon.payment {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.asm-so-timeline-icon.whatsapp {
+  background: #dcfce7;
+  color: #25d366;
+}
+
+.asm-so-timeline-icon.quiz {
+  background: #eff6ff;
+  color: var(--color-admin-primary, #0f49bd);
+}
+
+.asm-so-timeline-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.asm-so-timeline-head {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.asm-so-timeline-detail {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.asm-so-timeline-time {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* Financial health */
+.asm-so-total-paid {
+  margin-bottom: 8px;
+}
+
+.asm-so-outstanding {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ea580c;
+  margin: 12px 0;
+}
+
+.asm-so-pay-now {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-admin-primary, #0f49bd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.asm-so-pay-now:hover {
+  filter: brightness(1.08);
+}
+
+/* Documents */
+.asm-so-doc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.asm-so-view-all {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-admin-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.asm-so-view-all:hover {
+  text-decoration: underline;
+}
+
+.asm-so-doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asm-so-doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #475569;
+}
+
+.asm-so-doc-item:last-child {
+  border-bottom: none;
+}
+
+.asm-so-doc-download {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.asm-so-doc-download:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Student portal card */
+.asm-so-portal-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 14px 0;
+}
+
+.asm-so-login-as {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-admin-primary, #0f49bd);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.asm-so-login-as:hover {
+  filter: brightness(1.08);
+}

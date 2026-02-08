@@ -33,6 +33,7 @@ export const ROUTES = {
     USERS_ROLES: "/admin/users/roles",
     USERS_ACTIVITY_LOG: (id: string) => `/admin/users/${id}/activity-log`,
     STUDENTS: "/admin/students",
+    STUDENT_OVERVIEW: (id: string) => `/admin/students/${id}`,
     GROUPS: "/admin/groups",
     GROUP: (id: string) => `/admin/groups/${id}`,
     INSTRUCTORS: "/admin/instructors",

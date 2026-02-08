@@ -1,347 +1,417 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import {
+  Search,
+  Download,
+  UserPlus,
+  GraduationCap,
+  BookOpen,
+  Award,
+  Users,
+  Eye,
+  Pencil,
+  MoreHorizontal,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { ROUTES } from "@/constants";
+import {
+  STUDENTS,
+  STATUS_OPTIONS,
+  COUNTRY_OPTIONS,
+  type Student,
+  type StudentStatus,
+} from "./students-data";
+import "./students.css";
 
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  image?: string;
-  enrolledCourses: number;
-  completedCourses: number;
-  certificates: number;
-  country: string;
-  joinDate: string;
-  status: "active" | "inactive" | "suspended";
+const PER_PAGE = 10;
+
+function statusClass(s: StudentStatus): string {
+  const map: Record<StudentStatus, string> = {
+    active: "asm-status-active",
+    inactive: "asm-status-inactive",
+    suspended: "asm-status-suspended",
+  };
+  return `asm-status ${map[s]}`;
 }
-
-const mockStudents: Student[] = [
-  {
-    id: "1",
-    name: "Ahmed Mohamed",
-    email: "ahmed.mohamed@example.com",
-    image: "https://i.pravatar.cc/40?img=1",
-    enrolledCourses: 5,
-    completedCourses: 3,
-    certificates: 2,
-    country: "EG",
-    joinDate: "2024-01-15",
-    status: "active",
-  },
-  {
-    id: "2",
-    name: "Sarah Ali",
-    email: "sarah.ali@example.com",
-    image: "https://i.pravatar.cc/40?img=2",
-    enrolledCourses: 8,
-    completedCourses: 6,
-    certificates: 5,
-    country: "SA",
-    joinDate: "2023-12-20",
-    status: "active",
-  },
-  {
-    id: "3",
-    name: "Mohamed Hassan",
-    email: "mohamed.hassan@example.com",
-    image: "https://i.pravatar.cc/40?img=3",
-    enrolledCourses: 3,
-    completedCourses: 1,
-    certificates: 1,
-    country: "AE",
-    joinDate: "2024-01-10",
-    status: "active",
-  },
-  {
-    id: "4",
-    name: "Fatima Ibrahim",
-    email: "fatima.ibrahim@example.com",
-    image: "https://i.pravatar.cc/40?img=4",
-    enrolledCourses: 12,
-    completedCourses: 10,
-    certificates: 8,
-    country: "JO",
-    joinDate: "2023-11-05",
-    status: "active",
-  },
-  {
-    id: "5",
-    name: "Omar Khalil",
-    email: "omar.khalil@example.com",
-    image: "https://i.pravatar.cc/40?img=5",
-    enrolledCourses: 2,
-    completedCourses: 0,
-    certificates: 0,
-    country: "KW",
-    joinDate: "2024-01-20",
-    status: "active",
-  },
-];
 
 export default function AdminStudentsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("all");
-  const [selectedCountry, setSelectedCountry] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<StudentStatus | "all">(
+    "all"
+  );
+  const [countryFilter, setCountryFilter] = useState("all");
+  const [quickFilter, setQuickFilter] = useState<"all" | "active" | "new">(
+    "all"
+  );
+  const [page, setPage] = useState(1);
 
-  const filteredStudents = mockStudents.filter((student) => {
-    const matchesSearch =
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus =
-      selectedStatus === "all" || student.status === selectedStatus;
-    const matchesCountry =
-      selectedCountry === "all" || student.country === selectedCountry;
-    return matchesSearch && matchesStatus && matchesCountry;
-  });
+  const filtered = useMemo(() => {
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    return STUDENTS.filter((s) => {
+      const matchSearch =
+        !searchTerm ||
+        s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        s.email.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchStatus = statusFilter === "all" || s.status === statusFilter;
+      const matchCountry =
+        countryFilter === "all" || s.country === countryFilter;
+      const matchQuick =
+        quickFilter === "all" ||
+        (quickFilter === "active" && s.status === "active") ||
+        (quickFilter === "new" && new Date(s.joinDate) >= firstDayOfMonth);
+      return matchSearch && matchStatus && matchCountry && matchQuick;
+    });
+  }, [searchTerm, statusFilter, countryFilter, quickFilter]);
 
-  const totalStudents = mockStudents.length;
-  const activeStudents = mockStudents.filter(
-    (s) => s.status === "active"
-  ).length;
-  const totalEnrollments = mockStudents.reduce(
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * PER_PAGE;
+  const pageRows = filtered.slice(start, start + PER_PAGE);
+
+  const totalStudents = STUDENTS.length;
+  const activeStudents = STUDENTS.filter((s) => s.status === "active").length;
+  const totalEnrollments = STUDENTS.reduce(
     (sum, s) => sum + s.enrolledCourses,
     0
   );
-  const totalCertificates = mockStudents.reduce(
+  const totalCertificates = STUDENTS.reduce(
     (sum, s) => sum + s.certificates,
     0
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Students Management
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Manage all students on the platform
+    <div className="asm-page">
+      <header className="asm-header">
+        <div className="asm-header-row">
+          <div className="asm-header-content">
+            <h1 className="asm-title">Students Management</h1>
+            <p className="asm-description">
+              View, search, and manage all enrolled students and their progress.
             </p>
+          </div>
+          <div className="asm-filters" style={{ gap: 12 }}>
+            <button type="button" className="asm-btn-secondary">
+              <Download className="asm-btn-icon" strokeWidth={2} />
+              Export
+            </button>
+            <Link href={ROUTES.ADMIN.STUDENTS} className="asm-btn-primary">
+              <UserPlus className="asm-btn-icon" strokeWidth={2} />
+              Add Student
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="asm-main">
+        {/* Summary cards */}
+        <div className="asm-cards">
+          <div className="asm-card">
+            <div className="asm-card-icon blue">
+              <Users className="asm-btn-icon" strokeWidth={2} />
+            </div>
+            <p className="asm-card-label">Total Students</p>
+            <p className="asm-card-value">{totalStudents}</p>
+            <p className="asm-card-sub">All registered accounts</p>
+          </div>
+          <div className="asm-card">
+            <div className="asm-card-icon green">
+              <GraduationCap className="asm-btn-icon" strokeWidth={2} />
+            </div>
+            <p className="asm-card-label">Active</p>
+            <p className="asm-card-value">{activeStudents}</p>
+            <p className="asm-card-sub">Currently active</p>
+          </div>
+          <div className="asm-card">
+            <div className="asm-card-icon violet">
+              <BookOpen className="asm-btn-icon" strokeWidth={2} />
+            </div>
+            <p className="asm-card-label">Total Enrollments</p>
+            <p className="asm-card-value">{totalEnrollments}</p>
+            <p className="asm-card-sub">Across all courses</p>
+          </div>
+          <div className="asm-card">
+            <div className="asm-card-icon amber">
+              <Award className="asm-btn-icon" strokeWidth={2} />
+            </div>
+            <p className="asm-card-label">Certificates</p>
+            <p className="asm-card-value">{totalCertificates}</p>
+            <p className="asm-card-sub">Issued to date</p>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search
-              </label>
+        {/* List card: toolbar + table */}
+        <div className="asm-list-card">
+          <div className="asm-toolbar">
+            <div className="asm-search-wrap">
+              <Search className="asm-search-icon" strokeWidth={2} aria-hidden />
               <input
-                type="text"
-                placeholder="Search students..."
+                type="search"
+                className="asm-search-input"
+                placeholder="Search by name or email..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setPage(1);
+                }}
+                aria-label="Search students"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
+            <div className="asm-filters">
+              <div className="asm-chips">
+                {(
+                  [
+                    { id: "all", label: "All" },
+                    { id: "active", label: "Active" },
+                    { id: "new", label: "New this month" },
+                  ] as const
+                ).map(({ id, label }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={`asm-chip ${quickFilter === id ? "active" : ""}`}
+                    onClick={() => {
+                      setQuickFilter(id);
+                      setPage(1);
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
               <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="asm-select"
+                value={statusFilter}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value as StudentStatus | "all");
+                  setPage(1);
+                }}
+                aria-label="Filter by status"
               >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                <option value="suspended">Suspended</option>
+                {STATUS_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="asm-select"
+                value={countryFilter}
+                onChange={(e) => {
+                  setCountryFilter(e.target.value);
+                  setPage(1);
+                }}
+                aria-label="Filter by country"
+              >
+                {COUNTRY_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
               </select>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country
-              </label>
-              <select
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                <option value="all">All Countries</option>
-                <option value="EG">Egypt</option>
-                <option value="SA">Saudi Arabia</option>
-                <option value="AE">UAE</option>
-                <option value="JO">Jordan</option>
-                <option value="KW">Kuwait</option>
-              </select>
-            </div>
           </div>
-        </div>
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-600 mb-1">Total Students</p>
-            <p className="text-2xl font-bold text-gray-900">{totalStudents}</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-600 mb-1">Active Students</p>
-            <p className="text-2xl font-bold text-green-600">
-              {activeStudents}
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-600 mb-1">Total Enrollments</p>
-            <p className="text-2xl font-bold text-blue-600">
-              {totalEnrollments}
-            </p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-600 mb-1">Certificates Issued</p>
-            <p className="text-2xl font-bold text-purple-600">
-              {totalCertificates}
-            </p>
-          </div>
-        </div>
-
-        {/* Students Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">
-                All Students
-              </h2>
-              <button className="px-4 py-2 bg-admin-primary text-white rounded-lg hover:bg-admin-primary-hover text-sm">
-                Export
-              </button>
-            </div>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
+          <div className="asm-table-wrap">
+            <table className="asm-table">
+              <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Student
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Email
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Country
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Enrolled
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Completed
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Certificates
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <th>Student</th>
+                  <th>Email</th>
+                  <th>Country</th>
+                  <th>Enrolled</th>
+                  <th>Completed</th>
+                  <th>Certificates</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredStudents.map((student) => (
-                  <tr key={student.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        {student.image ? (
-                          <img
-                            src={student.image}
-                            alt={student.name}
-                            className="w-10 h-10 rounded-full mr-3"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-3">
-                            <span className="text-gray-600 text-sm">
+              <tbody>
+                {pageRows.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="asm-empty">
+                      <p className="asm-empty-title">No students found</p>
+                      <p>
+                        Try adjusting your search or filters to see more
+                        results.
+                      </p>
+                    </td>
+                  </tr>
+                ) : (
+                  pageRows.map((student) => (
+                    <tr key={student.id}>
+                      <td>
+                        <div className="asm-student-cell">
+                          {student.image ? (
+                            <img
+                              src={student.image}
+                              alt=""
+                              className="asm-avatar-img"
+                            />
+                          ) : (
+                            <div
+                              className="asm-avatar"
+                              style={{
+                                background:
+                                  "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                              }}
+                            >
                               {student.name
                                 .split(" ")
                                 .map((n) => n[0])
-                                .join("")}
-                            </span>
-                          </div>
-                        )}
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {student.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            Joined{" "}
-                            {new Date(student.joinDate).toLocaleDateString()}
+                                .join("")
+                                .slice(0, 2)}
+                            </div>
+                          )}
+                          <div>
+                            <Link
+                              href={ROUTES.ADMIN.STUDENT_OVERVIEW(student.id)}
+                              className="asm-student-name asm-student-name-link"
+                            >
+                              {student.name}
+                            </Link>
+                            <p className="asm-student-meta">
+                              Joined{" "}
+                              {new Date(student.joinDate).toLocaleDateString(
+                                undefined,
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              )}
+                            </p>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
-                        {student.country}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.enrolledCourses}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.completedCourses}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.certificates}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          student.status === "active"
-                            ? "bg-green-100 text-green-800"
-                            : student.status === "inactive"
-                            ? "bg-gray-100 text-gray-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {student.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
-                        <button className="text-admin-primary hover:text-admin-primary-hover">
-                          View
-                        </button>
-                        <button className="text-admin-primary hover:text-admin-primary-hover">
-                          Edit
-                        </button>
-                        <button className="text-red-600 hover:text-red-900">
-                          Suspend
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td>
+                        <span className="asm-email-cell">{student.email}</span>
+                      </td>
+                      <td>
+                        <span className="asm-country-badge">
+                          {student.countryLabel}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="asm-stat-num">
+                          {student.enrolledCourses}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="asm-stat-num">
+                          {student.completedCourses}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="asm-stat-num">
+                          {student.certificates}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={statusClass(student.status)}>
+                          <span className="asm-status-dot" aria-hidden />
+                          {student.status}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="asm-row-actions">
+                          <Link
+                            href={ROUTES.ADMIN.STUDENT_OVERVIEW(student.id)}
+                            className="asm-action-btn"
+                            title="View profile"
+                            aria-label={`View ${student.name}`}
+                          >
+                            <Eye strokeWidth={2} />
+                          </Link>
+                          <button
+                            type="button"
+                            className="asm-action-btn"
+                            title="Edit"
+                            aria-label={`Edit ${student.name}`}
+                          >
+                            <Pencil strokeWidth={2} />
+                          </button>
+                          <button
+                            type="button"
+                            className="asm-action-btn"
+                            title="More"
+                            aria-label={`More actions for ${student.name}`}
+                          >
+                            <MoreHorizontal strokeWidth={2} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
-          <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Rows per page</span>
-              <select className="px-2 py-1 border border-gray-300 rounded text-sm">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-              </select>
-              <span className="text-sm text-gray-600">
-                1-{filteredStudents.length} of {filteredStudents.length}
-              </span>
+
+          {filtered.length > 0 && (
+            <div className="asm-pagination">
+              <p className="asm-pagination-text">
+                Showing {start + 1}–
+                {Math.min(start + PER_PAGE, filtered.length)} of{" "}
+                {filtered.length}
+              </p>
+              <div className="asm-pagination-controls">
+                <button
+                  type="button"
+                  className="asm-pagination-btn asm-pagination-num"
+                  disabled={currentPage <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft strokeWidth={2} size={18} />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter(
+                    (n) =>
+                      n === 1 ||
+                      n === totalPages ||
+                      (n >= currentPage - 2 && n <= currentPage + 2)
+                  )
+                  .map((n, i, arr) => (
+                    <span key={n}>
+                      {i > 0 && arr[i - 1] !== n - 1 && (
+                        <span
+                          className="asm-pagination-btn"
+                          style={{ cursor: "default" }}
+                        >
+                          …
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        className={`asm-pagination-btn asm-pagination-num ${
+                          n === currentPage ? "active" : ""
+                        }`}
+                        onClick={() => setPage(n)}
+                        aria-label={`Page ${n}`}
+                        aria-current={n === currentPage ? "page" : undefined}
+                      >
+                        {n}
+                      </button>
+                    </span>
+                  ))}
+                <button
+                  type="button"
+                  className="asm-pagination-btn asm-pagination-num"
+                  disabled={currentPage >= totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  aria-label="Next page"
+                >
+                  <ChevronRight strokeWidth={2} size={18} />
+                </button>
+              </div>
             </div>
-            <div className="flex space-x-2">
-              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
-                ←
-              </button>
-              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
-                →
-              </button>
-            </div>
-          </div>
+          )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
