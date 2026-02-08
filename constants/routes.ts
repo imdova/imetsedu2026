@@ -44,6 +44,7 @@ export const ROUTES = {
     GROUPS_SETTINGS: "/admin/groups/settings",
     GROUP: (id: string) => `/admin/groups/${id}`,
     INSTRUCTORS: "/admin/instructors",
+    INSTRUCTOR: (id: string) => `/admin/instructors/${id}`,
     EVENTS: "/admin/events",
     SETTINGS: "/admin/settings",
     WHATSAPP_TEMPLATES: "/admin/settings/whatsapp-templates",
