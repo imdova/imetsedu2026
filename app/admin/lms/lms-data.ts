@@ -81,3 +81,80 @@ export const lmsCourses: LMSCourseRow[] = [
     iconColor: "bg-violet-500",
   },
 ];
+
+export function getLMSCourseById(id: string): LMSCourseRow | undefined {
+  return lmsCourses.find((c) => c.id === id);
+}
+
+/** Mock detail for LMS course overview (description, metrics, modules, etc.) */
+export interface LMSCourseDetail {
+  totalEnrolled: number;
+  avgProgress: number;
+  quizPassRate: number;
+  rating: number;
+  description: string;
+  createdAt: string;
+  totalHours: number;
+  format: string;
+  difficulty: string;
+  language: string;
+  quizzesTotal: number;
+  instructorTitle: string;
+  recentGroups: { name: string; students: number; date: string; status: string }[];
+  modules: {
+    id: string;
+    title: string;
+    locked?: string;
+    lessonsCount: number;
+    quizzesCount: number;
+    items: { title: string; type: string; duration?: string; meta?: string }[];
+  }[];
+  quickInsight: string;
+  quickInsightPercent: number;
+}
+
+export function getLMSCourseDetail(id: string): LMSCourseDetail {
+  const base = getLMSCourseById(id);
+  return {
+    totalEnrolled: base?.enrollment ?? 1248,
+    avgProgress: 76,
+    quizPassRate: 82,
+    rating: 4.8,
+    description:
+      "This advanced program covers stakeholder psychology, risk mitigation matrices, and hybrid frameworks. Designed for experienced project managers seeking PMP certification and leadership skills.",
+    createdAt: "Jan 15, 2024",
+    totalHours: 45,
+    format: "Hybrid",
+    difficulty: "Advanced",
+    language: "English (UK)",
+    quizzesTotal: 12,
+    instructorTitle: "Lead Project Analyst",
+    recentGroups: [
+      { name: "Winter Cohort 2024", students: 45, date: "Feb 1, 2024", status: "Upcoming" },
+      { name: "Corporate Excellence A1", students: 12, date: "Jan 10, 2024", status: "In-Progress" },
+    ],
+    modules: [
+      {
+        id: "m1",
+        title: "M1 Foundations of Advanced PM",
+        lessonsCount: 4,
+        quizzesCount: 2,
+        items: [
+          { title: "Introduction to Stakeholder Psychology", type: "YouTube", duration: "12:45 min" },
+          { title: "Advanced Risk Mitigation Matrices", type: "VdoCipher", duration: "34:20 min" },
+          { title: "Module 1 Baseline Assessment", type: "Quiz", meta: "15 Questions • Required" },
+        ],
+      },
+      {
+        id: "m2",
+        title: "M2 Agile & Hybrid Frameworks",
+        locked: "Locked until M1 Complete",
+        lessonsCount: 0,
+        quizzesCount: 0,
+        items: [],
+      },
+    ],
+    quickInsight: "Course engagement is up 12% compared to last month",
+    quickInsightPercent: 12,
+  };
+}

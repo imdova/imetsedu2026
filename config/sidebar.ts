@@ -36,6 +36,10 @@ export const adminNavItems: SidebarNavItem[] = [
     name: "LMS Management",
     href: ROUTES.ADMIN.LMS_MANAGEMENT,
     icon: "⚙️",
+    children: [
+      { name: "All LMS Courses", href: ROUTES.ADMIN.LMS_COURSES },
+      { name: "LMS Setting", href: ROUTES.ADMIN.LMS_SETTINGS },
+    ],
   },
   { name: "Groups", href: ROUTES.ADMIN.GROUPS, icon: "👥" },
   { name: "Quizzes", href: ROUTES.ADMIN.QUIZZES, icon: "📝" },

@@ -331,7 +331,12 @@ function TableRow({ course }: { course: LMSCourseRow }) {
             <FileText className="w-5 h-5 text-white" strokeWidth={2} />
           </div>
           <div>
-            <p className="font-medium text-gray-900">{course.courseName}</p>
+            <Link
+              href={ROUTES.ADMIN.LMS_COURSE(course.id)}
+              className="font-medium text-gray-900 hover:text-admin-primary hover:underline"
+            >
+              {course.courseName}
+            </Link>
             <p className="text-sm text-gray-500">
               Instructor: {course.instructor}
             </p>

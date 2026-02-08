@@ -2,11 +2,18 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { Check, X, Eye, Plus } from "lucide-react";
 import { courses, getDiscountPercentage } from "@/lib/courses";
 import type { Course } from "@/types/course";
+import { ROUTES } from "@/constants/routes";
 
 type ViewMode = "grid" | "list";
 type CourseEdits = Record<string, { price: number; originalPrice?: number }>;
+type SeoMeta = {
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+};
 
 export default function AdminCoursesPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,6 +25,47 @@ export default function AdminCoursesPage() {
   const [courseEdits, setCourseEdits] = useState<CourseEdits>({});
   const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
   const [duplicatedCourses, setDuplicatedCourses] = useState<Course[]>([]);
+  const [seoByCourseId, setSeoByCourseId] = useState<Record<string, boolean>>(
+    () => ({})
+  );
+  const [seoMetaByCourseId, setSeoMetaByCourseId] = useState<
+    Record<string, SeoMeta>
+  >({});
+  const [seoModalCourseId, setSeoModalCourseId] = useState<string | null>(
+    null
+  );
+  const [seoModalDraft, setSeoModalDraft] = useState<SeoMeta>({
+    metaTitle: "",
+    metaDescription: "",
+    metaKeywords: "",
+  });
+
+  const getSeoAdded = (courseId: string) => seoByCourseId[courseId] ?? false;
+  const setSeoAdded = (courseId: string, added: boolean) =>
+    setSeoByCourseId((prev) => ({ ...prev, [courseId]: added }));
+
+  const openSeoModal = (courseId: string) => {
+    setSeoModalCourseId(courseId);
+    setSeoModalDraft(
+      seoMetaByCourseId[courseId] ?? {
+        metaTitle: "",
+        metaDescription: "",
+        metaKeywords: "",
+      }
+    );
+  };
+
+  const closeSeoModal = () => setSeoModalCourseId(null);
+
+  const saveSeoModal = () => {
+    if (!seoModalCourseId) return;
+    setSeoMetaByCourseId((prev) => ({
+      ...prev,
+      [seoModalCourseId]: { ...seoModalDraft },
+    }));
+    setSeoAdded(seoModalCourseId, true);
+    closeSeoModal();
+  };
 
   const categories = useMemo(
     () => ["all", ...Array.from(new Set(courses.map((c) => c.category)))],
@@ -109,6 +157,38 @@ export default function AdminCoursesPage() {
     } else {
       setDeletedIds((prev) => new Set(prev).add(courseId));
     }
+  };
+
+  const handleDownload = () => {
+    const headers = [
+      "Title",
+      "Category",
+      "Subcategory",
+      "Created",
+      "Purchases",
+      "Price (EGP)",
+      "Revenue (EGP)",
+    ];
+    const rows = filteredCourses.map((c) => {
+      const price = getDisplayPrice(c);
+      return [
+        c.title,
+        c.category,
+        c.subCategory ?? "",
+        c.lastUpdated ?? c.createdAt ?? "",
+        String(c.studentCount),
+        String(price),
+        String(price * c.studentCount),
+      ];
+    });
+    const csv = [headers.join(","), ...rows.map((r) => r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `courses-export-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const totalStudents = useMemo(
@@ -258,6 +338,7 @@ export default function AdminCoursesPage() {
             </button>
             <button
               type="button"
+              onClick={handleDownload}
               className="inline-flex items-center gap-2 px-4 py-2 border-2 border-admin-primary text-gray-900 rounded-lg font-medium text-sm hover:bg-admin-primary/5 transition-colors"
             >
               <svg
@@ -386,7 +467,7 @@ export default function AdminCoursesPage() {
                       />
                       <div className="absolute top-2 right-2 flex items-center gap-0.5 bg-white/90 rounded-lg shadow-sm p-1">
                         <Link
-                          href={`/admin/courses/${course.id}`}
+                          href={ROUTES.ADMIN.COURSE(course.id)}
                           className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
                           title="View"
                         >
@@ -399,7 +480,7 @@ export default function AdminCoursesPage() {
                           </svg>
                         </Link>
                         <Link
-                          href={`/admin/courses/${course.id}/edit`}
+                          href={ROUTES.ADMIN.COURSE_EDIT(course.id)}
                           className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
                           title="Edit"
                         >
@@ -504,6 +585,42 @@ export default function AdminCoursesPage() {
                           className="w-20 px-2 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                         />
                       </div>
+                      <div className="flex items-center gap-2 pt-2 border-t border-gray-200">
+                        <span className="text-xs text-gray-500 shrink-0">
+                          SEO
+                        </span>
+                        {getSeoAdded(course.id) ? (
+                          <span
+                            className="inline-flex p-1 rounded bg-emerald-100 text-emerald-700"
+                            title="SEO added"
+                          >
+                            <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
+                          </span>
+                        ) : (
+                          <span
+                            className="inline-flex p-1 rounded bg-red-100 text-red-600"
+                            title="SEO not added"
+                          >
+                            <X className="w-3.5 h-3.5" strokeWidth={2.5} />
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => openSeoModal(course.id)}
+                          className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
+                          title="View SEO"
+                        >
+                          <Eye className="w-3.5 h-3.5" strokeWidth={2} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => openSeoModal(course.id)}
+                          className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
+                          title="Add SEO"
+                        >
+                          <Plus className="w-3.5 h-3.5" strokeWidth={2} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -546,6 +663,9 @@ export default function AdminCoursesPage() {
                   </th>
                   <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     Revenue
+                  </th>
+                  <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    SEO
                   </th>
                   <th className="px-5 py-3.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     Actions
@@ -632,9 +752,44 @@ export default function AdminCoursesPage() {
                         EGP
                       </td>
                       <td className="px-5 py-4">
+                        <div className="flex items-center gap-1">
+                          {getSeoAdded(course.id) ? (
+                            <span
+                              className="inline-flex p-1.5 rounded-md bg-emerald-100 text-emerald-700"
+                              title="SEO added"
+                            >
+                              <Check className="w-4 h-4" strokeWidth={2.5} />
+                            </span>
+                          ) : (
+                            <span
+                              className="inline-flex p-1.5 rounded-md bg-red-100 text-red-600"
+                              title="SEO not added"
+                            >
+                              <X className="w-4 h-4" strokeWidth={2.5} />
+                            </span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => openSeoModal(course.id)}
+                            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            title="View SEO"
+                          >
+                            <Eye className="w-4 h-4" strokeWidth={2} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => openSeoModal(course.id)}
+                            className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
+                            title="Add SEO"
+                          >
+                            <Plus className="w-4 h-4" strokeWidth={2} />
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-5 py-4">
                         <div className="flex items-center justify-end gap-0.5">
                           <Link
-                            href={`/admin/courses/${course.id}`}
+                            href={ROUTES.ADMIN.COURSE(course.id)}
                             className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
                             title="View"
                           >
@@ -647,7 +802,7 @@ export default function AdminCoursesPage() {
                             </svg>
                           </Link>
                           <Link
-                            href={`/admin/courses/${course.id}/edit`}
+                            href={ROUTES.ADMIN.COURSE_EDIT(course.id)}
                             className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
                             title="Edit"
                           >
@@ -747,6 +902,132 @@ export default function AdminCoursesPage() {
           </div>
         )}
       </div>
+
+      {/* SEO Modal */}
+      {seoModalCourseId && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          onClick={closeSeoModal}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="seo-modal-title"
+        >
+          <div
+            className="bg-white rounded-xl shadow-xl border border-gray-200 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <h2
+                  id="seo-modal-title"
+                  className="text-lg font-bold text-gray-900"
+                >
+                  Meta tags
+                </h2>
+                {(() => {
+                  const title = baseCourseList.find(
+                    (c) => c.id === seoModalCourseId
+                  )?.title;
+                  return title ? (
+                    <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">
+                      {title}
+                    </p>
+                  ) : null;
+                })()}
+              </div>
+              <button
+                type="button"
+                onClick={closeSeoModal}
+                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" strokeWidth={2} />
+              </button>
+            </div>
+            <div className="p-5 space-y-4">
+              <div>
+                <label
+                  htmlFor="seo-meta-title"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Meta Title
+                </label>
+                <input
+                  id="seo-meta-title"
+                  type="text"
+                  value={seoModalDraft.metaTitle}
+                  onChange={(e) =>
+                    setSeoModalDraft((prev) => ({
+                      ...prev,
+                      metaTitle: e.target.value,
+                    }))
+                  }
+                  placeholder="e.g. Course Name | Platform"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="seo-meta-description"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Meta Description
+                </label>
+                <textarea
+                  id="seo-meta-description"
+                  rows={3}
+                  value={seoModalDraft.metaDescription}
+                  onChange={(e) =>
+                    setSeoModalDraft((prev) => ({
+                      ...prev,
+                      metaDescription: e.target.value,
+                    }))
+                  }
+                  placeholder="Short description for search results..."
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="seo-meta-keywords"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Meta Keywords
+                </label>
+                <input
+                  id="seo-meta-keywords"
+                  type="text"
+                  value={seoModalDraft.metaKeywords}
+                  onChange={(e) =>
+                    setSeoModalDraft((prev) => ({
+                      ...prev,
+                      metaKeywords: e.target.value,
+                    }))
+                  }
+                  placeholder="keyword1, keyword2, keyword3"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                />
+              </div>
+            </div>
+            <div className="p-5 border-t border-gray-100 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={closeSeoModal}
+                className="px-4 py-2.5 border border-gray-200 rounded-lg font-medium text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={saveSeoModal}
+                className="px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

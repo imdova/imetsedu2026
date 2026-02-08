@@ -246,3 +246,47 @@ export const courseSettingsTags: TagRecord[] = [
 ];
 
 export const TAG_PRESET_COLORS = TAG_COLORS;
+
+/** Course variable: name + related options (e.g. dropdown choices). */
+export interface VariableRecord {
+  id: string;
+  name: string;
+  description?: string;
+  options: string[];
+  status: "Active" | "Inactive";
+}
+
+export const courseSettingsVariables: VariableRecord[] = [
+  {
+    id: "v1",
+    name: "Difficulty Level",
+    description: "Used across courses to tag difficulty (e.g. Beginner, Intermediate, Advanced).",
+    options: ["Beginner", "Intermediate", "Advanced", "Expert"],
+    status: "Active",
+  },
+  {
+    id: "v2",
+    name: "Delivery Mode",
+    description: "How the course is delivered (online, hybrid, in-person).",
+    options: ["Online", "Hybrid", "In-person"],
+    status: "Active",
+  },
+  {
+    id: "v3",
+    name: "Language",
+    description: "Primary language of instruction.",
+    options: ["English", "Arabic", "French", "Spanish"],
+    status: "Active",
+  },
+  {
+    id: "v4",
+    name: "Certification Type",
+    description: "Type of certificate or credential offered.",
+    options: ["Certificate", "Diploma", "Professional Development", "Micro-credential"],
+    status: "Active",
+  },
+];
+
+export const COURSE_VARIABLES_ACTIVE_COUNT = courseSettingsVariables.filter(
+  (v) => v.status === "Active"
+).length;

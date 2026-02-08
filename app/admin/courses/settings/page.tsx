@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, Suspense, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -12,15 +12,21 @@ import {
   Trash2,
   GripVertical,
   FileUp,
+  Settings2,
+  X,
 } from "lucide-react";
 import {
   courseSettingsCategories,
   courseSettingsSubCategories,
   courseSettingsTags,
+  courseSettingsVariables,
+  COURSE_VARIABLES_ACTIVE_COUNT,
   type CategoryRecord,
   type SubCategoryRecord,
   type TagRecord,
+  type VariableRecord,
 } from "@/lib/courseSettingsData";
+import "./course-settings-variables.css";
 
 type TabId = "categories" | "sub-categories" | "tags" | "variables";
 
@@ -52,6 +58,37 @@ function CourseSettingsContent() {
   const [tagColor, setTagColor] = useState("#3b82f6");
   const [tagsPerPage, setTagsPerPage] = useState(20);
   const [tagsPage, setTagsPage] = useState(1);
+
+  const [selectedVariableId, setSelectedVariableId] = useState(
+    courseSettingsVariables[0]?.id ?? ""
+  );
+  const [variableName, setVariableName] = useState("");
+  const [variableOptions, setVariableOptions] = useState<string[]>([]);
+
+  const selectedVariable = useMemo(
+    () =>
+      courseSettingsVariables.find((v) => v.id === selectedVariableId) ?? null,
+    [selectedVariableId]
+  );
+
+  useEffect(() => {
+    if (selectedVariable) {
+      setVariableName(selectedVariable.name);
+      setVariableOptions([...selectedVariable.options]);
+    }
+  }, [selectedVariable]);
+
+  const addVariableOption = () => {
+    setVariableOptions((prev) => [...prev, ""]);
+  };
+  const updateVariableOption = (index: number, value: string) => {
+    setVariableOptions((prev) =>
+      prev.map((o, i) => (i === index ? value : o))
+    );
+  };
+  const removeVariableOption = (index: number) => {
+    setVariableOptions((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const filteredCategories = useMemo(
     () =>
@@ -495,10 +532,107 @@ function CourseSettingsContent() {
         )}
 
         {tab === "variables" && (
-          <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm text-center">
-            <p className="text-gray-500">
-              Course Variables configuration coming soon.
-            </p>
+          <div className="acv-layout">
+            <aside className="acv-sidebar">
+              <div className="acv-sidebar-header">
+                <h2 className="acv-sidebar-title">Course Variables</h2>
+                <span className="acv-sidebar-badge">
+                  {COURSE_VARIABLES_ACTIVE_COUNT} Active
+                </span>
+              </div>
+              <button type="button" className="acv-btn-create">
+                <Plus className="acv-btn-create-icon" strokeWidth={2} />
+                Create New Variable
+              </button>
+              <ul className="acv-variable-list">
+                {courseSettingsVariables.map((v) => (
+                  <li key={v.id}>
+                    <button
+                      type="button"
+                      className={`acv-variable-item ${
+                        selectedVariableId === v.id ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedVariableId(v.id)}
+                    >
+                      <Settings2
+                        className="acv-variable-item-icon"
+                        strokeWidth={2}
+                      />
+                      <span>{v.name}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+            <main className="acv-main">
+              {selectedVariable ? (
+                <div className="acv-main-inner">
+                  <section className="acv-section">
+                    <h3 className="acv-section-title">Variable Name</h3>
+                    <input
+                      type="text"
+                      className="acv-input-name"
+                      placeholder="e.g. Difficulty Level"
+                      value={variableName}
+                      onChange={(e) => setVariableName(e.target.value)}
+                    />
+                  </section>
+
+                  <section className="acv-section">
+                    <h3 className="acv-section-title">Related Options</h3>
+                    <p className="text-sm text-gray-500 mb-3">
+                      Add the options that will be available when this variable
+                      is used (e.g. dropdown choices).
+                    </p>
+                    <ul className="acv-options-list">
+                      {variableOptions.map((opt, index) => (
+                        <li key={index} className="acv-option-row">
+                          <input
+                            type="text"
+                            className="acv-option-input"
+                            placeholder={`Option ${index + 1}`}
+                            value={opt}
+                            onChange={(e) =>
+                              updateVariableOption(index, e.target.value)
+                            }
+                          />
+                          <button
+                            type="button"
+                            className="acv-option-remove"
+                            onClick={() => removeVariableOption(index)}
+                            aria-label="Remove option"
+                          >
+                            <X className="w-4 h-4" strokeWidth={2} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      type="button"
+                      className="acv-btn-add-option"
+                      onClick={addVariableOption}
+                    >
+                      <Plus className="w-4 h-4" strokeWidth={2} />
+                      Add option
+                    </button>
+                  </section>
+
+                  <div className="acv-save-wrap">
+                    <button type="button" className="acv-btn-save">
+                      Save Variable
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="acv-empty">
+                  <p className="acv-empty-title">No variable selected</p>
+                  <p>
+                    Create a new variable or select one from the list to
+                    configure its name and options.
+                  </p>
+                </div>
+              )}
+            </main>
           </div>
         )}
       </div>
