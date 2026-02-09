@@ -6,9 +6,11 @@ import {
   Video,
   Play,
   Heart,
-  BookOpen,
-  Clock,
-  GraduationCap,
+  Library,
+  CalendarDays,
+  Users,
+  ShoppingCart,
+  ArrowRight,
 } from "lucide-react";
 import type { Course } from "@/types/course";
 import {
@@ -22,11 +24,12 @@ import { StarRating } from "@/components/ui";
 interface CourseCardProps {
   course: Course;
   detailsPath?: string;
+  className?: string;
 }
 
 const DEFAULT_INSTRUCTOR_IMAGE = "https://i.pravatar.cc/40?img=1";
 
-export default function CourseCard({ course, detailsPath }: CourseCardProps) {
+export default function CourseCard({ course, detailsPath, className }: CourseCardProps) {
   const courseDetailsPath = detailsPath ?? ROUTES.COURSE_DETAIL(course.id);
   const [isSaved, setIsSaved] = useState(false);
   const discountPercentage = getDiscountPercentage(
@@ -55,7 +58,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full min-w-0 ${className ?? ""}`}>
       {/* Image/Video Thumbnail Area */}
       <Link href={courseDetailsPath} className="block relative">
         <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
@@ -66,11 +69,9 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           />
 
           {/* Recorded Tag - Top Left */}
-          <div className="absolute top-2 left-2 bg-gray-100 bg-opacity-95 text-gray-700 px-2 py-1 rounded text-xs font-medium flex items-center">
-            <span className="mr-1 text-white bg-gray-400 rounded p-0.5">
-              📹
-            </span>
-            <span className="text-gray-700">recorded</span>
+          <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-sm text-gray-700 px-2.5 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 shadow-sm border border-gray-100">
+            <Video className="h-3.5 w-3.5 text-[#0a47c2]" strokeWidth={2.5} />
+            <span>Recorded</span>
           </div>
 
           {/* Save Button - Top Right */}
@@ -95,7 +96,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           )}
 
           {/* Play Icon - Bottom Right */}
-          <div className="absolute bottom-3 right-3 bg-black/70 text-white rounded-full p-2.5 hover:bg-black/90 transition-all flex items-center justify-center">
+          <div className="absolute bottom-3 right-3 bg-[#0a47c2]/90 hover:bg-[#0a47c2] text-white rounded-full p-2.5 transition-all flex items-center justify-center shadow-lg">
             <Play
               className="h-5 w-5 ml-0.5"
               strokeWidth={2.5}
@@ -109,7 +110,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
       <div className="p-4">
         {/* Course Title */}
         <Link href={courseDetailsPath}>
-          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-primary transition-colors">
+          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-black">
             {course.title}
           </h3>
         </Link>
@@ -128,26 +129,23 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         </div>
 
         {/* Course Metrics */}
-        <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-          <div className="flex items-center gap-1.5">
-            <BookOpen
-              className="h-4 w-4 text-primary shrink-0"
-              strokeWidth={2}
-            />
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0a47c2]/10 text-[#0a47c2]">
+              <Library className="h-4 w-4 shrink-0" strokeWidth={2} />
+            </span>
             <span>{totalLessons} Lessons</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Clock
-              className="h-4 w-4 text-amber-500 shrink-0"
-              strokeWidth={2}
-            />
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
+              <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2} />
+            </span>
             <span>{weeksLabel}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <GraduationCap
-              className="h-4 w-4 text-emerald-600 shrink-0"
-              strokeWidth={2}
-            />
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">
+              <Users className="h-4 w-4 shrink-0" strokeWidth={2} />
+            </span>
             <span>{course.studentCount} Students</span>
           </div>
         </div>
@@ -178,21 +176,21 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <button
             onClick={handleEnroll}
-            className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors flex items-center justify-center text-sm"
+            className="flex-1 bg-[#0a47c2] text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-[#083a9e] transition-colors flex items-center justify-center gap-2 text-sm"
           >
             Enroll
-            <span className="ml-1">→</span>
+            <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2.5} />
           </button>
           {course.price > 0 && (
             <button
               onClick={handleAddToCart}
-              className="w-11 h-11 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors flex items-center justify-center"
+              className="h-11 w-11 shrink-0 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-[#0a47c2]/50 transition-colors flex items-center justify-center text-[#0a47c2]"
               aria-label="Add to cart"
             >
-              <span className="text-lg">🛒</span>
+              <ShoppingCart className="h-5 w-5" strokeWidth={2} />
             </button>
           )}
         </div>

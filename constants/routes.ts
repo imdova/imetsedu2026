@@ -4,6 +4,7 @@
 export const ROUTES = {
   HOME: "/",
   ABOUT: "/about",
+  BECOME_INSTRUCTOR: "/become-instructor",
   CONTACT: "/contact",
   COURSES: "/courses",
   COURSE_DETAIL: (id: string) => `/courses/${id}`,

@@ -41,7 +41,7 @@ export default function CourseSectionBanner({
 
             {/* Right Section - Course Cards */}
             <div className="lg:w-2/3 xl:w-3/4 p-4 sm:p-6 lg:p-8 bg-primary">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
                 {courses.slice(0, 3).map((course) => (
                   <CourseCard key={course.id} course={course} />
                 ))}

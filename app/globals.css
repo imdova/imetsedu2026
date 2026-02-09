@@ -3,14 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* IMETS primary theme #030256 */
-  --color-primary: #030256;
-  --color-primary-hover: #04036a;
-  --color-primary-light: #0a0a7d;
+  /* Primary button color for all buttons */
+  --color-primary: #0a47c2;
+  --color-primary-hover: #083a9e;
+  --color-primary-light: #0d52d9;
   --color-primary-muted: #e8e8f5;
-  /* Admin area theme */
-  --color-admin-primary: #0f49bd;
-  --color-admin-primary-hover: #0c3a94;
+  /* Admin area uses same primary */
+  --color-admin-primary: #0a47c2;
+  --color-admin-primary-hover: #083a9e;
 }
 
 @theme inline {
@@ -18,12 +18,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-primary: #030256;
-  --color-primary-hover: #04036a;
-  --color-primary-light: #0a0a7d;
+  --color-primary: #0a47c2;
+  --color-primary-hover: #083a9e;
+  --color-primary-light: #0d52d9;
   --color-primary-muted: #e8e8f5;
-  --color-admin-primary: #0f49bd;
-  --color-admin-primary-hover: #0c3a94;
+  --color-admin-primary: #0a47c2;
+  --color-admin-primary-hover: #083a9e;
 }
 
 @media (prefers-color-scheme: dark) {

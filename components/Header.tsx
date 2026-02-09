@@ -36,7 +36,7 @@ export default function Header() {
                 href={ROUTES.CONTACT}
                 className="px-3 py-2 hover:bg-gray-100 rounded transition-colors"
               >
-                Contact
+                Contact Us
               </Link>
             </nav>
           </div>
@@ -157,7 +157,7 @@ export default function Header() {
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Contact
+                Contact Us
               </Link>
               <Link
                 href={ROUTES.ADMIN.DASHBOARD}

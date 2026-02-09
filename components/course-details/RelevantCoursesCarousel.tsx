@@ -30,7 +30,7 @@ export default function RelevantCoursesCarousel({
   return (
     <section className="mt-12 sm:mt-16">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-[#030256]">
+        <h2 className="text-xl sm:text-2xl font-bold text-black">
           Relevant Courses
         </h2>
         <div className="flex gap-2">
@@ -76,7 +76,7 @@ export default function RelevantCoursesCarousel({
                 />
               </div>
               <div className="p-4">
-                <h3 className="font-bold text-[#030256] text-sm line-clamp-2 mb-2">
+                <h3 className="font-bold text-black text-sm line-clamp-2 mb-2">
                   {course.title}
                 </h3>
                 <div className="flex gap-1 mb-2">

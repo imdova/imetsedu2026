@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Medicova - Online Courses Platform",
+  title: "IMETS School of Business - Online Courses Platform",
   description:
-    "Learn new skills and advance your career with comprehensive online courses",
+    "Learn new skills and advance your career with comprehensive online courses from IMETS School of Business",
 };
 
 export default function RootLayout({

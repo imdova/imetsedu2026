@@ -35,40 +35,40 @@ export default function CourseDetailsOverview({ course }: CourseDetailsOverviewP
   return (
     <div id="overview" className="max-w-4xl space-y-10">
       <section>
-        <h2 className="text-xl font-bold text-[#030256] mb-3">Course Description</h2>
+        <h2 className="text-xl font-bold text-black mb-3">Course Description</h2>
         <p className="text-gray-700 leading-relaxed">
           {course.description}
         </p>
       </section>
 
       <section>
-        <h2 className="text-xl font-bold text-[#030256] mb-4">What you&apos;ll learn in this course</h2>
+        <h2 className="text-xl font-bold text-black mb-4">What you&apos;ll learn in this course</h2>
         <ul className="space-y-3">
           {learn.map((item, i) => (
             <li key={i} className="flex items-start gap-3">
               <span className="shrink-0 w-5 h-5 rounded-full bg-[#f59e0b] flex items-center justify-center mt-0.5">
                 <span className="text-white text-xs">✓</span>
               </span>
-              <span className="text-[#030256] text-[15px]">{item}</span>
+              <span className="text-black text-[15px]">{item}</span>
             </li>
           ))}
         </ul>
       </section>
 
       <section>
-        <h2 className="text-xl font-bold text-[#030256] mb-4">Curriculum</h2>
+        <h2 className="text-xl font-bold text-black mb-4">Curriculum</h2>
         <CourseCurriculumAccordion sections={sections} />
       </section>
 
       <section>
-        <h2 className="text-xl font-bold text-[#030256] mb-4">Who can Attend this course?</h2>
+        <h2 className="text-xl font-bold text-black mb-4">Who can Attend this course?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
           {attend.map((role, i) => (
             <div key={i} className="flex items-start gap-3">
               <span className="shrink-0 w-5 h-5 rounded-full bg-[#f59e0b] flex items-center justify-center mt-0.5">
                 <span className="text-white text-xs">✓</span>
               </span>
-              <span className="text-[#030256] text-[15px]">{role}</span>
+              <span className="text-black text-[15px]">{role}</span>
             </div>
           ))}
         </div>

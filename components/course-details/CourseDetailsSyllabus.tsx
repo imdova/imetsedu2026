@@ -15,7 +15,7 @@ export default function CourseDetailsSyllabus({ course }: CourseDetailsSyllabusP
   const sections = course.curriculum?.length ? course.curriculum : DEFAULT_SECTIONS;
   return (
     <div className="max-w-4xl">
-      <h2 className="text-xl font-bold text-[#030256] mb-4">Curriculum</h2>
+      <h2 className="text-xl font-bold text-black mb-4">Curriculum</h2>
       <CourseCurriculumAccordion sections={sections} />
     </div>
   );

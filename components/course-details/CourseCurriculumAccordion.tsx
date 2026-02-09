@@ -15,11 +15,11 @@ export default function CourseCurriculumAccordion({ sections }: CourseCurriculum
       {sections.map((section, index) => {
         const isOpen = openId === section.id;
         return (
-          <div key={section.id} className="rounded-lg overflow-hidden">
+          <div key={section.id} className={`rounded-lg overflow-hidden border border-gray-200 ${isOpen ? 'bg-white' : 'bg-gray-100'}`}>
             <button
               type="button"
               onClick={() => setOpenId(isOpen ? null : section.id)}
-              className="w-full flex items-center justify-between px-4 py-3.5 bg-[#030256] text-white text-left font-semibold hover:bg-[#04036a] transition-colors"
+              className={`w-full flex items-center justify-between px-4 py-3.5 text-left font-semibold transition-colors ${isOpen ? 'bg-white text-[#030256] hover:bg-gray-50' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
             >
               <span>Module {index + 1}: {section.title}</span>
               <span className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
@@ -27,7 +27,7 @@ export default function CourseCurriculumAccordion({ sections }: CourseCurriculum
               </span>
             </button>
             {isOpen && (
-              <div className="border border-t-0 border-gray-200 bg-gray-50 p-4">
+              <div className="border-t border-gray-200 bg-white p-4">
                 <ul className="space-y-2">
                   {section.lectures.map((lecture) => (
                     <li

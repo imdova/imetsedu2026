@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Library, CalendarDays, Users, Monitor, ArrowRight } from "lucide-react";
 import type { Course } from "@/types/course";
 import { ROUTES } from "@/constants";
 import { StarRating } from "@/components/ui";
@@ -35,7 +36,7 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
       </Link>
       <div className="p-4">
         <Link href={detailsPath}>
-          <h3 className="font-bold text-base mb-2 line-clamp-2 text-primary hover:text-primary-hover transition-colors">
+          <h3 className="font-bold text-base mb-2 line-clamp-2 text-black">
             {course.title}
           </h3>
         </Link>
@@ -44,21 +45,21 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
           reviewCount={course.reviewCount}
           className="mb-2"
         />
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600 mb-3">
-          <span className="flex items-center">
-            <span className="mr-1">📖</span>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-600 mb-3">
+          <span className="flex items-center gap-1.5">
+            <Library className="h-3.5 w-3.5 text-[#0a47c2] shrink-0" strokeWidth={2} />
             {lectureCount} Lectures
           </span>
-          <span className="flex items-center">
-            <span className="mr-1">🕒</span>
+          <span className="flex items-center gap-1.5">
+            <CalendarDays className="h-3.5 w-3.5 text-amber-600 shrink-0" strokeWidth={2} />
             {freq}
           </span>
-          <span className="flex items-center">
-            <span className="mr-1">👥</span>
+          <span className="flex items-center gap-1.5">
+            <Users className="h-3.5 w-3.5 text-emerald-600 shrink-0" strokeWidth={2} />
             {course.studentCount.toLocaleString()} Students
           </span>
-          <span className="flex items-center">
-            <span className="mr-1">💻</span>
+          <span className="flex items-center gap-1.5">
+            <Monitor className="h-3.5 w-3.5 text-gray-500 shrink-0" strokeWidth={2} />
             {delivery}
           </span>
         </div>
@@ -74,9 +75,10 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
         </div>
         <Link
           href={detailsPath}
-          className="block w-full text-center bg-amber-500 hover:bg-amber-600 text-white py-2.5 px-4 rounded-lg font-semibold transition-colors text-sm"
+          className="flex items-center justify-center gap-2 w-full bg-[#0a47c2] hover:bg-[#083a9e] text-white py-2.5 px-4 rounded-lg font-semibold transition-colors text-sm"
         >
-          Details →
+          Details
+          <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2.5} />
         </Link>
       </div>
     </div>

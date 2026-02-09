@@ -14,6 +14,8 @@ export default function ConditionalLayout({
   const pathname = usePathname();
   const isDashboard =
     pathname?.startsWith("/instructor") || pathname?.startsWith("/admin");
+  const isAuthPage =
+    pathname === "/login" || pathname === "/signup";
 
   if (isDashboard) {
     return <>{children}</>;
@@ -23,7 +25,7 @@ export default function ConditionalLayout({
     <>
       <Header />
       <main className="flex-grow">{children}</main>
-      <Footer />
+      {!isAuthPage && <Footer />}
     </>
   );
 }
