@@ -16,7 +16,7 @@ import {
   Circle,
   Plus,
 } from "lucide-react";
-import { coursesOfInterest } from "@/lib/crmData";
+import { coursesOfInterest, leadSpecialtyOptions, type LeadSpecialty } from "@/lib/crmData";
 
 const LEAD_SOURCES = [
   "Website",
@@ -34,14 +34,6 @@ const COUNSELORS = [
   { name: "Kariman Tarek", role: "Admissions" },
 ];
 
-const INTAKE_OPTIONS = [
-  "Fall 2024",
-  "Spring 2025",
-  "Summer 2025",
-  "Fall 2025",
-  "Not decided",
-];
-
 const inputClass =
   "w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-admin-primary)] focus:border-[var(--color-admin-primary)] bg-white text-black";
 const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
@@ -56,8 +48,9 @@ export default function NewLeadPage() {
   const [countryCode, setCountryCode] = useState("+1");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const [courseInterest, setCourseInterest] = useState("");
-  const [preferredIntake, setPreferredIntake] = useState("");
+  const [specialty, setSpecialty] = useState<LeadSpecialty | "">("");
+  const [courseInterests, setCourseInterests] = useState<string[]>([]);
+  const group = ""; // reserved (Group input removed from form)
   const [leadSource, setLeadSource] = useState("Website");
   const [assignedTo, setAssignedTo] = useState("Sarah Jenkins (Admissions)");
   const [priority, setPriority] = useState<"cold" | "warm" | "hot">("warm");
@@ -170,6 +163,21 @@ export default function NewLeadPage() {
                         </div>
                       </div>
                       <div>
+                        <label className={labelClass}>Specialty</label>
+                        <select
+                          value={specialty}
+                          onChange={(e) => setSpecialty(e.target.value as LeadSpecialty | "")}
+                          className={inputClass}
+                        >
+                          <option value="">Select specialty</option>
+                          {leadSpecialtyOptions.map((s) => (
+                            <option key={s} value={s}>
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
                         <label className={labelClass}>Phone Number</label>
                         <div className="flex">
                           <select
@@ -203,33 +211,31 @@ export default function NewLeadPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>Primary Course of Interest</label>
-                        <select
-                          value={courseInterest}
-                          onChange={(e) => setCourseInterest(e.target.value)}
-                          className={inputClass}
-                        >
-                          <option value="">Select a course</option>
-                          {coursesOfInterest.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label className={labelClass}>Preferred Intake</label>
-                        <select
-                          value={preferredIntake}
-                          onChange={(e) => setPreferredIntake(e.target.value)}
-                          className={inputClass}
-                        >
-                          <option value="">Select Term</option>
-                          {INTAKE_OPTIONS.map((opt) => (
-                            <option key={opt} value={opt}>
-                              {opt}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="border border-gray-300 rounded-lg bg-white focus-within:ring-2 focus-within:ring-[var(--color-admin-primary)] focus-within:border-[var(--color-admin-primary)] max-h-40 overflow-y-auto">
+                          <div className="p-2 space-y-1.5">
+                            {coursesOfInterest.map((c) => (
+                              <label
+                                key={c}
+                                className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 rounded px-2 py-1.5 text-sm text-gray-800"
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={courseInterests.includes(c)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setCourseInterests((prev) => [...prev, c]);
+                                    } else {
+                                      setCourseInterests((prev) => prev.filter((x) => x !== c));
+                                    }
+                                  }}
+                                  className="w-4 h-4 rounded border-gray-300 text-[var(--color-admin-primary)] focus:ring-[var(--color-admin-primary)]"
+                                />
+                                <span>{c}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">Select one or more courses</p>
                       </div>
                     </div>
                   </section>

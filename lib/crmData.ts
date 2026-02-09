@@ -2,6 +2,18 @@ export type LeadStatus = 'WARM' | 'INTERESTED' | 'COLD' | 'FOLLOWING' | 'NEW';
 export type LeadSource = 'FB Campaign' | 'Direct Message' | 'FB Feed' | 'Search Ads' | 'Webinar' | 'Website';
 export type PipelineStage = 'NEW INQUIRIES' | 'CONTACTED' | 'WAITING FOR PAYMENT' | 'ENROLLED';
 
+export type LeadSpecialty = 'Doctor' | 'Dentist' | 'Pharmacist' | 'Nurse' | 'Technician' | 'Science' | 'Others';
+
+export const leadSpecialtyOptions: LeadSpecialty[] = [
+  'Doctor',
+  'Dentist',
+  'Pharmacist',
+  'Nurse',
+  'Technician',
+  'Science',
+  'Others',
+];
+
 export interface CRMLead {
   id: string;
   name: string;
@@ -15,6 +27,7 @@ export interface CRMLead {
   status: LeadStatus;
   score: number;
   lastActive: string;
+  specialty?: LeadSpecialty;
   tags: { label: string; variant: 'blue' | 'green' | 'gray' }[];
   courseInterest?: string;
   pipelineStage: PipelineStage;
@@ -56,6 +69,7 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'Web Development Bootcamp',
     pipelineStage: 'NEW INQUIRIES',
     primaryAction: 'Issue Certificate',
+    specialty: 'Doctor',
   },
   {
     id: '2',
@@ -73,6 +87,7 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'Web Design',
     pipelineStage: 'CONTACTED',
     primaryAction: 'Send Course Details',
+    specialty: 'Dentist',
   },
   {
     id: '3',
@@ -92,6 +107,7 @@ export const crmLeads: CRMLead[] = [
     primaryAction: 'Send Follow-up',
     enrollmentStatus: 'NEW DISCOVERY',
     paymentSummary: 'No payment record',
+    specialty: 'Pharmacist',
   },
   {
     id: '4',
@@ -109,6 +125,7 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'IELTS Prep',
     pipelineStage: 'CONTACTED',
     primaryAction: 'Invite to Lab',
+    specialty: 'Nurse',
   },
   {
     id: '5',
@@ -126,6 +143,7 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'Full Stack Development',
     pipelineStage: 'WAITING FOR PAYMENT',
     primaryAction: 'Send Invoice',
+    specialty: 'Technician',
   },
   {
     id: '6',
@@ -143,6 +161,7 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'Graphic Design',
     pipelineStage: 'CONTACTED',
     primaryAction: 'Follow Up',
+    specialty: 'Science',
   },
   {
     id: '7',
@@ -163,6 +182,7 @@ export const crmLeads: CRMLead[] = [
     primaryAction: 'Issue Certificate',
     enrollmentStatus: 'ENROLLED',
     paymentSummary: 'Fully Paid',
+    specialty: 'Doctor',
   },
   {
     id: '8',
@@ -183,6 +203,7 @@ export const crmLeads: CRMLead[] = [
     primaryAction: 'Record Payment',
     enrollmentStatus: 'WAITING FOR PAYMENT',
     paymentSummary: '2/3 Paid',
+    specialty: 'Others',
   },
   {
     id: '9',
@@ -202,6 +223,7 @@ export const crmLeads: CRMLead[] = [
     primaryAction: 'Record Payment',
     enrollmentStatus: 'ENROLLED',
     paymentSummary: '1/2 Paid',
+    specialty: 'Nurse',
   },
 ];
 

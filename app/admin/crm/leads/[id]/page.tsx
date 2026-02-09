@@ -1,8 +1,8 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Mail,
   Phone,
@@ -15,6 +15,7 @@ import {
   Calendar,
   ArrowLeftRight,
   CheckSquare,
+  User,
   UserX,
   Lightbulb,
   Paperclip,
@@ -22,8 +23,17 @@ import {
   Eye,
   Clock,
   Image,
+  Bell,
+  Plus,
+  Pencil,
+  X,
+  Target,
+  ThumbsDown,
+  TrendingUp,
+  Flame,
+  MessageSquare,
 } from "lucide-react";
-import { crmLeads } from "@/lib/crmData";
+import { crmLeads, leadSpecialtyOptions, type LeadSpecialty } from "@/lib/crmData";
 import { ROUTES } from "@/constants";
 import "./lead-profile.css";
 
@@ -103,15 +113,120 @@ const DOCUMENTS_MOCK = [
 const RECOMMENDED_TEXT =
   "Lead has downloaded the syllabus. Send a WhatsApp invitation for the upcoming Open House on Saturday.";
 
+type FollowUpStatus = "overdue" | "today" | "upcoming" | "done";
+
+interface FollowUp {
+  id: string;
+  date: string;
+  note: string;
+  status: FollowUpStatus;
+  createdAt: string;
+}
+
+const FOLLOW_UPS_INITIAL: FollowUp[] = [
+  {
+    id: "fu1",
+    date: "2026-02-05",
+    note: "Call back to confirm interest in Full Stack course",
+    status: "overdue",
+    createdAt: "2026-02-01",
+  },
+  {
+    id: "fu2",
+    date: "2026-02-08",
+    note: "Send enrollment link and payment options",
+    status: "today",
+    createdAt: "2026-02-06",
+  },
+  {
+    id: "fu3",
+    date: "2026-02-12",
+    note: "Follow up on document submission",
+    status: "upcoming",
+    createdAt: "2026-02-07",
+  },
+];
+
+function formatFollowUpDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export default function LeadProfilePage() {
   const params = useParams();
+  const router = useRouter();
   const id = (params?.id as string) ?? "";
   const [activeInteractionTab, setActiveInteractionTab] = useState<
     "note" | "email" | "sms"
   >("note");
   const [noteText, setNoteText] = useState("");
+  const [followUps, setFollowUps] = useState<FollowUp[]>(FOLLOW_UPS_INITIAL);
+  const [addFollowUpOpen, setAddFollowUpOpen] = useState(false);
+  const [addFollowUpDate, setAddFollowUpDate] = useState("");
+  const [addFollowUpNote, setAddFollowUpNote] = useState("");
+  const [updateLeadOpen, setUpdateLeadOpen] = useState(false);
+  const [editingFollowUpId, setEditingFollowUpId] = useState<string | null>(
+    null,
+  );
+  const [editFollowUpDate, setEditFollowUpDate] = useState("");
+  const [editFollowUpNote, setEditFollowUpNote] = useState("");
+  const [channel, setChannel] = useState<"call" | "whatsapp" | "messenger">(
+    "call",
+  );
+  type LeadStatusOption =
+    | "general lead"
+    | "out of target"
+    | "not interested"
+    | "potential"
+    | "hot"
+    | "student";
+  const [leadStatusOption, setLeadStatusOption] =
+    useState<LeadStatusOption>("potential");
+  const [specialtyDisplay, setSpecialtyDisplay] = useState<LeadSpecialty | "">(
+    "",
+  );
+  type ExtraNumberType = "phone" | "whatsapp";
+  interface ExtraNumber {
+    id: string;
+    type: ExtraNumberType;
+    number: string;
+  }
+  const [extraNumbers, setExtraNumbers] = useState<ExtraNumber[]>([]);
+  const [addingNumber, setAddingNumber] = useState<ExtraNumberType | null>(
+    null,
+  );
+  const [newNumberValue, setNewNumberValue] = useState("");
+
+  const addExtraNumber = () => {
+    const t = addingNumber;
+    const v = newNumberValue.trim();
+    if (!t || !v) return;
+    setExtraNumbers((prev) => [
+      ...prev,
+      { id: `en-${Date.now()}`, type: t, number: v },
+    ]);
+    setAddingNumber(null);
+    setNewNumberValue("");
+  };
+
+  const removeExtraNumber = (extraId: string) => {
+    setExtraNumbers((prev) => prev.filter((n) => n.id !== extraId));
+  };
+
+  const handleLeadStatusChange = (value: LeadStatusOption) => {
+    setLeadStatusOption(value);
+    if (value === "student") router.push(ROUTES.ADMIN.CRM_LEAD_ADD_TO_GROUP(id));
+  };
 
   const lead = crmLeads.find((l) => l.id === id);
+
+  useEffect(() => {
+    if (lead) setSpecialtyDisplay(lead.specialty ?? "");
+  }, [lead?.id, lead?.specialty]);
 
   if (!lead) {
     return (
@@ -126,7 +241,7 @@ export default function LeadProfilePage() {
 
   const displayId = `IMETS-2024-${String(parseInt(lead.id, 10) || 1).padStart(
     3,
-    "0"
+    "0",
   )}`;
   const courseTags =
     lead.tags?.map((t) => t.label) ??
@@ -135,6 +250,72 @@ export default function LeadProfilePage() {
     courseTags.unshift(lead.courseInterest);
   }
   const score = lead.score ?? 85;
+
+  const openAddFollowUp = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    setAddFollowUpDate(tomorrow.toISOString().slice(0, 10));
+    setAddFollowUpNote("");
+    setAddFollowUpOpen(true);
+  };
+
+  const saveAddFollowUp = () => {
+    if (!addFollowUpDate.trim()) return;
+    const today = new Date().toISOString().slice(0, 10);
+    let status: FollowUpStatus = "upcoming";
+    if (addFollowUpDate < today) status = "overdue";
+    else if (addFollowUpDate === today) status = "today";
+    setFollowUps((prev) => [
+      ...prev,
+      {
+        id: `fu-${Date.now()}`,
+        date: addFollowUpDate,
+        note: addFollowUpNote.trim() || "No note",
+        status,
+        createdAt: today,
+      },
+    ]);
+    setAddFollowUpOpen(false);
+    setAddFollowUpDate("");
+    setAddFollowUpNote("");
+  };
+
+  const openEditFollowUp = (fu: FollowUp) => {
+    setEditingFollowUpId(fu.id);
+    setEditFollowUpDate(fu.date);
+    setEditFollowUpNote(fu.note);
+  };
+
+  const saveEditFollowUp = () => {
+    if (!editingFollowUpId || !editFollowUpDate.trim()) return;
+    const today = new Date().toISOString().slice(0, 10);
+    let status: FollowUpStatus = "upcoming";
+    if (editFollowUpDate < today) status = "overdue";
+    else if (editFollowUpDate === today) status = "today";
+    setFollowUps((prev) =>
+      prev.map((f) =>
+        f.id === editingFollowUpId
+          ? {
+              ...f,
+              date: editFollowUpDate,
+              note: editFollowUpNote.trim() || f.note,
+              status,
+            }
+          : f,
+      ),
+    );
+    setEditingFollowUpId(null);
+    setEditFollowUpDate("");
+    setEditFollowUpNote("");
+  };
+
+  const markFollowUpDone = (fuId: string) => {
+    setFollowUps((prev) =>
+      prev.map((f) => (f.id === fuId ? { ...f, status: "done" as const } : f)),
+    );
+  };
+
+  const followUpsActive = followUps.filter((f) => f.status !== "done");
 
   return (
     <div className="lp-page">
@@ -154,8 +335,11 @@ export default function LeadProfilePage() {
       <div className="lp-main">
         <div className="lp-title-row">
           <h1 className="lp-lead-name">{lead.name}</h1>
-          <span className="lp-status-tag lp-status-tag-warm">
-            {lead.status} LEAD
+          <span
+            className={`lp-status-tag lp-status-tag-${leadStatusOption.replace(/\s+/g, "-")}`}
+          >
+            {leadStatusOption.charAt(0).toUpperCase() +
+              leadStatusOption.slice(1)}
           </span>
         </div>
 
@@ -199,6 +383,88 @@ export default function LeadProfilePage() {
                     {lead.phone}
                   </span>
                 </li>
+                <li className="lp-extra-numbers-li">
+                  <div className="lp-extra-numbers-block">
+                    <p className="lp-extra-numbers-title">Extra phone / WhatsApp</p>
+                    {extraNumbers.length > 0 && (
+                      <ul className="lp-extra-numbers-list">
+                        {extraNumbers.map((en) => (
+                          <li key={en.id} className="lp-extra-numbers-item">
+                            {en.type === "whatsapp" ? (
+                              <MessageCircle
+                                className="lp-extra-numbers-icon lp-extra-numbers-icon-wa"
+                                strokeWidth={2}
+                              />
+                            ) : (
+                              <Phone className="lp-extra-numbers-icon" strokeWidth={2} />
+                            )}
+                            <span className="lp-extra-numbers-value">{en.number}</span>
+                            <button
+                              type="button"
+                              className="lp-extra-numbers-remove"
+                              onClick={() => removeExtraNumber(en.id)}
+                              aria-label={`Remove ${en.type} number`}
+                            >
+                              <X className="w-3.5 h-3.5" strokeWidth={2} />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {addingNumber ? (
+                      <div className="lp-extra-numbers-add-row">
+                        <input
+                          type="tel"
+                          className="lp-extra-numbers-input"
+                          placeholder={
+                            addingNumber === "whatsapp"
+                              ? "WhatsApp number"
+                              : "Phone number"
+                          }
+                          value={newNumberValue}
+                          onChange={(e) => setNewNumberValue(e.target.value)}
+                          autoFocus
+                        />
+                        <button
+                          type="button"
+                          className="lp-extra-numbers-save"
+                          onClick={addExtraNumber}
+                        >
+                          Add
+                        </button>
+                        <button
+                          type="button"
+                          className="lp-extra-numbers-cancel"
+                          onClick={() => {
+                            setAddingNumber(null);
+                            setNewNumberValue("");
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="lp-extra-numbers-actions">
+                        <button
+                          type="button"
+                          className="lp-extra-numbers-btn"
+                          onClick={() => setAddingNumber("phone")}
+                        >
+                          <Phone className="w-4 h-4" strokeWidth={2} />
+                          Add phone
+                        </button>
+                        <button
+                          type="button"
+                          className="lp-extra-numbers-btn lp-extra-numbers-btn-wa"
+                          onClick={() => setAddingNumber("whatsapp")}
+                        >
+                          <MessageCircle className="w-4 h-4" strokeWidth={2} />
+                          Add WhatsApp
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </li>
                 {lead.location && (
                   <li>
                     <MapPin className="lp-contact-icon" strokeWidth={2} />
@@ -209,6 +475,24 @@ export default function LeadProfilePage() {
                   </li>
                 )}
               </ul>
+              <div className="lp-specialty-section">
+                <p className="lp-card-title">Specialty</p>
+                <select
+                  className="lp-specialty-select"
+                  value={specialtyDisplay}
+                  onChange={(e) =>
+                    setSpecialtyDisplay((e.target.value || "") as LeadSpecialty | "")
+                  }
+                  aria-label="Update specialty"
+                >
+                  <option value="">Select specialty</option>
+                  {leadSpecialtyOptions.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="lp-course-interest">
                 <p className="lp-card-title">Course Interest</p>
                 <div className="lp-pills">
@@ -305,6 +589,42 @@ export default function LeadProfilePage() {
                   Save Note
                 </button>
               </div>
+
+              <div className="lp-interaction-options">
+                <div className="lp-option-group">
+                  <label className="lp-option-label">Channel</label>
+                  <select
+                    className="lp-option-select"
+                    value={channel}
+                    onChange={(e) =>
+                      setChannel(
+                        e.target.value as "call" | "whatsapp" | "messenger",
+                      )
+                    }
+                  >
+                    <option value="call">Call</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="messenger">Messenger</option>
+                  </select>
+                </div>
+                <div className="lp-option-group">
+                  <label className="lp-option-label">Lead status</label>
+                  <select
+                    className="lp-option-select"
+                    value={leadStatusOption}
+                    onChange={(e) =>
+                      handleLeadStatusChange(e.target.value as LeadStatusOption)
+                    }
+                  >
+                    <option value="general lead">General lead</option>
+                    <option value="out of target">Out of target</option>
+                    <option value="not interested">Not interested</option>
+                    <option value="potential">Potential</option>
+                    <option value="hot">Hot</option>
+                    <option value="student">Student</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             {/* Activity Timeline */}
@@ -318,10 +638,10 @@ export default function LeadProfilePage() {
                         item.type === "whatsapp"
                           ? "lp-timeline-icon-green"
                           : item.type === "call"
-                          ? "lp-timeline-icon-blue"
-                          : item.type === "download"
-                          ? "lp-timeline-icon-yellow"
-                          : "lp-timeline-icon-grey"
+                            ? "lp-timeline-icon-blue"
+                            : item.type === "download"
+                              ? "lp-timeline-icon-yellow"
+                              : "lp-timeline-icon-grey"
                       }`}
                     >
                       {item.type === "whatsapp" && (
@@ -376,12 +696,115 @@ export default function LeadProfilePage() {
           {/* Right column - Actions, Documents, Recommendation */}
           <div className="lp-right">
             <div className="lp-actions-row">
-              <button type="button" className="lp-btn-edit">
-                Edit Profile
+              <button
+                type="button"
+                className="lp-btn-edit"
+                onClick={() => setUpdateLeadOpen(true)}
+              >
+                Update
               </button>
               <button type="button" className="lp-btn-convert">
                 Convert to Enrollment
               </button>
+            </div>
+
+            {/* Lead status */}
+            <div className="lp-card lp-lead-status-card" style={{ marginBottom: "24px" }}>
+              <h3 className="lp-lead-status-title">Lead status</h3>
+              <div className="lp-lead-status-current-badge-wrap">
+                <span className="lp-lead-status-label">Current status</span>
+                <span
+                  className={`lp-lead-status-badge lp-lead-status-badge-${leadStatusOption.replace(/\s+/g, "-")}`}
+                >
+                  {leadStatusOption.charAt(0).toUpperCase() + leadStatusOption.slice(1)}
+                </span>
+              </div>
+              <div className="lp-lead-status-dropdown-wrap">
+                <label className="lp-lead-status-label" htmlFor="lp-lead-status-select">
+                  Update status
+                </label>
+                <select
+                  id="lp-lead-status-select"
+                  className="lp-lead-status-select"
+                  value={leadStatusOption}
+                  onChange={(e) =>
+                    handleLeadStatusChange(e.target.value as LeadStatusOption)
+                  }
+                  aria-label="Update lead status"
+                >
+                  <option value="general lead">General lead</option>
+                  <option value="out of target">Out of target</option>
+                  <option value="not interested">Not interested</option>
+                  <option value="potential">Potential</option>
+                  <option value="hot">Hot</option>
+                  <option value="student">Student</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Follow-up alerts */}
+            <div
+              className="lp-card lp-followup-card"
+              style={{ marginBottom: "24px" }}
+            >
+              <div className="lp-followup-header">
+                <h3 className="lp-card-title">
+                  <Bell className="lp-followup-title-icon" strokeWidth={2} />
+                  Follow-up alerts
+                </h3>
+                <button
+                  type="button"
+                  className="lp-btn-add-followup"
+                  onClick={openAddFollowUp}
+                >
+                  <Plus className="w-4 h-4" strokeWidth={2} />
+                  Add follow up
+                </button>
+              </div>
+              {followUpsActive.length === 0 ? (
+                <p className="lp-followup-empty">No follow-ups scheduled.</p>
+              ) : (
+                <ul className="lp-followup-list">
+                  {followUpsActive.map((fu) => (
+                    <li key={fu.id} className="lp-followup-item">
+                      <span
+                        className={`lp-followup-badge lp-followup-badge-${fu.status}`}
+                      >
+                        {fu.status === "overdue"
+                          ? "Overdue"
+                          : fu.status === "today"
+                            ? "Today"
+                            : "Upcoming"}
+                      </span>
+                      <p className="lp-followup-date">
+                        {formatFollowUpDate(fu.date)}
+                      </p>
+                      <p className="lp-followup-note">{fu.note}</p>
+                      <div className="lp-followup-actions">
+                        <button
+                          type="button"
+                          className="lp-followup-btn-update"
+                          onClick={() => openEditFollowUp(fu)}
+                          aria-label="Update follow-up"
+                        >
+                          <Pencil className="w-3.5 h-3.5" strokeWidth={2} />
+                          Update
+                        </button>
+                        {fu.status !== "done" && (
+                          <button
+                            type="button"
+                            className="lp-followup-btn-done"
+                            onClick={() => markFollowUpDone(fu.id)}
+                            aria-label="Mark done"
+                          >
+                            Done
+                          </button>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {/* Quick Actions */}
@@ -473,6 +896,214 @@ export default function LeadProfilePage() {
           </div>
         </div>
       </div>
+
+      {/* Add follow up modal */}
+      {addFollowUpOpen && (
+        <div
+          className="lp-modal-backdrop"
+          onClick={() => setAddFollowUpOpen(false)}
+        >
+          <div
+            className="lp-modal lp-modal-followup"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="lp-modal-header">
+              <h3 className="lp-modal-title">Add follow up</h3>
+              <button
+                type="button"
+                className="lp-modal-close"
+                onClick={() => setAddFollowUpOpen(false)}
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" strokeWidth={2} />
+              </button>
+            </div>
+            <div className="lp-modal-body">
+              <label className="lp-modal-label">Follow-up date</label>
+              <input
+                type="date"
+                className="lp-modal-input"
+                value={addFollowUpDate}
+                onChange={(e) => setAddFollowUpDate(e.target.value)}
+              />
+              <label className="lp-modal-label">Note</label>
+              <textarea
+                className="lp-modal-textarea"
+                placeholder="What should you do on this follow-up?"
+                value={addFollowUpNote}
+                onChange={(e) => setAddFollowUpNote(e.target.value)}
+                rows={3}
+              />
+            </div>
+            <div className="lp-modal-footer">
+              <button
+                type="button"
+                className="lp-btn-secondary"
+                onClick={() => setAddFollowUpOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="lp-btn-save"
+                onClick={saveAddFollowUp}
+              >
+                Save follow up
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Update follow-up modal */}
+      {editingFollowUpId && (
+        <div
+          className="lp-modal-backdrop"
+          onClick={() => setEditingFollowUpId(null)}
+        >
+          <div
+            className="lp-modal lp-modal-followup"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="lp-modal-header">
+              <h3 className="lp-modal-title">Update follow-up</h3>
+              <button
+                type="button"
+                className="lp-modal-close"
+                onClick={() => setEditingFollowUpId(null)}
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" strokeWidth={2} />
+              </button>
+            </div>
+            <div className="lp-modal-body">
+              <label className="lp-modal-label">Follow-up date</label>
+              <input
+                type="date"
+                className="lp-modal-input"
+                value={editFollowUpDate}
+                onChange={(e) => setEditFollowUpDate(e.target.value)}
+              />
+              <label className="lp-modal-label">Note</label>
+              <textarea
+                className="lp-modal-textarea"
+                value={editFollowUpNote}
+                onChange={(e) => setEditFollowUpNote(e.target.value)}
+                rows={3}
+              />
+            </div>
+            <div className="lp-modal-footer">
+              <button
+                type="button"
+                className="lp-btn-secondary"
+                onClick={() => setEditingFollowUpId(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="lp-btn-save"
+                onClick={saveEditFollowUp}
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Update lead modal */}
+      {updateLeadOpen && (
+        <div
+          className="lp-modal-backdrop"
+          onClick={() => setUpdateLeadOpen(false)}
+        >
+          <div
+            className="lp-modal lp-modal-lead"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="lp-modal-header">
+              <h3 className="lp-modal-title">Update lead</h3>
+              <button
+                type="button"
+                className="lp-modal-close"
+                onClick={() => setUpdateLeadOpen(false)}
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" strokeWidth={2} />
+              </button>
+            </div>
+            <div className="lp-modal-body">
+              <label className="lp-modal-label">Name</label>
+              <input
+                type="text"
+                className="lp-modal-input"
+                defaultValue={lead.name}
+                placeholder="Full name"
+              />
+              <label className="lp-modal-label">Email</label>
+              <input
+                type="email"
+                className="lp-modal-input"
+                defaultValue={lead.email}
+                placeholder="Email"
+              />
+              <label className="lp-modal-label">Phone</label>
+              <input
+                type="tel"
+                className="lp-modal-input"
+                defaultValue={lead.phone}
+                placeholder="Phone"
+              />
+              {lead.location && (
+                <>
+                  <label className="lp-modal-label">Location</label>
+                  <input
+                    type="text"
+                    className="lp-modal-input"
+                    defaultValue={lead.location}
+                    placeholder="Location"
+                  />
+                </>
+              )}
+              <label className="lp-modal-label">Specialty</label>
+              <select
+                className="lp-modal-input"
+                value={specialtyDisplay}
+                onChange={(e) =>
+                  setSpecialtyDisplay(
+                    (e.target.value || "") as LeadSpecialty | "",
+                  )
+                }
+                aria-label="Specialty"
+              >
+                <option value="">Select specialty</option>
+                {leadSpecialtyOptions.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="lp-modal-footer">
+              <button
+                type="button"
+                className="lp-btn-secondary"
+                onClick={() => setUpdateLeadOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="lp-btn-save"
+                onClick={() => setUpdateLeadOpen(false)}
+              >
+                Update lead
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,321 @@
+/**
+ * Add student to existing group - smart page
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.atg-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding-bottom: 48px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.atg-breadcrumb {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 24px;
+}
+
+.atg-breadcrumb-nav {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.atg-breadcrumb-nav a {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.atg-breadcrumb-nav a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.atg-breadcrumb-sep {
+  margin: 0 6px;
+  color: #94a3b8;
+}
+
+.atg-breadcrumb-current {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.atg-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.atg-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.2s ease;
+}
+
+.atg-back:hover {
+  color: #2563eb;
+}
+
+.atg-back-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.atg-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.atg-intro {
+  margin: 0 0 32px 0;
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.atg-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.atg-form {
+  padding: 32px;
+}
+
+.atg-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.atg-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.atg-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.atg-input:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.atg-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.atg-field {
+  min-width: 0;
+}
+
+.atg-field .atg-input {
+  margin-bottom: 20px;
+}
+
+.atg-row .atg-field:last-child .atg-input {
+  margin-bottom: 20px;
+}
+
+.atg-section {
+  margin-bottom: 24px;
+}
+
+.atg-section .atg-label {
+  margin-bottom: 10px;
+}
+
+.atg-tabs {
+  display: flex;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+  margin-bottom: 12px;
+}
+
+.atg-tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.atg-tab:last-child {
+  border-right: none;
+}
+
+.atg-tab:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.atg-tab-active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.atg-tab-active:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+.atg-remaining-wrap {
+  margin-top: 12px;
+}
+
+.atg-remaining-wrap .atg-input {
+  margin-bottom: 0;
+}
+
+.atg-section .atg-row {
+  margin-top: 12px;
+}
+
+.atg-section .atg-row .atg-field .atg-input {
+  margin-bottom: 0;
+}
+
+.atg-upload-wrap {
+  position: relative;
+}
+
+.atg-upload-input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.atg-upload-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.atg-upload-label:hover {
+  background: #f1f5f9;
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.atg-upload-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.atg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.atg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+  text-decoration: none;
+  border: none;
+}
+
+.atg-btn-secondary {
+  color: #64748b;
+  background: #f1f5f9;
+}
+
+.atg-btn-secondary:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.atg-btn-primary {
+  color: #fff;
+  background: #2563eb;
+}
+
+.atg-btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.atg-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.atg-not-found {
+  padding: 48px 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+.atg-not-found a {
+  display: inline-block;
+  margin-top: 12px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.atg-not-found a:hover {
+  text-decoration: underline;
+}

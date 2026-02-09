@@ -25,6 +25,7 @@ import {
   crmLeads,
   assignedUsers,
   coursesOfInterest,
+  leadSpecialtyOptions,
   type CRMLead,
   type LeadStatus,
   type LeadSource,
@@ -136,6 +137,11 @@ const LEAD_SOURCE_OPTIONS: { value: string; label: string }[] = [
   { value: "Website", label: "Website" },
 ];
 
+const SPECIALTY_FILTER_OPTIONS = [
+  { value: "All Specialties", label: "All Specialties" },
+  ...leadSpecialtyOptions.map((s) => ({ value: s, label: s })),
+];
+
 export default function CRMLeadsPage() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
@@ -144,6 +150,7 @@ export default function CRMLeadsPage() {
   const [assignedTo, setAssignedTo] = useState("Everyone");
   const [courseInterestFilter, setCourseInterestFilter] =
     useState("All Courses");
+  const [specialtyFilter, setSpecialtyFilter] = useState("All Specialties");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [page, setPage] = useState(1);
@@ -173,12 +180,15 @@ export default function CRMLeadsPage() {
       const matchCourse =
         courseInterestFilter === "All Courses" ||
         lead.courseInterest === courseInterestFilter;
+      const matchSpecialty =
+        specialtyFilter === "All Specialties" ||
+        lead.specialty === specialtyFilter;
       const leadDate = parseLeadDate(lead.dateAdded);
       const matchDateFrom =
         !dateFrom || (leadDate && leadDate >= new Date(dateFrom + "T00:00:00"));
       const matchDateTo =
         !dateTo || (leadDate && leadDate <= new Date(dateTo + "T23:59:59"));
-      if (!matchStage || !matchAssigned || !matchCourse || !matchDateFrom || !matchDateTo)
+      if (!matchStage || !matchAssigned || !matchCourse || !matchSpecialty || !matchDateFrom || !matchDateTo)
         return false;
       switch (activeTab) {
         case "unassigned":
@@ -201,6 +211,7 @@ export default function CRMLeadsPage() {
     leadSourceFilter,
     assignedTo,
     courseInterestFilter,
+    specialtyFilter,
     dateFrom,
     dateTo,
   ]);
@@ -398,6 +409,24 @@ export default function CRMLeadsPage() {
             </select>
           </div>
           <div className="lm-filter-group">
+            <label className="lm-filter-label" htmlFor="lm-specialty">
+              Specialty
+            </label>
+            <select
+              id="lm-specialty"
+              className="lm-filter-select"
+              value={specialtyFilter}
+              onChange={(e) => setSpecialtyFilter(e.target.value)}
+              aria-label="Filter by specialty"
+            >
+              {SPECIALTY_FILTER_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="lm-filter-group">
             <label className="lm-filter-label" htmlFor="lm-date-from">
               Date From
             </label>
@@ -455,7 +484,7 @@ export default function CRMLeadsPage() {
                   <th>Source</th>
                   <th>Course Interest</th>
                   <th>Assigned Agent</th>
-                  <th>Last Activity</th>
+                  <th>Specialty</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -481,6 +510,9 @@ export default function CRMLeadsPage() {
                           </div>
                           <div className="lm-lead-info">
                             <p className="lm-lead-name">{lead.name}</p>
+                            {lead.phone && (
+                              <p className="lm-lead-email">{lead.phone}</p>
+                            )}
                             <p className="lm-lead-email">{lead.email}</p>
                           </div>
                         </Link>
@@ -512,7 +544,7 @@ export default function CRMLeadsPage() {
                         </div>
                       </td>
                       <td style={{ color: "#64748b", fontSize: "13px" }}>
-                        {lead.lastActive}
+                        {lead.specialty ?? "—"}
                       </td>
                       <td>
                         <span className={`lm-status ${statusDisplay.class}`}>
@@ -664,6 +696,9 @@ export default function CRMLeadsPage() {
                       </div>
                       <div className="lm-grid-card-info">
                         <p className="lm-grid-card-name">{lead.name}</p>
+                        {lead.phone && (
+                          <p className="lm-grid-card-email">{lead.phone}</p>
+                        )}
                         <p className="lm-grid-card-email">{lead.email}</p>
                       </div>
                     </div>
@@ -680,7 +715,7 @@ export default function CRMLeadsPage() {
                   </Link>
                   <div className="lm-grid-card-footer">
                     <span style={{ fontSize: 13, color: "#64748b" }}>
-                      {lead.lastActive} ·{" "}
+                      {lead.specialty ?? "—"} ·{" "}
                       {lead.assignedTo?.name || "Unassigned"}
                     </span>
                     <Link

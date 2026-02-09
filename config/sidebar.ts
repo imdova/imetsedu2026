@@ -12,9 +12,10 @@ export const adminNavItems: SidebarNavItem[] = [
   { name: "Dashboard", href: ROUTES.ADMIN.DASHBOARD, icon: "📊" },
   {
     name: "CRM",
-    href: ROUTES.ADMIN.CRM_LEADS,
+    href: ROUTES.ADMIN.CRM_LEAD_DASHBOARD,
     icon: "🤝",
     children: [
+      { name: "Lead Dashboard", href: ROUTES.ADMIN.CRM_LEAD_DASHBOARD },
       { name: "Leads", href: ROUTES.ADMIN.CRM_LEADS },
       { name: "Lead Pipeline", href: ROUTES.ADMIN.CRM_PIPELINE },
       { name: "Active Pipeline", href: ROUTES.ADMIN.CRM_ACTIVE_PIPELINE },

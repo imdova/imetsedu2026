@@ -16,9 +16,11 @@ export const ROUTES = {
   ADMIN: {
     DASHBOARD: "/admin/dashboard",
     REPORTS: "/admin/reports",
+    CRM_LEAD_DASHBOARD: "/admin/crm/dashboard",
     CRM_LEADS: "/admin/crm/leads",
     CRM_LEAD_NEW: "/admin/crm/leads/new",
     CRM_LEAD: (id: string) => `/admin/crm/leads/${id}`,
+    CRM_LEAD_ADD_TO_GROUP: (id: string) => `/admin/crm/leads/${id}/add-to-group`,
     CRM_PIPELINE: "/admin/crm/pipeline",
     CRM_ACTIVE_PIPELINE: "/admin/crm/active-pipeline",
     CRM_PAYMENTS: "/admin/crm/payments",
