@@ -523,6 +523,19 @@ export const courses: Course[] = [
 
 export const POPULAR_FILTER_TABS = ['All', 'Healthcare Quality', 'Infection Control', 'Healthcare Management', 'Doctors', 'Pharmacists'] as const;
 
+/** URL slug from category name (e.g. "Web Development" → "web-development"). */
+export function getCategorySlug(category: Category): string {
+  return category.name.toLowerCase().replace(/\s+/g, "-");
+}
+
+/** Find category by id or by URL slug (from name). */
+export function getCategoryBySlugOrId(slugOrId: string): Category | undefined {
+  const byId = categories.find((c) => c.id === slugOrId);
+  if (byId) return byId;
+  const slugLower = slugOrId.toLowerCase();
+  return categories.find((c) => getCategorySlug(c) === slugLower);
+}
+
 export function getPopularCourses(): Course[] {
   return courses.filter((c) => c.lectureCount != null && c.priceEGP != null);
 }

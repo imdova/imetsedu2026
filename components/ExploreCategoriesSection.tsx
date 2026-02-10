@@ -14,6 +14,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { Category } from "@/types/course";
+import { ROUTES } from "@/constants";
+import { getCategorySlug } from "@/lib/data";
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   "1": Code2,
@@ -62,7 +64,7 @@ export default function ExploreCategoriesSection({
             return (
               <Link
                 key={category.id}
-                href={`/courses?category=${category.id}`}
+                href={ROUTES.CATEGORY(getCategorySlug(category))}
                 className="group relative bg-white rounded-xl border border-gray-200 p-4 hover:border-[#0a47c2]/40 hover:shadow-lg hover:shadow-[#0a47c2]/5 transition-all duration-300 overflow-hidden"
               >
                 <div

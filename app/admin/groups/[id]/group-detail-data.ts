@@ -11,7 +11,16 @@ export interface EnrolledStudent {
   initials: string;
   name: string;
   studentId: string;
+  email?: string;
+  country?: string;
+  phone?: string;
   enrollmentDate: string;
+  enrolledBy?: string;
+  course?: string;
+  paidAmount?: number | string;
+  remainingAmount?: number | string;
+  nextInstallmentAmount?: number | string;
+  nextInstallmentDate?: string;
   status: StudentStatus;
 }
 
@@ -23,6 +32,7 @@ export interface GroupDetailData {
   periodStart: string;
   periodEnd: string;
   studyDays: string[];
+  createdAt: string;
   studentsEnrolled: number;
   students: EnrolledStudent[];
   assignedLms: string[];
@@ -41,6 +51,7 @@ export interface SearchableStudent {
   name: string;
   studentId: string;
   initials: string;
+  email?: string;
 }
 
 /** Available LMS courses that can be assigned to a group */
@@ -53,11 +64,11 @@ export const AVAILABLE_LMS_COURSES = [
 ] as const;
 
 export const SEARCHABLE_STUDENTS: SearchableStudent[] = [
-  { id: "pool-1", name: "Alex Johnson", studentId: "STU-9821", initials: "AJ" },
-  { id: "pool-2", name: "Maria Garcia", studentId: "STU-9822", initials: "MG" },
-  { id: "pool-3", name: "James Wilson", studentId: "STU-9825", initials: "JW" },
-  { id: "pool-4", name: "Sarah Lim", studentId: "STU-9830", initials: "SL" },
-  { id: "pool-5", name: "David Kim", studentId: "STU-9831", initials: "DK" },
+  { id: "pool-1", name: "Alex Johnson", studentId: "STU-9821", initials: "AJ", email: "alex.johnson@example.com" },
+  { id: "pool-2", name: "Maria Garcia", studentId: "STU-9822", initials: "MG", email: "maria.garcia@example.com" },
+  { id: "pool-3", name: "James Wilson", studentId: "STU-9825", initials: "JW", email: "james.wilson@example.com" },
+  { id: "pool-4", name: "Sarah Lim", studentId: "STU-9830", initials: "SL", email: "sarah.lim@example.com" },
+  { id: "pool-5", name: "David Kim", studentId: "STU-9831", initials: "DK", email: "david.kim@example.com" },
   { id: "pool-6", name: "Emma Patel", studentId: "STU-9832", initials: "EP" },
   { id: "pool-7", name: "Ryan Brown", studentId: "STU-9833", initials: "RB" },
   { id: "pool-8", name: "Olivia Lee", studentId: "STU-9834", initials: "OL" },
@@ -90,7 +101,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "AJ",
       name: "Alex Johnson",
       studentId: "STU-9821",
+      email: "alex.johnson@example.com",
+      country: "United States",
+      phone: "+1 555-0101",
       enrollmentDate: "Oct 01, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 8500,
+      remainingAmount: 2500,
+      nextInstallmentAmount: 2500,
+      nextInstallmentDate: "Feb 15, 2024",
       status: "Active",
     },
     {
@@ -98,7 +118,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "MG",
       name: "Maria Garcia",
       studentId: "STU-9822",
+      email: "maria.garcia@example.com",
+      country: "Spain",
+      phone: "+34 612 000 001",
       enrollmentDate: "Oct 05, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 11000,
+      remainingAmount: 0,
+      nextInstallmentAmount: 0,
+      nextInstallmentDate: "—",
       status: "Active",
     },
     {
@@ -106,7 +135,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "JW",
       name: "James Wilson",
       studentId: "STU-9825",
+      email: "james.wilson@example.com",
+      country: "United Kingdom",
+      phone: "+44 7700 900001",
       enrollmentDate: "Oct 12, 2023",
+      enrolledBy: "Dr. Sarah Thompson",
+      course: "Master of Business Administration",
+      paidAmount: 5500,
+      remainingAmount: 5500,
+      nextInstallmentAmount: 2750,
+      nextInstallmentDate: "Mar 01, 2024",
       status: "On Leave",
     },
     {
@@ -114,7 +152,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "SL",
       name: "Sarah Lim",
       studentId: "STU-9830",
+      email: "sarah.lim@example.com",
+      country: "Singapore",
+      phone: "+65 9123 4567",
       enrollmentDate: "Oct 15, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 11000,
+      remainingAmount: 0,
+      nextInstallmentAmount: 0,
+      nextInstallmentDate: "—",
       status: "Active",
     },
     {
@@ -122,7 +169,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "DK",
       name: "David Kim",
       studentId: "STU-9831",
+      email: "david.kim@example.com",
+      country: "South Korea",
+      phone: "+82 10-1234-5678",
       enrollmentDate: "Oct 18, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 5500,
+      remainingAmount: 5500,
+      nextInstallmentAmount: 2750,
+      nextInstallmentDate: "Feb 28, 2024",
       status: "Active",
     },
     {
@@ -130,7 +186,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "EP",
       name: "Emma Patel",
       studentId: "STU-9832",
+      email: "emma.patel@example.com",
+      country: "India",
+      phone: "+91 98765 43210",
       enrollmentDate: "Oct 20, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 8250,
+      remainingAmount: 2750,
+      nextInstallmentAmount: 2750,
+      nextInstallmentDate: "Mar 15, 2024",
       status: "Active",
     },
     {
@@ -138,7 +203,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "RB",
       name: "Ryan Brown",
       studentId: "STU-9833",
+      email: "ryan.brown@example.com",
+      country: "Canada",
+      phone: "+1 555-0107",
       enrollmentDate: "Oct 22, 2023",
+      enrolledBy: "Admin User",
+      course: "Master of Business Administration",
+      paidAmount: 11000,
+      remainingAmount: 0,
+      nextInstallmentAmount: 0,
+      nextInstallmentDate: "—",
       status: "Active",
     },
     {
@@ -146,7 +220,16 @@ const enrolledStudentsByGroup: Record<string, EnrolledStudent[]> = {
       initials: "OL",
       name: "Olivia Lee",
       studentId: "STU-9834",
+      email: "olivia.lee@example.com",
+      country: "Australia",
+      phone: "+61 412 345 678",
       enrollmentDate: "Oct 25, 2023",
+      enrolledBy: "Dr. Sarah Thompson",
+      course: "Master of Business Administration",
+      paidAmount: 5500,
+      remainingAmount: 5500,
+      nextInstallmentAmount: 2750,
+      nextInstallmentDate: "Apr 01, 2024",
       status: "On Leave",
     },
     {
@@ -355,6 +438,7 @@ export function getGroupDetail(id: string): GroupDetailData | null {
     periodStart: group.periodStart,
     periodEnd: group.periodEnd,
     studyDays: group.studyDays ?? [],
+    createdAt: group.createdAt ?? "",
     studentsEnrolled:
       students.length > 0 ? students.length : group.studentsCurrent,
     students,

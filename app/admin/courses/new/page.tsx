@@ -445,7 +445,7 @@ export default function CreateCoursePage() {
                           </div>
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                              Course Type
+                              Program type
                             </label>
                             <select
                               name="courseType"
@@ -453,7 +453,7 @@ export default function CreateCoursePage() {
                               onChange={handleInputChange}
                               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             >
-                              <option value="">Select type</option>
+                              <option value="">Select program type</option>
                               {COURSE_TYPES.map((t) => (
                                 <option key={t} value={t}>
                                   {t}
@@ -468,7 +468,7 @@ export default function CreateCoursePage() {
                             Attendance Mode
                           </label>
                           <div className="flex flex-wrap gap-2 mt-1.5">
-                            {["Online", "In-person", "Hybrid"].map((mode) => (
+                            {["Online-live", "Offline", "Hybrid", "Recorded"].map((mode) => (
                               <button
                                 key={mode}
                                 type="button"

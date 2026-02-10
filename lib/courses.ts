@@ -4,6 +4,13 @@ import { courses, getPopularCourses, getRelevantCourses } from "./data";
 export { getPopularCourses, getRelevantCourses };
 export { courses } from "./data";
 
+/** Courses that belong to the given category name (e.g. "Web Development"). */
+export function getCoursesByCategoryName(categoryName: string): Course[] {
+  return courses.filter(
+    (c) => c.category.toLowerCase() === categoryName.toLowerCase()
+  );
+}
+
 /** Courses sorted by student count (bestsellers), limited to `limit`. */
 export function getBestsellers(limit = 3): Course[] {
   return [...courses]

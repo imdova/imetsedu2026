@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense, useEffect } from "react";
+import { useState, useMemo, Suspense, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -28,6 +28,20 @@ import {
 } from "@/lib/courseSettingsData";
 import "./course-settings-variables.css";
 
+function reorderByRank<T extends { id: string; rank: number }>(
+  list: T[],
+  draggedId: string,
+  targetId: string
+): T[] {
+  const fromIdx = list.findIndex((x) => x.id === draggedId);
+  const toIdx = list.findIndex((x) => x.id === targetId);
+  if (fromIdx === -1 || toIdx === -1 || fromIdx === toIdx) return list;
+  const next = list.slice();
+  const [removed] = next.splice(fromIdx, 1);
+  next.splice(toIdx, 0, removed);
+  return next.map((item, i) => ({ ...item, rank: i + 1 }));
+}
+
 type TabId = "categories" | "sub-categories" | "tags" | "variables";
 
 const TABS: { id: TabId; label: string }[] = [
@@ -49,6 +63,12 @@ function CourseSettingsContent() {
   const tabParam = searchParams.get("tab") as TabId | null;
   const tab: TabId =
     tabParam && TABS.some((t) => t.id === tabParam) ? tabParam : "categories";
+  const [categoriesOrdered, setCategoriesOrdered] = useState<CategoryRecord[]>(
+    () => [...courseSettingsCategories]
+  );
+  const [subCategoriesOrdered, setSubCategoriesOrdered] = useState<
+    SubCategoryRecord[]
+  >(() => [...courseSettingsSubCategories]);
   const [categorySearch, setCategorySearch] = useState("");
   const [subCategorySearch, setSubCategorySearch] = useState("");
   const [tagSearch, setTagSearch] = useState("");
@@ -58,6 +78,104 @@ function CourseSettingsContent() {
   const [tagColor, setTagColor] = useState("#3b82f6");
   const [tagsPerPage, setTagsPerPage] = useState(20);
   const [tagsPage, setTagsPage] = useState(1);
+  const [draggedCategoryId, setDraggedCategoryId] = useState<string | null>(
+    null
+  );
+  const [draggedSubCategoryId, setDraggedSubCategoryId] = useState<string | null>(
+    null
+  );
+  const [dropTargetCategoryId, setDropTargetCategoryId] = useState<string | null>(
+    null
+  );
+  const [dropTargetSubCategoryId, setDropTargetSubCategoryId] = useState<
+    string | null
+  >(null);
+
+  const handleCategoryDragStart = useCallback(
+    (e: React.DragEvent, id: string) => {
+      const cell = (e.target as HTMLElement).closest("td");
+      if (!cell || cell.cellIndex !== 0) {
+        e.preventDefault();
+        return;
+      }
+      setDraggedCategoryId(id);
+      e.dataTransfer.setData("text/plain", id);
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("application/x-category-id", id);
+    },
+    []
+  );
+  const handleCategoryDragEnd = useCallback(() => {
+    setDraggedCategoryId(null);
+    setDropTargetCategoryId(null);
+  }, []);
+  const handleCategoryDragOver = useCallback(
+    (e: React.DragEvent, id: string) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      if (draggedCategoryId && draggedCategoryId !== id)
+        setDropTargetCategoryId(id);
+    },
+    [draggedCategoryId]
+  );
+  const handleCategoryDragLeave = useCallback(() => {
+    setDropTargetCategoryId(null);
+  }, []);
+  const handleCategoryDrop = useCallback(
+    (e: React.DragEvent, targetId: string) => {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("application/x-category-id");
+      if (id && id !== targetId) {
+        setCategoriesOrdered((prev) => reorderByRank(prev, id, targetId));
+      }
+      setDraggedCategoryId(null);
+      setDropTargetCategoryId(null);
+    },
+    []
+  );
+
+  const handleSubCategoryDragStart = useCallback(
+    (e: React.DragEvent, id: string) => {
+      const cell = (e.target as HTMLElement).closest("td");
+      if (!cell || cell.cellIndex !== 0) {
+        e.preventDefault();
+        return;
+      }
+      setDraggedSubCategoryId(id);
+      e.dataTransfer.setData("text/plain", id);
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("application/x-subcategory-id", id);
+    },
+    []
+  );
+  const handleSubCategoryDragEnd = useCallback(() => {
+    setDraggedSubCategoryId(null);
+    setDropTargetSubCategoryId(null);
+  }, []);
+  const handleSubCategoryDragOver = useCallback(
+    (e: React.DragEvent, id: string) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      if (draggedSubCategoryId && draggedSubCategoryId !== id)
+        setDropTargetSubCategoryId(id);
+    },
+    [draggedSubCategoryId]
+  );
+  const handleSubCategoryDragLeave = useCallback(() => {
+    setDropTargetSubCategoryId(null);
+  }, []);
+  const handleSubCategoryDrop = useCallback(
+    (e: React.DragEvent, targetId: string) => {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("application/x-subcategory-id");
+      if (id && id !== targetId) {
+        setSubCategoriesOrdered((prev) => reorderByRank(prev, id, targetId));
+      }
+      setDraggedSubCategoryId(null);
+      setDropTargetSubCategoryId(null);
+    },
+    []
+  );
 
   const [selectedVariableId, setSelectedVariableId] = useState(
     courseSettingsVariables[0]?.id ?? ""
@@ -92,17 +210,17 @@ function CourseSettingsContent() {
 
   const filteredCategories = useMemo(
     () =>
-      courseSettingsCategories.filter((c) =>
+      categoriesOrdered.filter((c) =>
         c.name.toLowerCase().includes(categorySearch.toLowerCase())
       ),
-    [categorySearch]
+    [categoriesOrdered, categorySearch]
   );
   const filteredSubCategories = useMemo(
     () =>
-      courseSettingsSubCategories.filter((s) =>
+      subCategoriesOrdered.filter((s) =>
         s.name.toLowerCase().includes(subCategorySearch.toLowerCase())
       ),
-    [subCategorySearch]
+    [subCategoriesOrdered, subCategorySearch]
   );
   const filteredTags = useMemo(
     () =>
@@ -200,6 +318,9 @@ function CourseSettingsContent() {
                 Search
               </button>
             </div>
+            <p className="text-sm text-gray-500 mb-3">
+              Drag rows by the grip icon to reorder. Rank updates automatically.
+            </p>
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
               <table className="w-full text-left">
                 <thead className="bg-gray-50 border-b border-gray-200">
@@ -229,7 +350,17 @@ function CourseSettingsContent() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredCategories.map((c) => (
-                    <CategoryRow key={c.id} category={c} />
+                    <CategoryRow
+                      key={c.id}
+                      category={c}
+                      isDragging={draggedCategoryId === c.id}
+                      isDropTarget={dropTargetCategoryId === c.id}
+                      onDragStart={handleCategoryDragStart}
+                      onDragEnd={handleCategoryDragEnd}
+                      onDragOver={handleCategoryDragOver}
+                      onDragLeave={handleCategoryDragLeave}
+                      onDrop={handleCategoryDrop}
+                    />
                   ))}
                 </tbody>
               </table>
@@ -285,6 +416,9 @@ function CourseSettingsContent() {
                 Search
               </button>
             </div>
+            <p className="text-sm text-gray-500 mb-3">
+              Drag rows by the grip icon to reorder. Rank updates automatically.
+            </p>
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
               <table className="w-full text-left">
                 <thead className="bg-gray-50 border-b border-gray-200">
@@ -317,7 +451,17 @@ function CourseSettingsContent() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredSubCategories.map((s) => (
-                    <SubCategoryRow key={s.id} subCategory={s} />
+                    <SubCategoryRow
+                      key={s.id}
+                      subCategory={s}
+                      isDragging={draggedSubCategoryId === s.id}
+                      isDropTarget={dropTargetSubCategoryId === s.id}
+                      onDragStart={handleSubCategoryDragStart}
+                      onDragEnd={handleSubCategoryDragEnd}
+                      onDragOver={handleSubCategoryDragOver}
+                      onDragLeave={handleSubCategoryDragLeave}
+                      onDrop={handleSubCategoryDrop}
+                    />
                   ))}
                 </tbody>
               </table>
@@ -667,18 +811,48 @@ export default function CourseSettingsPage() {
   );
 }
 
-function CategoryRow({ category }: { category: CategoryRecord }) {
+type CategoryRowDndProps = {
+  category: CategoryRecord;
+  isDragging?: boolean;
+  isDropTarget?: boolean;
+  onDragStart: (e: React.DragEvent, id: string) => void;
+  onDragEnd: () => void;
+  onDragOver: (e: React.DragEvent, id: string) => void;
+  onDragLeave: () => void;
+  onDrop: (e: React.DragEvent, id: string) => void;
+};
+
+function CategoryRow({
+  category,
+  isDragging,
+  isDropTarget,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDragLeave,
+  onDrop,
+}: CategoryRowDndProps) {
   const [status, setStatus] = useState(category.status);
   return (
-    <tr className="hover:bg-gray-50/50">
+    <tr
+      className={`hover:bg-gray-50/50 transition-colors ${
+        isDragging ? "opacity-50 bg-gray-100" : ""
+      } ${isDropTarget ? "ring-2 ring-inset ring-admin-primary bg-admin-primary/5" : ""}`}
+      draggable
+      onDragStart={(e) => onDragStart(e, category.id)}
+      onDragEnd={onDragEnd}
+      onDragOver={(e) => onDragOver(e, category.id)}
+      onDragLeave={onDragLeave}
+      onDrop={(e) => onDrop(e, category.id)}
+    >
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="p-1 text-gray-400 hover:text-gray-600 rounded"
+          <span
+            className="p-1 text-gray-400 hover:text-gray-600 rounded cursor-grab active:cursor-grabbing"
+            aria-hidden
           >
             <GripVertical className="h-4 w-4" strokeWidth={2} />
-          </button>
+          </span>
           <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-semibold text-sm">
             {category.name.slice(0, 2).toUpperCase()}
           </div>
@@ -744,18 +918,48 @@ function CategoryRow({ category }: { category: CategoryRecord }) {
   );
 }
 
-function SubCategoryRow({ subCategory }: { subCategory: SubCategoryRecord }) {
+type SubCategoryRowDndProps = {
+  subCategory: SubCategoryRecord;
+  isDragging?: boolean;
+  isDropTarget?: boolean;
+  onDragStart: (e: React.DragEvent, id: string) => void;
+  onDragEnd: () => void;
+  onDragOver: (e: React.DragEvent, id: string) => void;
+  onDragLeave: () => void;
+  onDrop: (e: React.DragEvent, id: string) => void;
+};
+
+function SubCategoryRow({
+  subCategory,
+  isDragging,
+  isDropTarget,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDragLeave,
+  onDrop,
+}: SubCategoryRowDndProps) {
   const [status, setStatus] = useState(subCategory.status);
   return (
-    <tr className="hover:bg-gray-50/50">
+    <tr
+      className={`hover:bg-gray-50/50 transition-colors ${
+        isDragging ? "opacity-50 bg-gray-100" : ""
+      } ${isDropTarget ? "ring-2 ring-inset ring-admin-primary bg-admin-primary/5" : ""}`}
+      draggable
+      onDragStart={(e) => onDragStart(e, subCategory.id)}
+      onDragEnd={onDragEnd}
+      onDragOver={(e) => onDragOver(e, subCategory.id)}
+      onDragLeave={onDragLeave}
+      onDrop={(e) => onDrop(e, subCategory.id)}
+    >
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="p-1 text-gray-400 hover:text-gray-600 rounded"
+          <span
+            className="p-1 text-gray-400 hover:text-gray-600 rounded cursor-grab active:cursor-grabbing"
+            aria-hidden
           >
             <GripVertical className="h-4 w-4" strokeWidth={2} />
-          </button>
+          </span>
           <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-semibold text-xs">
             {subCategory.name.slice(0, 2).toUpperCase()}
           </div>

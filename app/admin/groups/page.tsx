@@ -16,6 +16,7 @@ import {
   Pencil,
   Copy,
   Trash2,
+  Search,
 } from "lucide-react";
 import {
   groupsSummary,
@@ -26,19 +27,25 @@ import {
 const PER_PAGE = 4;
 
 export default function GroupsManagementPage() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [courseCategory, setCourseCategory] = useState("All");
   const [subCategory, setSubCategory] = useState("All");
   const [page, setPage] = useState(1);
 
   const filteredGroups = useMemo(() => {
     return groupsList.filter((g) => {
+      const matchSearch =
+        !searchQuery.trim() ||
+        g.groupName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        g.courseTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        g.instructorName.toLowerCase().includes(searchQuery.toLowerCase());
       const matchCategory =
         courseCategory === "All" || g.category === courseCategory;
       const matchSubCategory =
         subCategory === "All" || g.subCategory === subCategory;
-      return matchCategory && matchSubCategory;
+      return matchSearch && matchCategory && matchSubCategory;
     });
-  }, [courseCategory, subCategory]);
+  }, [searchQuery, courseCategory, subCategory]);
 
   const totalPages = Math.ceil(filteredGroups.length / PER_PAGE) || 1;
   const currentPage = Math.min(page, totalPages);
@@ -81,9 +88,23 @@ export default function GroupsManagementPage() {
           </Link>
         </div>
 
-        {/* Filters */}
+        {/* Search + Filters */}
         <div className="gm-filter-card">
           <div className="gm-filter-row">
+            <div className="gm-search-wrap">
+              <Search className="gm-search-icon" strokeWidth={2} />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setPage(1);
+                }}
+                placeholder="Search groups, course, instructor..."
+                className="gm-search-input"
+                aria-label="Search groups"
+              />
+            </div>
             <div className="gm-select-wrap">
               <GraduationCap className="gm-select-icon" strokeWidth={2} />
               <select
@@ -129,6 +150,7 @@ export default function GroupsManagementPage() {
                   <th>Period</th>
                   <th>Study Days</th>
                   <th>Created At</th>
+                  <th>Students</th>
                   <th>Instructor</th>
                   <th>Assigned LMS</th>
                   <th>Status</th>
@@ -257,6 +279,9 @@ function GroupRow({ group }: { group: GroupRow }) {
       </td>
       <td className="gm-study-days">{group.studyDays.join(", ")}</td>
       <td className="gm-created-at">{group.createdAt}</td>
+      <td className="gm-students">
+        {group.studentsCurrent}/{group.studentsMax}
+      </td>
       <td>
         <div className="gm-instructor">
           <div className="gm-instructor-avatar">{group.instructorInitials}</div>

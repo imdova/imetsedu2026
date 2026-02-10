@@ -8,6 +8,7 @@ export const ROUTES = {
   CONTACT: "/contact",
   COURSES: "/courses",
   COURSE_DETAIL: (id: string) => `/courses/${id}`,
+  CATEGORY: (slug: string) => `/category/${slug}`,
   SEARCH: "/search",
   LOGIN: "/login",
   SIGNUP: "/signup",
