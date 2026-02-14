@@ -34,13 +34,13 @@ export default function StudentSettingsPage() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="flex items-center gap-4 p-4 rounded-xl border border-gray-200 bg-white hover:border-[var(--color-primary)] hover:shadow-sm transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl border border-gray-200 bg-white hover:border-primary hover:shadow-sm transition-all group"
               >
-                <div className="w-10 h-10 rounded-lg bg-[var(--color-primary-muted)] text-[var(--color-primary)] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-primary/70 text-primary flex items-center justify-center shrink-0">
                   <Icon className="w-5 h-5" strokeWidth={2} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h2 className="font-semibold text-gray-900 group-hover:text-[var(--color-primary)] transition-colors">
+                  <h2 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
                     {item.title}
                   </h2>
                   <p className="text-sm text-gray-500 mt-0.5">
@@ -48,7 +48,7 @@ export default function StudentSettingsPage() {
                   </p>
                 </div>
                 <ChevronRight
-                  className="w-5 h-5 text-gray-400 group-hover:text-[var(--color-primary)] flex-shrink-0"
+                  className="w-5 h-5 text-gray-400 group-hover:text-primary shrink-0"
                   strokeWidth={2}
                 />
               </Link>

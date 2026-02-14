@@ -210,7 +210,7 @@ export default function RecordPaymentModal({
                   value={amountInput}
                   onChange={handleAmountChange}
                   placeholder="$ 0.00"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
 
@@ -222,7 +222,7 @@ export default function RecordPaymentModal({
                   <select
                     value={selectedOption.value}
                     onChange={handleInstallmentChange}
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary pr-10"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-10"
                   >
                     {installmentOptions.map((o) => (
                       <option key={o.value} value={o.value}>
@@ -262,14 +262,14 @@ export default function RecordPaymentModal({
                         onClick={() => setPaymentMethod(m.id)}
                         className={`flex-1 flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${
                           selected
-                            ? "border-admin-primary bg-admin-primary/5"
+                            ? "border-primary bg-primary/5"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
                         <span
                           className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl ${
                             selected
-                              ? "bg-admin-primary text-white"
+                              ? "bg-primary text-white"
                               : "bg-gray-100 text-gray-600"
                           }`}
                         >
@@ -277,7 +277,7 @@ export default function RecordPaymentModal({
                         </span>
                         <span
                           className={`text-sm font-semibold ${
-                            selected ? "text-admin-primary" : "text-gray-700"
+                            selected ? "text-primary" : "text-gray-700"
                           }`}
                         >
                           {m.label}
@@ -297,7 +297,7 @@ export default function RecordPaymentModal({
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Add any transaction details..."
                   rows={3}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary placeholder:text-gray-400"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-gray-400"
                 />
               </div>
             </div>
@@ -309,8 +309,8 @@ export default function RecordPaymentModal({
               </p>
               <div className="bg-gray-50 rounded-xl border border-gray-200 p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-admin-primary font-bold text-lg flex items-center gap-2">
-                    <span className="w-8 h-8 rounded bg-admin-primary text-white flex items-center justify-center text-sm font-bold">
+                  <span className="text-primary font-bold text-lg flex items-center gap-2">
+                    <span className="w-8 h-8 rounded bg-primary text-white flex items-center justify-center text-sm font-bold">
                       I
                     </span>
                     IMETS school of business
@@ -359,7 +359,7 @@ export default function RecordPaymentModal({
                 </div>
                 <div className="bg-gray-200/60 rounded-lg px-4 py-3 flex justify-between items-center">
                   <span className="font-bold text-gray-900">TOTAL PAID</span>
-                  <span className="font-bold text-admin-primary text-lg">
+                  <span className="font-bold text-primary text-lg">
                     {formatCurrency(amount)}
                   </span>
                 </div>
@@ -401,7 +401,7 @@ export default function RecordPaymentModal({
               aria-checked={whatsApp}
               onClick={() => setWhatsApp(!whatsApp)}
               className={`relative w-11 h-6 rounded-full transition-colors ${
-                whatsApp ? "bg-admin-primary" : "bg-gray-300"
+                whatsApp ? "bg-primary" : "bg-gray-300"
               }`}
             >
               <span
@@ -430,7 +430,7 @@ export default function RecordPaymentModal({
             <button
               type="button"
               onClick={handleConfirm}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-admin-primary text-white font-semibold rounded-lg hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
             >
               <svg
                 className="w-4 h-4"

@@ -258,7 +258,7 @@ function CourseSettingsContent() {
                 href={`/admin/courses/settings?tab=${t.id}`}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   tab === t.id
-                    ? "text-admin-primary border-b-2 border-admin-primary bg-admin-primary/5"
+                    ? "text-primary border-b-2 border-primary bg-primary/5"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
               >
@@ -275,7 +275,7 @@ function CourseSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-admin-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredCategories.length}
                 </span>
               </h2>
@@ -289,7 +289,7 @@ function CourseSettingsContent() {
                 </button>
                 <Link
                   href="/admin/courses/settings/categories/new"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Plus className="h-4 w-4" strokeWidth={2} />
                   Add New
@@ -307,12 +307,12 @@ function CourseSettingsContent() {
                   placeholder="Search by name..."
                   value={categorySearch}
                   onChange={(e) => setCategorySearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 <Search className="h-4 w-4" strokeWidth={2} />
                 Search
@@ -373,7 +373,7 @@ function CourseSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Sub Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-admin-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredSubCategories.length}
                 </span>
               </h2>
@@ -387,7 +387,7 @@ function CourseSettingsContent() {
                 </button>
                 <Link
                   href="/admin/courses/settings/sub-categories/new"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   <Plus className="h-4 w-4" strokeWidth={2} />
                   Add New
@@ -405,12 +405,12 @@ function CourseSettingsContent() {
                   placeholder="Search by name..."
                   value={subCategorySearch}
                   onChange={(e) => setSubCategorySearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 <Search className="h-4 w-4" strokeWidth={2} />
                 Search
@@ -494,7 +494,7 @@ function CourseSettingsContent() {
                             setTagSlug(slugFromName(e.target.value));
                         }}
                         placeholder="e.g., Advanced, Beginner Friendly"
-                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                     </div>
                     <div>
@@ -506,7 +506,7 @@ function CourseSettingsContent() {
                         value={tagSlug}
                         onChange={(e) => setTagSlug(e.target.value)}
                         placeholder="e.g., advanced"
-                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                     </div>
                     <div>
@@ -518,7 +518,7 @@ function CourseSettingsContent() {
                         value={tagDescription}
                         onChange={(e) => setTagDescription(e.target.value)}
                         placeholder="Brief description of this tag"
-                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                     </div>
                     <div>
@@ -559,7 +559,7 @@ function CourseSettingsContent() {
                     </div>
                     <button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
                     >
                       <Plus className="h-4 w-4" strokeWidth={2} />
                       Add Tag
@@ -594,7 +594,7 @@ function CourseSettingsContent() {
                       placeholder="Search tags..."
                       value={tagSearch}
                       onChange={(e) => setTagSearch(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                   </div>
                 </div>
@@ -638,7 +638,7 @@ function CourseSettingsContent() {
                         setTagsPerPage(Number(e.target.value));
                         setTagsPage(1);
                       }}
-                      className="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                      className="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     >
                       <option value={10}>10</option>
                       <option value={20}>20</option>
@@ -837,7 +837,7 @@ function CategoryRow({
     <tr
       className={`hover:bg-gray-50/50 transition-colors ${
         isDragging ? "opacity-50 bg-gray-100" : ""
-      } ${isDropTarget ? "ring-2 ring-inset ring-admin-primary bg-admin-primary/5" : ""}`}
+      } ${isDropTarget ? "ring-2 ring-inset ring-primary bg-primary/5" : ""}`}
       draggable
       onDragStart={(e) => onDragStart(e, category.id)}
       onDragEnd={onDragEnd}
@@ -877,8 +877,8 @@ function CategoryRow({
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-2 ${
-            status === "Active" ? "bg-admin-primary" : "bg-gray-200"
+          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+            status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >
           <span
@@ -944,7 +944,7 @@ function SubCategoryRow({
     <tr
       className={`hover:bg-gray-50/50 transition-colors ${
         isDragging ? "opacity-50 bg-gray-100" : ""
-      } ${isDropTarget ? "ring-2 ring-inset ring-admin-primary bg-admin-primary/5" : ""}`}
+      } ${isDropTarget ? "ring-2 ring-inset ring-primary bg-primary/5" : ""}`}
       draggable
       onDragStart={(e) => onDragStart(e, subCategory.id)}
       onDragEnd={onDragEnd}
@@ -989,8 +989,8 @@ function SubCategoryRow({
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-2 ${
-            status === "Active" ? "bg-admin-primary" : "bg-gray-200"
+          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+            status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >
           <span
@@ -1053,8 +1053,8 @@ function TagRow({ tag }: { tag: TagRecord }) {
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-2 ${
-            status === "Active" ? "bg-admin-primary" : "bg-gray-200"
+          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+            status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >
           <span

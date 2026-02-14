@@ -134,7 +134,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-primary-hover mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
+        <div className="border-t border-primary/90 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
           <p>&copy; 2024 IMETS School of Business. All rights reserved.</p>
         </div>
       </Container>

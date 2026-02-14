@@ -227,7 +227,7 @@ export default function PaymentMethodsPage() {
           <div className="pm-sidebar-card">
             <h3 className="pm-sidebar-title">
               <Shield
-                className="w-5 h-5 text-[var(--color-primary)]"
+                className="w-5 h-5 text-primary"
                 strokeWidth={2}
               />
               Payment Security
@@ -257,7 +257,7 @@ export default function PaymentMethodsPage() {
           <div className="pm-sidebar-card">
             <h3 className="pm-sidebar-title">
               <MapPin
-                className="w-5 h-5 text-[var(--color-primary)]"
+                className="w-5 h-5 text-primary"
                 strokeWidth={2}
               />
               Billing Address

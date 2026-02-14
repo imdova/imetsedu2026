@@ -84,7 +84,7 @@ export default function AdminCertificatesPage() {
                 placeholder="Search certificates..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
             <button
@@ -104,7 +104,7 @@ export default function AdminCertificatesPage() {
             </Link>
             <Link
               href="/admin/certificates/design"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               <Plus className="h-4 w-4" strokeWidth={2} />
               Design New Template
@@ -129,9 +129,9 @@ export default function AdminCertificatesPage() {
                   +{certificateSummary.totalIssuedChange}%
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-admin-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <FileText
-                  className="h-5 w-5 text-admin-primary"
+                  className="h-5 w-5 text-primary"
                   strokeWidth={2}
                 />
               </div>
@@ -191,7 +191,7 @@ export default function AdminCertificatesPage() {
               <select
                 value={courseFilter}
                 onChange={(e) => setCourseFilter(e.target.value)}
-                className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary appearance-none"
+                className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
               >
                 {certificateCourses.map((c) => (
                   <option key={c} value={c}>
@@ -307,7 +307,7 @@ export default function AdminCertificatesPage() {
                     onClick={() => setPage(p)}
                     className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                       page === p
-                        ? "bg-admin-primary text-white border border-admin-primary"
+                        ? "bg-primary text-white border border-primary"
                         : "border border-gray-300 text-gray-700 hover:bg-white"
                     }`}
                   >
@@ -321,7 +321,7 @@ export default function AdminCertificatesPage() {
                     onClick={() => setPage(1)}
                     className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                       page === 1
-                        ? "bg-admin-primary text-white border border-admin-primary"
+                        ? "bg-primary text-white border border-primary"
                         : "border border-gray-300 text-gray-700 hover:bg-white"
                     }`}
                   >
@@ -341,7 +341,7 @@ export default function AdminCertificatesPage() {
                         onClick={() => setPage(p)}
                         className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                           page === p
-                            ? "bg-admin-primary text-white border border-admin-primary"
+                            ? "bg-primary text-white border border-primary"
                             : "border border-gray-300 text-gray-700 hover:bg-white"
                         }`}
                       >
@@ -358,7 +358,7 @@ export default function AdminCertificatesPage() {
                     onClick={() => setPage(totalPages)}
                     className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                       page === totalPages
-                        ? "bg-admin-primary text-white border border-admin-primary"
+                        ? "bg-primary text-white border border-primary"
                         : "border border-gray-300 text-gray-700 hover:bg-white"
                     }`}
                   >
@@ -380,10 +380,10 @@ export default function AdminCertificatesPage() {
 
         {/* Bottom info sections */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 rounded-xl bg-admin-primary/5 border border-admin-primary/20 p-4">
+          <div className="lg:col-span-2 rounded-xl bg-primary/5 border border-primary/20 p-4">
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-lg bg-admin-primary/10 flex items-center justify-center shrink-0">
-                <Info className="h-4 w-4 text-admin-primary" strokeWidth={2} />
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <Info className="h-4 w-4 text-primary" strokeWidth={2} />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">
@@ -422,7 +422,7 @@ function CertificateRow({
       <td className="px-6 py-4">
         <button
           type="button"
-          className="text-admin-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-1 rounded"
+          className="text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 rounded"
         >
           #{cert.certificateId}
         </button>

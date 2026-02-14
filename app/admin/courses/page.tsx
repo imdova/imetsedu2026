@@ -303,7 +303,7 @@ export default function AdminCoursesPage() {
         <div className="p-5 border-b border-gray-100 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-bold text-gray-900">All Courses</h2>
-            <span className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-admin-primary text-white text-sm font-semibold">
+            <span className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
               {filteredCourses.length}
             </span>
           </div>
@@ -339,7 +339,7 @@ export default function AdminCoursesPage() {
             <button
               type="button"
               onClick={handleDownload}
-              className="inline-flex items-center gap-2 px-4 py-2 border-2 border-admin-primary text-gray-900 rounded-lg font-medium text-sm hover:bg-admin-primary/5 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 border-2 border-primary text-gray-900 rounded-lg font-medium text-sm hover:bg-primary/5 transition-colors"
             >
               <svg
                 className="w-4 h-4"
@@ -358,7 +358,7 @@ export default function AdminCoursesPage() {
             </button>
             <Link
               href="/admin/courses/new"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
@@ -392,13 +392,13 @@ export default function AdminCoursesPage() {
                 placeholder="Search by name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
             <select
               value={mainCategory}
               onChange={(e) => setMainCategory(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary min-w-[140px]"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary min-w-[140px]"
             >
               <option value="all">Main Category</option>
               {categories
@@ -412,7 +412,7 @@ export default function AdminCoursesPage() {
             <select
               value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary min-w-[140px]"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary min-w-[140px]"
             >
               <option value="all">Sub Category</option>
               {subCategories
@@ -426,7 +426,7 @@ export default function AdminCoursesPage() {
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary min-w-[130px]"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary min-w-[130px]"
             >
               <option value="all">Date Range</option>
               <option value="7">Last 7 days</option>
@@ -436,7 +436,7 @@ export default function AdminCoursesPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary min-w-[130px]"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary min-w-[130px]"
             >
               <option value="all">All statuses</option>
               <option value="active">Active</option>
@@ -468,7 +468,7 @@ export default function AdminCoursesPage() {
                       <div className="absolute top-2 right-2 flex items-center gap-0.5 bg-white/90 rounded-lg shadow-sm p-1">
                         <Link
                           href={ROUTES.ADMIN.COURSE(course.id)}
-                          className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
+                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
                           title="View"
                         >
                           <svg
@@ -481,7 +481,7 @@ export default function AdminCoursesPage() {
                         </Link>
                         <Link
                           href={ROUTES.ADMIN.COURSE_EDIT(course.id)}
-                          className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
+                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
                           title="Edit"
                         >
                           <svg
@@ -566,7 +566,7 @@ export default function AdminCoursesPage() {
                           onChange={(e) =>
                             handlePriceChange(course.id, e.target.value)
                           }
-                          className="flex-1 min-w-0 px-2 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                          className="flex-1 min-w-0 px-2 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                       </div>
                       <div className="flex items-center gap-2 flex-wrap">
@@ -582,7 +582,7 @@ export default function AdminCoursesPage() {
                           onChange={(e) =>
                             handleDiscountChange(course.id, e.target.value)
                           }
-                          className="w-20 px-2 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                          className="w-20 px-2 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                       </div>
                       <div className="flex items-center gap-2 pt-2 border-t border-gray-200">
@@ -615,7 +615,7 @@ export default function AdminCoursesPage() {
                         <button
                           type="button"
                           onClick={() => openSeoModal(course.id)}
-                          className="p-1.5 text-admin-primary hover:bg-admin-primary/10 rounded-md transition-colors"
+                          className="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
                           title="Add SEO"
                         >
                           <Plus className="w-3.5 h-3.5" strokeWidth={2} />
@@ -725,7 +725,7 @@ export default function AdminCoursesPage() {
                           onChange={(e) =>
                             handlePriceChange(course.id, e.target.value)
                           }
-                          className="w-24 px-2 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                          className="w-24 px-2 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                       </td>
                       <td className="px-5 py-4">
@@ -738,7 +738,7 @@ export default function AdminCoursesPage() {
                           onChange={(e) =>
                             handleDiscountChange(course.id, e.target.value)
                           }
-                          className="w-16 px-2 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                          className="w-16 px-2 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                         />
                         {discount > 0 && (
                           <span className="ml-1 text-xs text-gray-500">%</span>
@@ -779,7 +779,7 @@ export default function AdminCoursesPage() {
                           <button
                             type="button"
                             onClick={() => openSeoModal(course.id)}
-                            className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
+                            className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
                             title="Add SEO"
                           >
                             <Plus className="w-4 h-4" strokeWidth={2} />
@@ -790,7 +790,7 @@ export default function AdminCoursesPage() {
                         <div className="flex items-center justify-end gap-0.5">
                           <Link
                             href={ROUTES.ADMIN.COURSE(course.id)}
-                            className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
+                            className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
                             title="View"
                           >
                             <svg
@@ -803,7 +803,7 @@ export default function AdminCoursesPage() {
                           </Link>
                           <Link
                             href={ROUTES.ADMIN.COURSE_EDIT(course.id)}
-                            className="p-2 text-admin-primary hover:bg-admin-primary/10 rounded-lg transition-colors"
+                            className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
                             title="Edit"
                           >
                             <svg
@@ -862,7 +862,7 @@ export default function AdminCoursesPage() {
           <div className="px-5 py-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-sm text-gray-600">
               <span>Rows per page</span>
-              <select className="px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary">
+              <select className="px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary">
                 <option>10</option>
                 <option>25</option>
                 <option>50</option>
@@ -963,7 +963,7 @@ export default function AdminCoursesPage() {
                     }))
                   }
                   placeholder="e.g. Course Name | Platform"
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
               <div>
@@ -984,7 +984,7 @@ export default function AdminCoursesPage() {
                     }))
                   }
                   placeholder="Short description for search results..."
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-none"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none"
                 />
               </div>
               <div>
@@ -1005,7 +1005,7 @@ export default function AdminCoursesPage() {
                     }))
                   }
                   placeholder="keyword1, keyword2, keyword3"
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
             </div>
@@ -1020,7 +1020,7 @@ export default function AdminCoursesPage() {
               <button
                 type="button"
                 onClick={saveSeoModal}
-                className="px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+                className="px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
               >
                 Save
               </button>

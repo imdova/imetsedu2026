@@ -76,13 +76,13 @@ export default function EditWhatsAppTemplatePage() {
       <div className="border-b border-gray-200 bg-white px-6 lg:px-8 py-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <nav className="text-sm text-gray-500">
-            <Link href="/admin/settings" className="hover:text-admin-primary">
+            <Link href="/admin/settings" className="hover:text-primary">
               Settings
             </Link>
             <span className="mx-1.5">/</span>
             <Link
               href="/admin/settings/whatsapp-templates"
-              className="hover:text-admin-primary"
+              className="hover:text-primary"
             >
               WhatsApp Templates
             </Link>
@@ -92,13 +92,13 @@ export default function EditWhatsAppTemplatePage() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="px-4 py-2.5 border border-gray-300 rounded-lg text-admin-primary font-semibold hover:bg-gray-50 transition-colors"
+              className="px-4 py-2.5 border border-gray-300 rounded-lg text-primary font-semibold hover:bg-gray-50 transition-colors"
             >
               Send Test Message
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               <svg
                 className="w-4 h-4"
@@ -136,7 +136,7 @@ export default function EditWhatsAppTemplatePage() {
                 type="text"
                 value={templateName}
                 onChange={(e) => setTemplateName(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="e.g. Payment Receipt Notification"
               />
             </div>
@@ -149,7 +149,7 @@ export default function EditWhatsAppTemplatePage() {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary pr-10 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary pr-10 bg-white"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -284,7 +284,7 @@ export default function EditWhatsAppTemplatePage() {
                   <div className="bg-[#075e54] flex items-center gap-2 px-3 py-2">
                     <span className="text-white">←</span>
                     <div className="w-8 h-8 rounded-full bg-[#e8f4f2] flex items-center justify-center">
-                      <span className="text-admin-primary font-bold text-xs">
+                      <span className="text-primary font-bold text-xs">
                         I
                       </span>
                     </div>
@@ -317,7 +317,7 @@ export default function EditWhatsAppTemplatePage() {
                               highlightValues.includes(part) ? (
                                 <span
                                   key={i}
-                                  className="text-admin-primary font-semibold"
+                                  className="text-primary font-semibold"
                                 >
                                   {part}
                                 </span>

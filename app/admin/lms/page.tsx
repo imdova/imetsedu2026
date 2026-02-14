@@ -95,7 +95,7 @@ export default function AdminLMSManagementPage() {
         </div>
         <Link
           href={ROUTES.ADMIN.LMS_NEW}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors shrink-0"
         >
           <Plus className="w-5 h-5" strokeWidth={2} />
           Add New LMS
@@ -168,13 +168,13 @@ export default function AdminLMSManagementPage() {
               placeholder="Search courses, instructors..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary"
+            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label="Category"
           >
             {CATEGORIES.map((c) => (
@@ -186,7 +186,7 @@ export default function AdminLMSManagementPage() {
           <select
             value={subcategory}
             onChange={(e) => setSubcategory(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary"
+            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label="Subcategory"
           >
             {subcategoryOptions.map((s) => (
@@ -198,7 +198,7 @@ export default function AdminLMSManagementPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary"
+            className="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label="Status"
           >
             {STATUS_OPTIONS.map((s) => (
@@ -281,7 +281,7 @@ export default function AdminLMSManagementPage() {
                 onClick={() => setPage(p)}
                 className={`min-w-[2.25rem] h-9 rounded-lg text-sm font-medium transition-colors ${
                   currentPage === p
-                    ? "bg-admin-primary text-white"
+                    ? "bg-primary text-white"
                     : "border border-gray-200 text-gray-700 hover:bg-gray-50"
                 }`}
               >
@@ -333,7 +333,7 @@ function TableRow({ course }: { course: LMSCourseRow }) {
           <div>
             <Link
               href={ROUTES.ADMIN.LMS_COURSE(course.id)}
-              className="font-medium text-gray-900 hover:text-admin-primary hover:underline"
+              className="font-medium text-gray-900 hover:text-primary hover:underline"
             >
               {course.courseName}
             </Link>

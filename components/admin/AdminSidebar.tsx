@@ -252,11 +252,11 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen flex flex-col flex-shrink-0 bg-white border-r border-gray-200 border-l-4 border-l-admin-primary rounded-tl-xl overflow-hidden">
+    <aside className="w-64 min-h-screen flex flex-col flex-shrink-0 bg-white border-r border-gray-200 border-l-4 border-l-primary rounded-tl-xl overflow-hidden">
       {/* Header */}
       <div className="p-5 border-b border-gray-200">
         <Link href={ROUTES.HOME} className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-admin-primary flex items-center justify-center text-white font-bold text-lg">
+          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-lg">
             I
           </div>
           <div>
@@ -286,7 +286,7 @@ export default function AdminSidebar() {
                   onClick={() => hasChildren && toggleMenu(item.name)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                     active
-                      ? "bg-admin-primary text-white"
+                      ? "bg-primary text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
@@ -316,7 +316,7 @@ export default function AdminSidebar() {
                             href={child.href}
                             className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
                               childActive
-                                ? "bg-admin-primary/10 text-admin-primary font-medium"
+                                ? "bg-primary/10 text-primary font-medium"
                                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                             }`}
                           >
@@ -349,7 +349,7 @@ export default function AdminSidebar() {
                     href={link.href}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive
-                        ? "bg-admin-primary text-white"
+                        ? "bg-primary text-white"
                         : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >

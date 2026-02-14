@@ -130,7 +130,7 @@ function GroupSettingsContent() {
                 href={`/admin/groups/settings?tab=${t.id}`}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   tab === t.id
-                    ? "text-admin-primary border-b-2 border-admin-primary bg-admin-primary/5"
+                    ? "text-primary border-b-2 border-primary bg-primary/5"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
               >
@@ -147,7 +147,7 @@ function GroupSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-admin-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredCategories.length}
                 </span>
               </h2>
@@ -172,12 +172,12 @@ function GroupSettingsContent() {
                     value={newCatName}
                     onChange={(e) => setNewCatName(e.target.value)}
                     placeholder="e.g. Business"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
                 >
                   <Plus className="h-4 w-4" strokeWidth={2} />
                   Add
@@ -195,12 +195,12 @@ function GroupSettingsContent() {
                   placeholder="Search by name..."
                   value={categorySearch}
                   onChange={(e) => setCategorySearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 <Search className="h-4 w-4" strokeWidth={2} />
                 Search
@@ -242,7 +242,7 @@ function GroupSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Sub Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-admin-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredSubCategories.length}
                 </span>
               </h2>
@@ -267,7 +267,7 @@ function GroupSettingsContent() {
                     value={newSubName}
                     onChange={(e) => setNewSubName(e.target.value)}
                     placeholder="e.g. MBA"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                 </div>
                 <div className="min-w-[140px]">
@@ -277,7 +277,7 @@ function GroupSettingsContent() {
                   <select
                     value={newSubParentId}
                     onChange={(e) => setNewSubParentId(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   >
                     {allCategories.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -288,7 +288,7 @@ function GroupSettingsContent() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
                 >
                   <Plus className="h-4 w-4" strokeWidth={2} />
                   Add
@@ -306,12 +306,12 @@ function GroupSettingsContent() {
                   placeholder="Search by name..."
                   value={subCategorySearch}
                   onChange={(e) => setSubCategorySearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 <Search className="h-4 w-4" strokeWidth={2} />
                 Search

@@ -81,7 +81,7 @@ export default function CRMPaymentsPage() {
               placeholder="Search students, invoices, or transactions..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function CRMPaymentsPage() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                 activeTab === tab
-                  ? "bg-admin-primary text-white"
+                  ? "bg-primary text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -316,7 +316,7 @@ function InstallmentSidebar({
       <div className="p-4 border-t border-gray-200">
         <button
           type="button"
-          className="w-full py-2.5 border-2 border-admin-primary text-admin-primary font-semibold rounded-lg hover:bg-admin-primary hover:text-white transition-colors"
+          className="w-full py-2.5 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors"
         >
           Edit Payment Plan
         </button>
@@ -386,7 +386,7 @@ function InstallmentCard({
               <button
                 type="button"
                 onClick={onMarkAsPaid}
-                className="px-3 py-1.5 bg-admin-primary text-white text-xs font-semibold rounded-lg hover:bg-admin-primary-hover"
+                className="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary/90"
               >
                 Mark as Paid
               </button>

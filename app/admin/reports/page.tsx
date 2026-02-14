@@ -11,7 +11,7 @@ export default function AdminReportsPage() {
         </p>
         <Link
           href={ROUTES.ADMIN.DASHBOARD}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90"
         >
           Back to Dashboard
         </Link>

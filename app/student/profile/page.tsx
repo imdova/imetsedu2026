@@ -117,13 +117,13 @@ export default function StudentProfilePage() {
               <div className="flex items-center student-profile-actions shrink-0">
                 <button
                   type="button"
-                  className="btn-outline border-primary text-primary hover:bg-primary-muted transition-colors bg-white"
+                  className="btn-outline border-primary text-primary hover:bg-primary/70 transition-colors bg-white"
                 >
                   Discard
                 </button>
                 <button
                   type="button"
-                  className="bg-primary text-white hover:bg-primary-hover transition-colors"
+                  className="bg-primary text-white hover:bg-primary/90 transition-colors"
                 >
                   Save Changes
                 </button>
@@ -368,7 +368,7 @@ export default function StudentProfilePage() {
                   </p>
                   <button
                     type="button"
-                    className="px-4 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover transition-colors text-sm"
+                    className="px-4 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors text-sm"
                   >
                     Update Password
                   </button>

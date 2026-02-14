@@ -87,7 +87,7 @@ export default function Header() {
             </Link>
             <Link
               href={ROUTES.SIGNUP}
-              className="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded transition-colors font-semibold"
+              className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded transition-colors font-semibold"
             >
               Sign up
             </Link>
@@ -190,7 +190,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href={ROUTES.SIGNUP}
-                  className="block px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded transition-colors font-semibold mt-2 text-center"
+                  className="block px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded transition-colors font-semibold mt-2 text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Sign up

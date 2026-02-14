@@ -12,7 +12,7 @@ import RecordPaymentModal from "@/components/crm/RecordPaymentModal";
 
 function ScoreCircle({ score }: { score: number }) {
   const isLow = score < 60;
-  const color = isLow ? "text-amber-500" : "text-admin-primary";
+  const color = isLow ? "text-amber-500" : "text-primary";
   const strokeColor = isLow ? "#f59e0b" : "#0f49bd";
   return (
     <div className="relative w-12 h-12 shrink-0">
@@ -61,7 +61,7 @@ function PrimaryActionButton({
       onClick={() => isRecordPayment && onRecordPayment(lead)}
       className={`shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
         isPrimary
-          ? "bg-admin-primary text-white hover:bg-admin-primary-hover"
+          ? "bg-primary text-white hover:bg-primary/90"
           : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
       }`}
     >
@@ -99,7 +99,7 @@ export default function ActivePipelinePage() {
             <input
               type="text"
               placeholder="Search leads, campaigns, or actions..."
-              className="w-full pl-10 pr-16 py-2.5 bg-gray-100 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+              className="w-full pl-10 pr-16 py-2.5 bg-gray-100 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
               CTRL K
@@ -115,7 +115,7 @@ export default function ActivePipelinePage() {
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-pink-400" />
             <Link
               href="/admin/crm/leads/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               <span>+</span>
               New Lead
@@ -141,7 +141,7 @@ export default function ActivePipelinePage() {
               onClick={() => setActiveFilter(pill.id)}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeFilter === pill.id
-                  ? "bg-admin-primary text-white"
+                  ? "bg-primary text-white"
                   : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
               }`}
             >
@@ -175,7 +175,7 @@ export default function ActivePipelinePage() {
               onClick={() => setViewMode("grid")}
               className={`p-2 rounded ${
                 viewMode === "grid"
-                  ? "bg-white shadow text-admin-primary"
+                  ? "bg-white shadow text-primary"
                   : "text-gray-500 hover:text-gray-700"
               }`}
               title="Grid view"
@@ -187,7 +187,7 @@ export default function ActivePipelinePage() {
               onClick={() => setViewMode("list")}
               className={`p-2 rounded ${
                 viewMode === "list"
-                  ? "bg-white shadow text-admin-primary"
+                  ? "bg-white shadow text-primary"
                   : "text-gray-500 hover:text-gray-700"
               }`}
               title="List view"
@@ -234,7 +234,7 @@ export default function ActivePipelinePage() {
                           href={`/admin/crm/leads/${lead.id}`}
                           className="flex flex-col group"
                         >
-                          <span className="font-semibold text-gray-900 group-hover:text-admin-primary">
+                          <span className="font-semibold text-gray-900 group-hover:text-primary">
                             {lead.name}
                           </span>
                           <span className="text-sm text-gray-500">
@@ -309,7 +309,7 @@ export default function ActivePipelinePage() {
                 <Link
                   key={lead.id}
                   href={`/admin/crm/leads/${lead.id}`}
-                  className="block p-4 rounded-xl border border-gray-200 hover:shadow-md hover:border-admin-primary/30 transition-all"
+                  className="block p-4 rounded-xl border border-gray-200 hover:shadow-md hover:border-primary/30 transition-all"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <ScoreCircle score={lead.score} />

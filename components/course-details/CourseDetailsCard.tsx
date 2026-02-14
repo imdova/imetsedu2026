@@ -61,7 +61,7 @@ export default function CourseDetailsCard({ course }: CourseDetailsCardProps) {
             <button
               type="button"
               onClick={() => setApplicationModalOpen(true)}
-              className="block w-full text-center bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white py-3 px-4 rounded-lg font-semibold transition-colors"
+              className="block w-full text-center bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
             >
               Apply Now
             </button>

@@ -48,7 +48,7 @@ export default function Sidebar({
   const activeItemClass =
     variant === "admin"
       ? "bg-primary text-white font-semibold"
-      : "bg-primary-muted text-primary font-semibold";
+      : "bg-primary/70 text-primary font-semibold";
   const inactiveItemClass = "text-gray-700 hover:bg-gray-100";
   const inactiveItemClassAlt = "text-gray-700 hover:bg-gray-50";
 
@@ -117,7 +117,7 @@ export default function Sidebar({
                             href={child.href}
                             className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
                               childActive
-                                ? "bg-primary-muted text-primary font-semibold"
+                                ? "bg-primary/70 text-primary font-semibold"
                                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                             }`}
                           >
@@ -145,7 +145,7 @@ export default function Sidebar({
               href={link.href}
               className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors mb-1 ${
                 isActive
-                  ? "bg-primary-muted text-primary font-semibold"
+                  ? "bg-primary/70 text-primary font-semibold"
                   : inactiveItemClassAlt
               }`}
             >

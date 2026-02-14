@@ -439,7 +439,7 @@ export default function StudentCheckoutPage() {
                       <label className="ip-label">Upload Receipt</label>
                       <div className="ip-upload-zone">
                         <CloudUpload
-                          className="w-10 h-10 text-[var(--color-primary)]"
+                          className="w-10 h-10 text-primary"
                           strokeWidth={1.5}
                         />
                         <span className="ip-upload-text">
@@ -570,7 +570,7 @@ export default function StudentCheckoutPage() {
                     <label className="ew-label">Upload Screenshot Proof</label>
                     <div className="ew-upload-zone">
                       <CloudUpload
-                        className="w-12 h-12 text-[var(--color-primary)]"
+                        className="w-12 h-12 text-primary"
                         strokeWidth={1.5}
                       />
                       <span className="ew-upload-text">
@@ -769,7 +769,7 @@ export default function StudentCheckoutPage() {
                     </div>
                     <div className="payment-receipt-method">
                       <CreditCard
-                        className="w-4 h-4 text-[var(--color-primary)]"
+                        className="w-4 h-4 text-primary"
                         strokeWidth={2}
                       />
                       {confirmationData.paymentMethod}

@@ -43,7 +43,7 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl font-bold text-black">Featured Courses</h2>
           <Link
             href={ROUTES.COURSES}
-            className="text-primary hover:text-primary-hover font-semibold"
+            className="text-primary hover:text-primary/90  font-semibold" 
           >
             View All →
           </Link>

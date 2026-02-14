@@ -351,7 +351,7 @@ export default function CreateCoursePage() {
                       <div
                         className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold ${
                           currentStep === step.number
-                            ? "bg-admin-primary text-white"
+                            ? "bg-primary text-white"
                             : "bg-gray-200 text-gray-500"
                         }`}
                       >
@@ -399,7 +399,7 @@ export default function CreateCoursePage() {
                             value={formData.title}
                             onChange={handleInputChange}
                             placeholder="e.g. Advanced Software Engineering Fundamentals."
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                             required
                           />
                         </div>
@@ -413,7 +413,7 @@ export default function CreateCoursePage() {
                               name="category"
                               value={formData.category}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                               required
                             >
                               <option value="">Select category</option>
@@ -432,7 +432,7 @@ export default function CreateCoursePage() {
                               name="subcategory"
                               value={formData.subcategory}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                               disabled={!formData.category}
                             >
                               <option value="">Select subcategory</option>
@@ -451,7 +451,7 @@ export default function CreateCoursePage() {
                               name="courseType"
                               value={formData.courseType}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                             >
                               <option value="">Select program type</option>
                               {COURSE_TYPES.map((t) => (
@@ -478,10 +478,10 @@ export default function CreateCoursePage() {
                                     attendanceMode: mode,
                                   }))
                                 }
-                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-1 ${
+                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 ${
                                   formData.attendanceMode === mode
-                                    ? "bg-admin-primary text-white border-admin-primary"
-                                    : "bg-white text-gray-700 border-gray-300 hover:border-admin-primary/50 hover:bg-admin-primary/5"
+                                    ? "bg-primary text-white border-primary"
+                                    : "bg-white text-gray-700 border-gray-300 hover:border-primary/50 hover:bg-primary/5"
                                 }`}
                               >
                                 {mode}
@@ -500,7 +500,7 @@ export default function CreateCoursePage() {
                             onChange={handleInputChange}
                             placeholder="Provide a detailed overview of the course objectives and curriculum..."
                             rows={6}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-y"
                             required
                           />
                         </div>
@@ -516,7 +516,7 @@ export default function CreateCoursePage() {
                         <button
                           type="button"
                           onClick={() => setPricingExpanded((v) => !v)}
-                          className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary rounded px-2 py-1"
+                          className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary rounded px-2 py-1"
                           aria-expanded={pricingExpanded}
                           aria-label={
                             pricingExpanded
@@ -571,7 +571,7 @@ export default function CreateCoursePage() {
                               min={0}
                               step={0.01}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
                           <div>
@@ -586,7 +586,7 @@ export default function CreateCoursePage() {
                               min={0}
                               step={0.01}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
                           <div>
@@ -601,7 +601,7 @@ export default function CreateCoursePage() {
                               min={0}
                               max={100}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                           </div>
                         </div>
@@ -640,7 +640,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                               <div>
@@ -655,7 +655,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                               <div>
@@ -670,7 +670,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   max={100}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                             </div>
@@ -707,7 +707,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                               <div>
@@ -722,7 +722,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                               <div>
@@ -737,7 +737,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   max={100}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
                               </div>
                             </div>
@@ -769,7 +769,7 @@ export default function CreateCoursePage() {
                           onChange={handleInputChange}
                           placeholder="List key learning outcomes (e.g. one per line or as bullet points)"
                           rows={4}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-y"
                         />
                       </div>
                       <div>
@@ -782,7 +782,7 @@ export default function CreateCoursePage() {
                           onChange={handleInputChange}
                           placeholder="Describe the target audience, prerequisites, or eligibility"
                           rows={3}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-y"
                         />
                       </div>
                     </div>
@@ -815,7 +815,7 @@ export default function CreateCoursePage() {
                                     return next;
                                   });
                                 }}
-                                className="flex items-center justify-center w-8 h-8 rounded shrink-0 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                className="flex items-center justify-center w-8 h-8 rounded shrink-0 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
                                 aria-expanded={!collapsedModules.has(module.id)}
                                 title={
                                   collapsedModules.has(module.id)
@@ -843,7 +843,7 @@ export default function CreateCoursePage() {
                                   onChange={(e) =>
                                     updateModule(module.id, e.target.value)
                                   }
-                                  className="text-lg font-semibold text-gray-900 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-admin-primary rounded px-2 w-full"
+                                  className="text-lg font-semibold text-gray-900 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary rounded px-2 w-full"
                                   placeholder="Module title"
                                 />
                               </div>
@@ -888,7 +888,7 @@ export default function CreateCoursePage() {
                                             })
                                           }
                                           placeholder="Lesson title"
-                                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                                         />
                                         <button
                                           type="button"
@@ -971,14 +971,14 @@ export default function CreateCoursePage() {
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90"
                     >
                       Next Step: {steps[currentStep]?.name ?? "Structure"} →
                     </button>
                   ) : (
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90"
                     >
                       Publish Course
                     </button>
@@ -998,7 +998,7 @@ export default function CreateCoursePage() {
                     <div
                       onDragOver={handleDragOver}
                       onDrop={handleDrop}
-                      className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-admin-primary transition-colors cursor-pointer"
+                      className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer"
                     >
                       {formData.thumbnailPreview ? (
                         <div className="space-y-3">
@@ -1031,7 +1031,7 @@ export default function CreateCoursePage() {
                           </div>
                           <p className="text-sm text-gray-600">
                             Drag and drop or{" "}
-                            <span className="text-admin-primary font-medium">
+                            <span className="text-primary font-medium">
                               browse
                             </span>
                           </p>
@@ -1060,7 +1060,7 @@ export default function CreateCoursePage() {
                         onChange={handleInputChange}
                         min={0}
                         placeholder="0"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                     </div>
                     <div>
@@ -1074,7 +1074,7 @@ export default function CreateCoursePage() {
                         onChange={handleInputChange}
                         min={0}
                         placeholder="0"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                     </div>
                   </div>
@@ -1088,7 +1088,7 @@ export default function CreateCoursePage() {
                       value={formData.duration}
                       onChange={handleInputChange}
                       placeholder="e.g. 12 Weeks"
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                   </div>
                   <div className="space-y-4">
@@ -1121,10 +1121,10 @@ export default function CreateCoursePage() {
                                     };
                                   });
                                 }}
-                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-admin-primary focus:ring-offset-1 ${
+                                className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 ${
                                   selected
-                                    ? "bg-admin-primary text-white border-admin-primary"
-                                    : "bg-white text-gray-700 border-gray-300 hover:border-admin-primary/50 hover:bg-admin-primary/5"
+                                    ? "bg-primary text-white border-primary"
+                                    : "bg-white text-gray-700 border-gray-300 hover:border-primary/50 hover:bg-primary/5"
                                 }`}
                               >
                                 {lang}
@@ -1174,7 +1174,7 @@ export default function CreateCoursePage() {
                           }
                         }}
                         placeholder="Add tag and press Enter"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       />
                       <button
                         type="button"
@@ -1204,7 +1204,7 @@ export default function CreateCoursePage() {
       {/* Footer info boxes */}
       <div className="max-w-6xl mx-auto px-6 mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-xl">
-          <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-admin-primary/10 text-admin-primary">
+          <span className="flex shrink-0 items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
             <Info className="h-5 w-5" strokeWidth={2} />
           </span>
           <div>

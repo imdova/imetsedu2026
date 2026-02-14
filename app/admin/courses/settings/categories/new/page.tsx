@@ -78,35 +78,35 @@ export default function AddNewCategoryPage() {
           <nav className="flex items-center gap-2 text-sm">
             <Link
               href="/admin/courses/settings?tab=categories"
-              className="text-gray-500 hover:text-admin-primary font-medium"
+              className="text-gray-500 hover:text-primary font-medium"
             >
               Categories
             </Link>
             <span className="text-gray-400">/</span>
             <Link
               href="/admin/courses/settings?tab=sub-categories"
-              className="text-gray-500 hover:text-admin-primary font-medium"
+              className="text-gray-500 hover:text-primary font-medium"
             >
               Sub Categories
             </Link>
             <span className="text-gray-400">/</span>
             <Link
               href="/admin/courses/settings?tab=tags"
-              className="text-gray-500 hover:text-admin-primary font-medium"
+              className="text-gray-500 hover:text-primary font-medium"
             >
               Tags
             </Link>
             <span className="text-gray-400">/</span>
             <Link
               href="/admin/courses/settings?tab=variables"
-              className="text-gray-500 hover:text-admin-primary font-medium"
+              className="text-gray-500 hover:text-primary font-medium"
             >
               Course Variables
             </Link>
           </nav>
           <Link
             href="/admin/courses/settings?tab=categories"
-            className="inline-flex items-center gap-2 px-4 py-2 text-admin-primary font-medium hover:bg-admin-primary/5 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-primary font-medium hover:bg-primary/5 rounded-lg transition-colors"
           >
             Back to Categories
           </Link>
@@ -123,9 +123,9 @@ export default function AddNewCategoryPage() {
             {/* Category Setup */}
             <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-admin-primary/10 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
                   <ListChecks
-                    className="h-5 w-5 text-admin-primary"
+                    className="h-5 w-5 text-primary"
                     strokeWidth={2}
                   />
                 </div>
@@ -143,7 +143,7 @@ export default function AddNewCategoryPage() {
                     value={name}
                     onChange={(e) => handleNameChange(e.target.value)}
                     placeholder="Enter category name"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                 </div>
                 <div>
@@ -154,7 +154,7 @@ export default function AddNewCategoryPage() {
                     type="text"
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                   <p className="mt-1 text-xs text-gray-500">
                     Auto-generated from category name (editable)
@@ -196,7 +196,7 @@ export default function AddNewCategoryPage() {
                     value={metaTitle}
                     onChange={(e) => setMetaTitle(e.target.value)}
                     placeholder="Enter meta title"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                   <p className="mt-1 text-xs text-gray-500">
                     Recommended: 25-40 characters
@@ -211,7 +211,7 @@ export default function AddNewCategoryPage() {
                     onChange={(e) => setMetaDescription(e.target.value)}
                     placeholder="Enter meta description for search engines"
                     rows={3}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-y"
                   />
                   <p className="mt-1 text-xs text-gray-500">
                     Recommended: 150-160 characters
@@ -230,7 +230,7 @@ export default function AddNewCategoryPage() {
                         e.key === "Enter" && (e.preventDefault(), addKeyword())
                       }
                       placeholder="Enter a keyword"
-                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                     <button
                       type="button"
@@ -285,21 +285,21 @@ export default function AddNewCategoryPage() {
                     value={faq.question}
                     onChange={(e) => updateFaq(i, "question", e.target.value)}
                     placeholder="Question"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                   <textarea
                     value={faq.answer}
                     onChange={(e) => updateFaq(i, "answer", e.target.value)}
                     placeholder="Answer"
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary resize-y"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-y"
                   />
                 </div>
               ))}
               <button
                 type="button"
                 onClick={addFaq}
-                className="inline-flex items-center gap-2 px-4 py-2 text-admin-primary font-medium hover:bg-admin-primary/5 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 text-primary font-medium hover:bg-primary/5 rounded-lg transition-colors"
               >
                 <Plus className="h-4 w-4" strokeWidth={2} />
                 Add FAQ
@@ -313,7 +313,7 @@ export default function AddNewCategoryPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Category Image
               </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-admin-primary/50 transition-colors cursor-pointer">
+              <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
                 <Upload
                   className="h-12 w-12 text-gray-400 mx-auto mb-2"
                   strokeWidth={1.5}
@@ -337,7 +337,7 @@ export default function AddNewCategoryPage() {
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
                 placeholder="Enter a catchy headline"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
               <p className="mt-1 text-xs text-gray-500">
                 Optional: A short, catchy headline for the category
@@ -445,7 +445,7 @@ export default function AddNewCategoryPage() {
           </button>
           <button
             type="button"
-            className="px-5 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+            className="px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
           >
             Create Category
           </button>

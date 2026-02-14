@@ -136,7 +136,7 @@ export default function StudentDashboardPage() {
           </h3>
           <Link
             href={ROUTES.STUDENT.COURSES}
-            className="text-sm font-medium text-[var(--color-primary)] hover:underline"
+            className="text-sm font-medium text-primary hover:underline"
           >
             View All
           </Link>

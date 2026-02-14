@@ -18,7 +18,7 @@ export default function AdminCourseSeoPage() {
           <p className="text-gray-600 mb-4">Course not found.</p>
           <Link
             href={ROUTES.ADMIN.COURSES}
-            className="inline-flex items-center gap-2 text-admin-primary font-medium hover:underline"
+            className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to courses

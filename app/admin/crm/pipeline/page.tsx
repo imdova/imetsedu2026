@@ -50,7 +50,7 @@ export default function CRMPipelinePage() {
             </button>
             <Link
               href="/admin/crm/leads/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
               <span>+</span>
               New Lead
@@ -72,7 +72,7 @@ export default function CRMPipelinePage() {
                 onClick={() => setActiveStage(isActive ? null : stage.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
                   isActive
-                    ? "bg-admin-primary text-white"
+                    ? "bg-primary text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
@@ -138,7 +138,7 @@ function LeadCard({ lead }: { lead: CRMLead }) {
         </div>
         <span
           className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
-            isEnrolled ? "bg-green-500" : "bg-admin-primary"
+            isEnrolled ? "bg-green-500" : "bg-primary"
           }`}
         >
           💬
@@ -150,7 +150,7 @@ function LeadCard({ lead }: { lead: CRMLead }) {
           <button
             type="button"
             onClick={(e) => e.preventDefault()}
-            className="w-full py-2 bg-admin-primary text-white text-sm font-medium rounded-lg hover:bg-admin-primary-hover transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-1"
           >
             <FileText className="h-4 w-4" strokeWidth={2} />
             Send Invoice
@@ -161,7 +161,7 @@ function LeadCard({ lead }: { lead: CRMLead }) {
           <button
             type="button"
             onClick={(e) => e.preventDefault()}
-            className="w-full py-2 bg-blue-50 text-admin-primary text-sm font-medium rounded-lg hover:bg-admin-primary/10 transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 bg-blue-50 text-primary text-sm font-medium rounded-lg hover:bg-primary/10 transition-colors flex items-center justify-center gap-1"
           >
             <Reply className="h-4 w-4" strokeWidth={2} />
             {lead.pipelineStage === "NEW INQUIRIES"

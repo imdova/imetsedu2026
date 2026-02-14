@@ -119,7 +119,7 @@ export default function BulkCertificateIssuancePage() {
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               <Mail className="h-4 w-4" strokeWidth={2} />
               Generate & Email Certificates
@@ -134,7 +134,7 @@ export default function BulkCertificateIssuancePage() {
             onClick={() => setTab("active")}
             className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
               tab === "active"
-                ? "border-admin-primary text-admin-primary"
+                ? "border-primary text-primary"
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
@@ -146,7 +146,7 @@ export default function BulkCertificateIssuancePage() {
             onClick={() => setTab("history")}
             className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
               tab === "history"
-                ? "border-admin-primary text-admin-primary"
+                ? "border-primary text-primary"
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
@@ -170,7 +170,7 @@ export default function BulkCertificateIssuancePage() {
                     <select
                       value={course}
                       onChange={(e) => setCourse(e.target.value)}
-                      className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary appearance-none"
+                      className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
                     >
                       {bulkIssuanceCourses.map((c) => (
                         <option key={c} value={c}>
@@ -192,7 +192,7 @@ export default function BulkCertificateIssuancePage() {
                     <select
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
-                      className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary appearance-none"
+                      className="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
                     >
                       {bulkIssuanceStatusOptions.map((s) => (
                         <option key={s} value={s}>
@@ -227,7 +227,7 @@ export default function BulkCertificateIssuancePage() {
                             selectedIds.size === paginated.length
                           }
                           onChange={toggleSelectAll}
-                          className="rounded border-gray-300 text-admin-primary focus:ring-admin-primary"
+                          className="rounded border-gray-300 text-primary focus:ring-primary"
                         />
                       </th>
                       <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -262,7 +262,7 @@ export default function BulkCertificateIssuancePage() {
                             type="checkbox"
                             checked={selectedIds.has(student.id)}
                             onChange={() => toggleSelect(student.id)}
-                            className="rounded border-gray-300 text-admin-primary focus:ring-admin-primary"
+                            className="rounded border-gray-300 text-primary focus:ring-primary"
                           />
                         </td>
                         <td className="px-4 py-3">
@@ -356,7 +356,7 @@ export default function BulkCertificateIssuancePage() {
                   )}
                 </div>
                 <div className="p-4">
-                  <div className="border-2 border-dashed border-admin-primary/30 rounded-lg bg-white p-6 text-center aspect-[842/595] max-h-[320px] flex flex-col items-center justify-center">
+                  <div className="border-2 border-dashed border-primary/30 rounded-lg bg-white p-6 text-center aspect-[842/595] max-h-[320px] flex flex-col items-center justify-center">
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
                       Certificate of Completion
                     </p>
@@ -369,7 +369,7 @@ export default function BulkCertificateIssuancePage() {
                     <p className="text-xs text-gray-600 mb-2">
                       Has successfully completed the requirements for
                     </p>
-                    <p className="text-sm font-bold text-admin-primary">
+                    <p className="text-sm font-bold text-primary">
                       {course}
                     </p>
                     <div className="mt-4 w-12 h-12 rounded bg-gray-200/80 flex items-center justify-center opacity-60">
@@ -403,7 +403,7 @@ export default function BulkCertificateIssuancePage() {
                     </div>
                     <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-admin-primary rounded-full transition-all"
+                        className="h-full bg-primary rounded-full transition-all"
                         style={{ width: "68%" }}
                       />
                     </div>
@@ -485,14 +485,14 @@ export default function BulkCertificateIssuancePage() {
                         {batch.status === "SUCCESS" ? (
                           <button
                             type="button"
-                            className="text-sm font-medium text-admin-primary hover:underline"
+                            className="text-sm font-medium text-primary hover:underline"
                           >
                             Download Log
                           </button>
                         ) : (
                           <button
                             type="button"
-                            className="text-sm font-medium text-admin-primary hover:underline"
+                            className="text-sm font-medium text-primary hover:underline"
                           >
                             View Errors
                           </button>
@@ -523,7 +523,7 @@ export default function BulkCertificateIssuancePage() {
             </button>
             <button
               type="button"
-              className="px-4 py-2 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Process Batch
             </button>
@@ -593,14 +593,14 @@ export default function BulkCertificateIssuancePage() {
                         {batch.status === "SUCCESS" ? (
                           <button
                             type="button"
-                            className="text-sm font-medium text-admin-primary hover:underline"
+                            className="text-sm font-medium text-primary hover:underline"
                           >
                             Download Log
                           </button>
                         ) : (
                           <button
                             type="button"
-                            className="text-sm font-medium text-admin-primary hover:underline"
+                            className="text-sm font-medium text-primary hover:underline"
                           >
                             View Errors
                           </button>

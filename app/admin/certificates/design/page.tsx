@@ -79,7 +79,7 @@ export default function CertificateDesignPage() {
             >
               <ArrowLeft className="h-5 w-5" strokeWidth={2} />
             </Link>
-            <div className="w-8 h-8 rounded-lg bg-admin-primary flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-sm">
               +
             </div>
             <span className="font-semibold text-gray-900 truncate">
@@ -99,7 +99,7 @@ export default function CertificateDesignPage() {
               onClick={() => setOrientation("landscape")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 orientation === "landscape"
-                  ? "bg-admin-primary text-white"
+                  ? "bg-primary text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -110,7 +110,7 @@ export default function CertificateDesignPage() {
               onClick={() => setOrientation("portrait")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 orientation === "portrait"
-                  ? "bg-admin-primary text-white"
+                  ? "bg-primary text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -127,7 +127,7 @@ export default function CertificateDesignPage() {
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-admin-primary text-white font-semibold hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
             >
               <Save className="h-4 w-4" strokeWidth={2} />
               Save Template
@@ -203,14 +203,14 @@ export default function CertificateDesignPage() {
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
-                  className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-admin-primary hover:text-admin-primary transition-colors"
+                  className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-primary hover:text-primary transition-colors"
                 >
                   <ImageIcon className="h-6 w-6" strokeWidth={2} />
                   <span className="text-xs font-medium">Add Logo</span>
                 </button>
                 <button
                   type="button"
-                  className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-admin-primary hover:text-admin-primary transition-colors"
+                  className="flex flex-col items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-primary hover:text-primary transition-colors"
                 >
                   <ShieldCheck className="h-6 w-6" strokeWidth={2} />
                   <span className="text-xs font-medium">Seal</span>
@@ -224,14 +224,14 @@ export default function CertificateDesignPage() {
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
-                  className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg text-gray-600 hover:border-admin-primary hover:bg-admin-primary/5 transition-colors"
+                  className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg text-gray-600 hover:border-primary hover:bg-primary/5 transition-colors"
                 >
                   <Type className="h-6 w-6" strokeWidth={2} />
                   <span className="text-xs font-medium">Heading Text</span>
                 </button>
                 <button
                   type="button"
-                  className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg text-gray-600 hover:border-admin-primary hover:bg-admin-primary/5 transition-colors"
+                  className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg text-gray-600 hover:border-primary hover:bg-primary/5 transition-colors"
                 >
                   <span className="text-lg font-serif leading-tight">¶</span>
                   <span className="text-xs font-medium">Paragraph</span>
@@ -250,8 +250,8 @@ export default function CertificateDesignPage() {
                     onClick={() => setSelectedElement(field)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                       selectedElement === field
-                        ? "bg-admin-primary text-white border-admin-primary"
-                        : "bg-white border-admin-primary text-admin-primary hover:bg-admin-primary/5"
+                        ? "bg-primary text-white border-primary"
+                        : "bg-white border-primary text-primary hover:bg-primary/5"
                     }`}
                   >
                     {field}
@@ -307,7 +307,7 @@ export default function CertificateDesignPage() {
             >
               {/* Certificate content */}
               <div className="absolute inset-0 p-12 flex flex-col items-center">
-                <div className="w-14 h-14 rounded border-2 border-admin-primary bg-emerald-800/90 mb-6" />
+                <div className="w-14 h-14 rounded border-2 border-primary bg-emerald-800/90 mb-6" />
                 <h2 className="text-2xl font-bold text-gray-800 tracking-wide mb-2">
                   CERTIFICATE OF COMPLETION
                 </h2>
@@ -317,9 +317,9 @@ export default function CertificateDesignPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedElement("{student_name}")}
-                  className={`font-bold text-admin-primary border-b-2 border-admin-primary mb-4 transition-colors ${
+                  className={`font-bold text-primary border-b-2 border-primary mb-4 transition-colors ${
                     selectedElement === "{student_name}"
-                      ? "ring-2 ring-admin-primary ring-offset-2 rounded"
+                      ? "ring-2 ring-primary ring-offset-2 rounded"
                       : ""
                   }`}
                   style={{ fontSize: `${fontSize}px` }}
@@ -333,7 +333,7 @@ export default function CertificateDesignPage() {
                 <p className="text-lg font-bold text-gray-800 mb-6">
                   {"{course_title}"}
                 </p>
-                <div className="w-24 h-24 rounded border-2 border-admin-primary bg-gray-700 flex items-center justify-center mb-2">
+                <div className="w-24 h-24 rounded border-2 border-primary bg-gray-700 flex items-center justify-center mb-2">
                   <QrCode className="h-12 w-12 text-white" strokeWidth={1.5} />
                 </div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-10">
@@ -365,7 +365,7 @@ export default function CertificateDesignPage() {
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
             Properties
           </h2>
-          <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-admin-primary/10 text-admin-primary mb-4">
+          <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary mb-4">
             Element Selected
           </span>
           <div className="mb-4 p-3 rounded-lg border border-gray-200 bg-gray-50">
@@ -384,7 +384,7 @@ export default function CertificateDesignPage() {
                   <label className="block text-xs text-gray-500 mb-1">
                     Font Family
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary bg-white">
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-white">
                     <option>Lexend (Display)</option>
                     <option>Inter</option>
                     <option>Geist Sans</option>
@@ -402,7 +402,7 @@ export default function CertificateDesignPage() {
                         onClick={() => setAlignment(align)}
                         className={`p-2 rounded-lg border transition-colors ${
                           alignment === align
-                            ? "bg-admin-primary text-white border-admin-primary"
+                            ? "bg-primary text-white border-primary"
                             : "border-gray-300 text-gray-600 hover:bg-gray-50"
                         }`}
                       >
@@ -431,7 +431,7 @@ export default function CertificateDesignPage() {
                       if (!Number.isNaN(n))
                         setFontSize(Math.max(8, Math.min(120, n)));
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                 </div>
                 <div className="flex gap-1">
@@ -456,7 +456,7 @@ export default function CertificateDesignPage() {
                     type="button"
                     className={`p-2 rounded-lg border transition-colors ${
                       underline
-                        ? "bg-admin-primary/10 border-admin-primary text-admin-primary"
+                        ? "bg-primary/10 border-primary text-primary"
                         : "border-gray-300 hover:bg-gray-50"
                     }`}
                     onClick={() => setUnderline(!underline)}
@@ -525,7 +525,7 @@ export default function CertificateDesignPage() {
           </span>
           <button
             type="button"
-            className="inline-flex items-center gap-1.5 text-gray-500 hover:text-admin-primary transition-colors"
+            className="inline-flex items-center gap-1.5 text-gray-500 hover:text-primary transition-colors"
           >
             <HelpCircle className="h-4 w-4" strokeWidth={2} />
             Help Center

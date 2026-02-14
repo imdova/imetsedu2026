@@ -19,7 +19,7 @@ export default function AdminCourseViewPage() {
           <p className="text-gray-600 mb-4">Course not found.</p>
           <Link
             href={ROUTES.ADMIN.COURSES}
-            className="inline-flex items-center gap-2 text-admin-primary font-medium hover:underline"
+            className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to courses
@@ -64,7 +64,7 @@ export default function AdminCourseViewPage() {
             </div>
             <Link
               href={ROUTES.ADMIN.COURSE_EDIT(course.id)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
             >
               <Edit className="w-4 h-4" />
               Edit course
@@ -77,7 +77,7 @@ export default function AdminCourseViewPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-              <Users className="w-5 h-5 text-admin-primary" />
+              <Users className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-xs text-gray-500">Enrollments</p>
                 <p className="font-semibold text-gray-900">
@@ -86,14 +86,14 @@ export default function AdminCourseViewPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-              <BookOpen className="w-5 h-5 text-admin-primary" />
+              <BookOpen className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-xs text-gray-500">Lessons</p>
                 <p className="font-semibold text-gray-900">{lessonCount}</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-              <Clock className="w-5 h-5 text-admin-primary" />
+              <Clock className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-xs text-gray-500">Duration</p>
                 <p className="font-semibold text-gray-900">{course.duration}</p>

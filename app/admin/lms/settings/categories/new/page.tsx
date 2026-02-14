@@ -32,14 +32,14 @@ export default function LMSNewCategoryPage() {
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <Link
             href={ROUTES.ADMIN.LMS_SETTINGS}
-            className="text-gray-500 hover:text-admin-primary font-medium"
+            className="text-gray-500 hover:text-primary font-medium"
           >
             LMS Setting
           </Link>
           <span className="text-gray-400">/</span>
           <Link
             href="/admin/lms/settings?tab=categories"
-            className="text-gray-500 hover:text-admin-primary font-medium"
+            className="text-gray-500 hover:text-primary font-medium"
           >
             Categories
           </Link>
@@ -66,7 +66,7 @@ export default function LMSNewCategoryPage() {
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
               placeholder="e.g. Leadership"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -82,13 +82,13 @@ export default function LMSNewCategoryPage() {
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               placeholder="e.g. leadership"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div className="flex items-center gap-3 pt-2">
             <button
               type="submit"
-              className="px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors disabled:opacity-70"
+              className="px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-70"
               disabled={saved || !name.trim()}
             >
               {saved ? "Saved" : "Save Category"}

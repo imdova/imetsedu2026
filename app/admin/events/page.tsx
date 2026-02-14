@@ -60,7 +60,7 @@ export default function AdminEventsPage() {
           </div>
           <Link
             href="/admin/events/new"
-            className="px-4 py-2 bg-admin-primary text-white rounded-lg hover:bg-admin-primary-hover font-medium"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 font-medium"
           >
             + New Event
           </Link>
@@ -147,7 +147,7 @@ export default function AdminEventsPage() {
               <h2 className="text-lg font-semibold text-gray-900">
                 All Events
               </h2>
-              <button className="px-4 py-2 bg-admin-primary text-white rounded-lg hover:bg-admin-primary-hover text-sm">
+              <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm">
                 Export
               </button>
             </div>
@@ -266,7 +266,7 @@ export default function AdminEventsPage() {
                         </Link>
                         <Link
                           href={`/admin/events/${event.id}/edit`}
-                          className="text-admin-primary hover:text-admin-primary-hover"
+                          className="text-primary hover:text-primary/90"
                         >
                           Edit
                         </Link>

@@ -39,7 +39,7 @@ export default function AdminCourseEditPage() {
           <p className="text-gray-600 mb-4">Course not found.</p>
           <Link
             href={ROUTES.ADMIN.COURSES}
-            className="inline-flex items-center gap-2 text-admin-primary font-medium hover:underline"
+            className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to courses
@@ -81,7 +81,7 @@ export default function AdminCourseEditPage() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -92,7 +92,7 @@ export default function AdminCourseEditPage() {
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div>
@@ -103,7 +103,7 @@ export default function AdminCourseEditPage() {
               type="text"
               value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -117,7 +117,7 @@ export default function AdminCourseEditPage() {
                 step={0.01}
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
             <div>
@@ -131,14 +131,14 @@ export default function AdminCourseEditPage() {
                 value={originalPrice}
                 onChange={(e) => setOriginalPrice(e.target.value)}
                 placeholder="Optional"
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
             </div>
           </div>
           <div className="flex items-center gap-3 pt-2">
             <button
               type="submit"
-              className="px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium text-sm hover:bg-admin-primary-hover transition-colors disabled:opacity-60"
+              className="px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors disabled:opacity-60"
               disabled={saved}
             >
               {saved ? "Saved" : "Save changes"}

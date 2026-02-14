@@ -35,7 +35,7 @@ const COUNSELORS = [
 ];
 
 const inputClass =
-  "w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-admin-primary)] focus:border-[var(--color-admin-primary)] bg-white text-black";
+  "w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-white text-black";
 const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
 const sectionHeadingClass =
   "text-sm font-semibold text-gray-900 flex items-center gap-2 mb-3";
@@ -77,7 +77,7 @@ export default function NewLeadPage() {
                 <div className="flex items-center gap-4 mb-6">
                   <Link
                     href="/admin/crm/leads"
-                    className="text-gray-500 hover:text-[var(--color-admin-primary)]"
+                    className="text-gray-500 hover:text-primary"
                   >
                     ← Back
                   </Link>
@@ -93,9 +93,9 @@ export default function NewLeadPage() {
                 {/* Smart Lead Import */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 mb-6">
                   <div className="flex items-start gap-3">
-                    <Link2 className="w-5 h-5 text-[var(--color-admin-primary)] shrink-0 mt-0.5" strokeWidth={2} />
+                    <Link2 className="w-5 h-5 text-primary shrink-0 mt-0.5" strokeWidth={2} />
                     <div>
-                      <span className="font-medium text-[var(--color-admin-primary)]">
+                      <span className="font-medium text-primary">
                         Smart Lead Import
                       </span>
                       <p className="text-sm text-gray-600 mt-0.5">
@@ -105,7 +105,7 @@ export default function NewLeadPage() {
                   </div>
                   <button
                     type="button"
-                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-admin-primary)] text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     <User className="w-4 h-4" strokeWidth={2} />
                     Auto-fill from LinkedIn URL
@@ -116,7 +116,7 @@ export default function NewLeadPage() {
                   {/* Contact Information */}
                   <section>
                     <h2 className={sectionHeadingClass}>
-                      <User className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                      <User className="w-4 h-4 text-primary" strokeWidth={2} />
                       Contact Information
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -152,7 +152,7 @@ export default function NewLeadPage() {
                       <div>
                         <label className={labelClass}>Location</label>
                         <div className="relative">
-                          <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                          <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" strokeWidth={2} />
                           <input
                             type="text"
                             value={location}
@@ -183,7 +183,7 @@ export default function NewLeadPage() {
                           <select
                             value={countryCode}
                             onChange={(e) => setCountryCode(e.target.value)}
-                            className="w-24 px-2 py-2 text-sm border border-gray-300 rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-admin-primary)] bg-white text-black"
+                            className="w-24 px-2 py-2 text-sm border border-gray-300 rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-primary bg-white text-black"
                           >
                             <option value="+1">🇺🇸 +1</option>
                             <option value="+20">🇪🇬 +20</option>
@@ -205,13 +205,13 @@ export default function NewLeadPage() {
                   {/* Academic Interest */}
                   <section>
                     <h2 className={sectionHeadingClass}>
-                      <GraduationCap className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                      <GraduationCap className="w-4 h-4 text-primary" strokeWidth={2} />
                       Academic Interest
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>Primary Course of Interest</label>
-                        <div className="border border-gray-300 rounded-lg bg-white focus-within:ring-2 focus-within:ring-[var(--color-admin-primary)] focus-within:border-[var(--color-admin-primary)] max-h-40 overflow-y-auto">
+                        <div className="border border-gray-300 rounded-lg bg-white focus-within:ring-2 focus-within:ring-primary focus-within:border-primary max-h-40 overflow-y-auto">
                           <div className="p-2 space-y-1.5">
                             {coursesOfInterest.map((c) => (
                               <label
@@ -228,7 +228,7 @@ export default function NewLeadPage() {
                                       setCourseInterests((prev) => prev.filter((x) => x !== c));
                                     }
                                   }}
-                                  className="w-4 h-4 rounded border-gray-300 text-[var(--color-admin-primary)] focus:ring-[var(--color-admin-primary)]"
+                                  className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
                                 />
                                 <span>{c}</span>
                               </label>
@@ -243,7 +243,7 @@ export default function NewLeadPage() {
                   {/* Source & Management */}
                   <section>
                     <h2 className={sectionHeadingClass}>
-                      <Megaphone className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                      <Megaphone className="w-4 h-4 text-primary" strokeWidth={2} />
                       Source & Management
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -291,7 +291,7 @@ export default function NewLeadPage() {
                               : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                           }`}
                         >
-                          <Snowflake className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                          <Snowflake className="w-4 h-4 text-primary" strokeWidth={2} />
                           Cold
                         </button>
                         <button
@@ -303,7 +303,7 @@ export default function NewLeadPage() {
                               : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                           }`}
                         >
-                          <Thermometer className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                          <Thermometer className="w-4 h-4 text-primary" strokeWidth={2} />
                           Warm
                         </button>
                         <button
@@ -315,7 +315,7 @@ export default function NewLeadPage() {
                               : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                           }`}
                         >
-                          <Flame className="w-4 h-4 text-[var(--color-admin-primary)]" strokeWidth={2} />
+                          <Flame className="w-4 h-4 text-primary" strokeWidth={2} />
                           Hot
                         </button>
                       </div>
@@ -344,7 +344,7 @@ export default function NewLeadPage() {
                     </Link>
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-admin-primary)] text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                     >
                       <Plus className="w-4 h-4 text-white" strokeWidth={2.5} />
                       Create Lead
@@ -365,7 +365,7 @@ export default function NewLeadPage() {
                 <div
                   className="relative w-32 h-32 rounded-full flex items-center justify-center"
                   style={{
-                    background: `conic-gradient(var(--color-admin-primary) ${scorePercent * 3.6}deg, #e5e7eb 0deg)`,
+                    background: `conic-gradient(var(--color-primary) ${scorePercent * 3.6}deg, #e5e7eb 0deg)`,
                   }}
                 >
                   <div className="absolute inset-2 rounded-full bg-white flex flex-col items-center justify-center">
@@ -408,7 +408,7 @@ export default function NewLeadPage() {
                   </li>
                 </ul>
               </div>
-              <div className="p-4 bg-[var(--color-admin-primary)] rounded-lg text-white text-sm">
+              <div className="p-4 bg-primary rounded-lg text-white text-sm">
                 <p className="font-medium mb-1">Did you know?</p>
                 <p>
                   Leads assigned to counselors within <strong>5 minutes</strong> are{" "}

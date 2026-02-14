@@ -90,7 +90,7 @@ export default function LogActivityModal({
                 <select
                   value={courseInterest}
                   onChange={(e) => setCourseInterest(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 >
                   <option value="">Select course</option>
                   {coursesOfInterest.map((c) => (
@@ -116,7 +116,7 @@ export default function LogActivityModal({
                     onClick={() => setPipelineStage(stage)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
                       pipelineStage === stage
-                        ? "border-admin-primary bg-admin-primary text-white"
+                        ? "border-primary bg-primary text-white"
                         : "border-gray-300 text-gray-600 hover:bg-gray-50"
                     }`}
                   >
@@ -137,7 +137,7 @@ export default function LogActivityModal({
                 onChange={(e) => setCallNotes(e.target.value)}
                 placeholder="Summary of the conversation..."
                 rows={4}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-none"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none"
               />
             </div>
             <div>
@@ -153,7 +153,7 @@ export default function LogActivityModal({
                   value={followUp}
                   onChange={(e) => setFollowUp(e.target.value)}
                   placeholder="mm/dd/yyyy, --:--"
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
+                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   📅
@@ -171,7 +171,7 @@ export default function LogActivityModal({
                 type="button"
                 onClick={() => setMarkComplete(!markComplete)}
                 className={`relative w-11 h-6 rounded-full transition-colors ${
-                  markComplete ? "bg-admin-primary" : "bg-gray-300"
+                  markComplete ? "bg-primary" : "bg-gray-300"
                 }`}
               >
                 <span
@@ -195,7 +195,7 @@ export default function LogActivityModal({
           <button
             type="button"
             onClick={handleSave}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white font-medium rounded-lg hover:bg-admin-primary-hover transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors"
           >
             <span>💾</span>
             Save Activity
