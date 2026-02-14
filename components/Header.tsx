@@ -13,7 +13,7 @@ export default function Header() {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   return (
-    <header className="bg-white text-gray-900 sticky top-0 z-50 shadow-md border-b border-gray-200">
+    <header className="bg-white text-gray-900 h-16 sticky top-0 z-50 shadow-md border-b border-gray-200">
       <Container>
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4 sm:space-x-6">

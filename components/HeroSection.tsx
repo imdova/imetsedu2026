@@ -6,7 +6,7 @@ import { ROUTES } from "@/constants";
 
 export default function HeroSection() {
   return (
-    <section className="bg-gradient-to-r from-primary to-primary-light text-white py-12 sm:py-16 lg:py-20">
+    <section className="bg-linear-to-r from-primary to-primary/90 text-primary-foreground py-12 sm:py-16 lg:py-20">
       <Container>
         <div className="text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
