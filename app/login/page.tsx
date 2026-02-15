@@ -23,9 +23,10 @@ import { useAuth } from "@/contexts/auth-context";
 import { useEffect } from "react";
 import { LoginFormValues, loginSchema } from "@/lib/validations/login.schema";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 export default function LoginPage() {
-  const { login, loading, error, clearError, user } = useAuth();
+  const { login, status, error, clearError, user } = useAuth();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -64,16 +65,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-50 flex items-center justify-center py-8 px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
       <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Welcome back</h2>
-          <p className="mt-2 text-gray-600">
-            Sign in to your account to continue learning
-          </p>
-        </div>
-        <Card>
-          {/* <CardHeader className="flex justify-center my-4">
+        <div className="flex justify-center">
+          <Link href="/">
             <Image
               src="/images/logo.png"
               alt="IMETS school of business"
@@ -81,7 +76,15 @@ export default function LoginPage() {
               width={100}
               height={100}
             />
-          </CardHeader> */}
+          </Link>
+        </div>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900">Welcome back</h2>
+          <p className="mt-2 text-gray-600">
+            Sign in to your account to continue learning
+          </p>
+        </div>
+        <Card>
           <CardContent>
             <div className="space-y-3">
               <Button variant="outline" size="lg" className="w-full">
@@ -165,7 +168,7 @@ export default function LoginPage() {
                         />
                       </FormControl>
                       <FormLabel className="text-sm font-normal">
-                        Remember me 
+                        Remember me
                       </FormLabel>
                     </FormItem>
                   )}
@@ -176,12 +179,12 @@ export default function LoginPage() {
                   </div>
                 )}
                 <Button
-                  disabled={loading}
+                  disabled={status === "loading"}
                   type="submit"
                   size="lg"
                   className="w-full"
                 >
-                  {loading ? (
+                  {status === "loading" ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Signing in...

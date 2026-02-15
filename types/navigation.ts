@@ -22,6 +22,18 @@ export interface SidebarFooterProfile {
   role: string;
 }
 
+export type HeaderType =
+  | "none"
+  | "minimal"
+  | "full"
+  | "centered"
+  | "transparent";
+  
+export interface RouteConfig {
+  pattern: string;
+  headerType: HeaderType;
+}
+
 export interface SidebarProps {
   items: SidebarNavItem[];
   logoHref?: string;

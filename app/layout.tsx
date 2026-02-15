@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import { AuthProvider } from "@/contexts/auth-context";
+import Header from "@/components/layout/headers/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +32,8 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AuthProvider>
-          <ConditionalLayout>{children}</ConditionalLayout>
+          <Header />
+          {children}
         </AuthProvider>
       </body>
     </html>

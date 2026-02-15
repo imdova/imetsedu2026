@@ -23,11 +23,14 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth-context";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
-import { SignupFormValues, signupSchema } from "@/lib/validations/signup.schema";
-
+import {
+  SignupFormValues,
+  signupSchema,
+} from "@/lib/validations/signup.schema";
+import Image from "next/image";
 
 export default function SignupPage() {
-  const { signup, loading, error, clearError, user } = useAuth();
+  const { signup, status, error, clearError, user } = useAuth();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -68,8 +71,19 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-50 flex items-center justify-center py-8 px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
       <div className="max-w-md w-full">
+        <div className="flex justify-center ">
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="IMETS school of business"
+              className="h-12 w-auto"
+              width={100}
+              height={100}
+            />
+          </Link>
+        </div>
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900">
             Create an account
@@ -79,15 +93,6 @@ export default function SignupPage() {
           </p>
         </div>
         <Card>
-          {/* <CardHeader className="flex justify-center my-4">
-            <Image
-              src="/images/logo.png"
-              alt="IMETS school of business"
-              className="h-12 w-auto"
-              width={100}
-              height={100}
-            />
-          </CardHeader> */}
           <CardContent>
             <div className="space-y-3">
               <Button variant="outline" size="lg" className="w-full">
@@ -236,12 +241,12 @@ export default function SignupPage() {
                 )}
 
                 <Button
-                  disabled={loading}
+                  disabled={status === "loading"}
                   type="submit"
                   size="lg"
                   className="w-full"
                 >
-                  {loading ? (
+                  {status === "loading" ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Creating account...

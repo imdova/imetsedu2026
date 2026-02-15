@@ -25,12 +25,12 @@ export default function CategoryMegaMenu() {
         href="/courses"
         className="px-3 py-2 hover:bg-gray-100 rounded transition-colors flex items-center space-x-1"
       >
-        <span>Explore Courses</span>
-        <span className="text-gray-500">▼</span>
+        Explore Courses
+        <ChevronDown className="text-muted-foreground ms-3 size-4" />
       </Link>
 
       {isOpen && (
-        <div className="hidden md:block absolute top-full left-0 mt-2 w-[900px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-50">
+        <div className="hidden md:block absolute top-full left-0 w-[900px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-50">
           <div className="grid grid-cols-3 gap-0">
             {/* Categories List */}
             <div className="bg-gray-50 border-r border-gray-200">
@@ -88,7 +88,7 @@ export default function CategoryMegaMenu() {
               {hoveredCategory ? (
                 (() => {
                   const selectedCategory = categories.find(
-                    (c) => c.id === hoveredCategory
+                    (c) => c.id === hoveredCategory,
                   );
                   const categoryCourses = selectedCategory
                     ? getCoursesByCategory(selectedCategory.name)
@@ -123,7 +123,7 @@ export default function CategoryMegaMenu() {
                                       </p>
                                     </div>
                                   </Link>
-                                )
+                                ),
                               )}
                             </div>
                           </div>
