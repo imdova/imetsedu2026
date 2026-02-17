@@ -78,7 +78,8 @@ function PasswordInput({ className, ...props }: InputProps) {
         variant="ghost"
         size="icon"
         onClick={() => setIsVisible((prevState) => !prevState)}
-        className="text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 end-0 rounded-s-none hover:bg-transparent"
+        tabIndex={-1}
+        className="text-muted-foreground focus-visible:ring-ring/50 absolute top-1/2 -translate-y-1/2 end-0 rounded-s-none hover:bg-transparent"
       >
         {isVisible ? <EyeOff /> : <Eye />}
         <span className="sr-only">

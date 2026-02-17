@@ -219,7 +219,10 @@ export default function SignupPage() {
                 />
 
                 {error && (
-                  <Alert variant="destructive">
+                  <Alert
+                    variant="destructive"
+                    className="flex items-center gap-3"
+                  >
                     <AlertTriangleIcon />
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
