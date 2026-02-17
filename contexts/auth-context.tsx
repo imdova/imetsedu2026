@@ -12,39 +12,11 @@ import {
 import { useRouter, usePathname } from "next/navigation";
 import { SignupFormValues } from "@/lib/validations/signup.schema";
 import { LoginFormValues } from "@/lib/validations/login.schema";
-
-// =======================
-// Types
-// =======================
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-type AuthStatus =
-  | "idle"
-  | "loading"
-  | "authenticated"
-  | "unauthenticated";
-
-interface AuthState {
-  user: User | null;
-  status: AuthStatus;
-  error: string | null;
-}
-
-interface AuthContextType extends AuthState {
-  login: (data: LoginFormValues) => Promise<void>;
-  signup: (data: SignupFormValues) => Promise<void>;
-  logout: () => Promise<void>;
-  clearError: () => void;
-}
-
-// =======================
-// Reducer
-// =======================
+import { API_LOGIN, API_REGISTER } from "@/constants/api/auth";
+import { deleteCookie, getCookie, setCookie } from "@/lib/utils/cookieUtils";
+import { AuthContextType, AuthState, LoginResponse, User } from "@/types/auth";
+import { redirectMap, USER_COOKIE_KEY } from "@/constants/auth";
+import { ROUTES } from "@/constants";
 
 type AuthAction =
   | { type: "SET_LOADING" }
@@ -123,60 +95,143 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Check session on mount
   // =======================
   useEffect(() => {
+    if (state.status !== "idle") return;
     const checkSession = async () => {
       dispatch({ type: "SET_LOADING" });
-
-      // TODO: Implement session check
-      dispatch({ type: "SET_UNAUTHENTICATED" });
+      const user = await getCookie<User>(USER_COOKIE_KEY);
+      if (user) {
+        dispatch({ type: "SET_USER", payload: user });
+      } else {
+        dispatch({ type: "SET_UNAUTHENTICATED" });
+      }
     };
-
     checkSession();
-  }, []);
+  }, [state.status]);
 
   // =======================
   // Auth Functions
   // =======================
 
-  const login = useCallback(async (data: LoginFormValues) => {
-    console.log("🚀 ~ AuthProvider ~ data:", data)
-    dispatch({ type: "SET_LOADING" });
+  const login = useCallback(
+    async (data: LoginFormValues) => {
+      dispatch({ type: "SET_LOADING" });
 
-    try {
-      // TODO: Implement login logic
-      dispatch({
-        type: "SET_ERROR",
-        payload:
-          "Authentication service is not configured. Please implement your authentication provider.",
-      });
+      try {
+        const response = await fetch(API_LOGIN, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        });
 
-      throw new Error("Authentication not configured");
-    } catch (error) {
-      throw error;
-    }
-  }, []);
+        const result: LoginResponse = await response.json().catch(() => null);
 
-  const signup = useCallback(async (data: SignupFormValues) => {
-    console.log("🚀 ~ AuthProvider ~ data:", data)
-    dispatch({ type: "SET_LOADING" });
+        // 🔴 If server responded with error status
+        if (!response.ok) {
+          const errorMessage =
+            result?.message || "Something went wrong. Please try again.";
 
-    try {
-      // TODO: Implement signup logic
-      dispatch({
-        type: "SET_ERROR",
-        payload:
-          "Authentication service is not configured. Please implement your authentication provider.",
-      });
+          throw new Error(errorMessage);
+        }
 
-      throw new Error("Authentication not configured");
-    } catch (error) {
-      throw error;
-    }
-  }, []);
+        // 🟢 Success validation
+        if (!result?.access_token || !result?.user) {
+          throw new Error("Invalid server response.");
+        }
+
+        const user: User = {
+          ...result.user,
+          access_token: result.access_token,
+          refresh_token: result.refresh_token,
+        };
+
+        setCookie(USER_COOKIE_KEY, user);
+        dispatch({
+          type: "SET_USER",
+          payload: user,
+        });
+        const url = redirectMap[user.role];
+        router.push(url);
+      } catch (error) {
+        dispatch({
+          type: "SET_ERROR",
+          payload:
+            error instanceof Error
+              ? error.message
+              : "Unexpected error occurred.",
+        });
+      }
+    },
+    [dispatch, router],
+  );
+
+  const signup = useCallback(
+    async (data: SignupFormValues) => {
+      dispatch({ type: "SET_LOADING" });
+
+      try {
+        const response = await fetch(API_REGISTER, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            role: "user",
+          }),
+        });
+
+        const result: LoginResponse = await response.json().catch(() => null);
+
+        // 🔴 If server responded with error status
+        if (!response.ok) {
+          const errorMessage =
+            result?.message || "Something went wrong. Please try again.";
+
+          throw new Error(errorMessage);
+        }
+
+        // 🟢 Success validation
+        if (!result?.access_token || !result?.user) {
+          throw new Error("Invalid server response.");
+        }
+
+        const user: User = {
+          ...result.user,
+          access_token: result.access_token,
+          refresh_token: result.refresh_token,
+        };
+
+        setCookie(USER_COOKIE_KEY, user);
+        dispatch({
+          type: "SET_USER",
+          payload: user,
+        });
+        const url = redirectMap[user.role];
+        router.push(url);
+      } catch (error) {
+        dispatch({
+          type: "SET_ERROR",
+          payload:
+            error instanceof Error
+              ? error.message
+              : "Unexpected error occurred.",
+        });
+      }
+    },
+    [dispatch, router],
+  );
 
   const logout = useCallback(async () => {
-    // TODO: Implement logout logic
     dispatch({ type: "SET_UNAUTHENTICATED" });
-    router.push("/auth/sign-in");
+    await deleteCookie(USER_COOKIE_KEY);
+    router.push(ROUTES.HOME);
   }, [router]);
 
   const clearError = useCallback(() => {
@@ -197,7 +252,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       logout,
       clearError,
     }),
-    [state.user, state.status, state.error, login, signup, logout, clearError]
+    [state.user, state.status, state.error, login, signup, logout, clearError],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -219,4 +274,4 @@ export function useAuth(): AuthContextType {
 // Exports
 // =======================
 
-export type { User, AuthState, AuthContextType, AuthStatus };
+export type { AuthState, AuthContextType };

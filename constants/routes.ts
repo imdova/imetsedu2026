@@ -10,9 +10,11 @@ export const ROUTES = {
   COURSE_DETAIL: (id: string) => `/courses/${id}`,
   CATEGORY: (slug: string) => `/category/${slug}`,
   SEARCH: "/search",
-  LOGIN: "/login",
-  SIGNUP: "/signup",
-  FORGOT_PASSWORD: "/forgot-password",
+  LOGIN: "/auth/login",
+  SIGNUP: "/auth/signup",
+  FORGOT_PASSWORD: "/auth/forgot-password",
+  TERMS: "/terms",
+  PRIVACY: "/privacy",
 
   ADMIN: {
     DASHBOARD: "/admin/dashboard",

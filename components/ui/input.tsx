@@ -64,7 +64,7 @@ function Input({
   );
 }
 
-function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
+function PasswordInput({ className, ...props }: InputProps) {
   const [isVisible, setIsVisible] = React.useState(false);
   return (
     <div className="relative">

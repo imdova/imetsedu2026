@@ -14,28 +14,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Input, PasswordInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/components/icons/google";
 import FaceBookIcon from "@/components/icons/facebook";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth-context";
-import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import {
   SignupFormValues,
   signupSchema,
 } from "@/lib/validations/signup.schema";
 import Image from "next/image";
+import { ROUTES } from "@/constants";
 
 export default function SignupPage() {
-  const { signup, status, error, clearError, user } = useAuth();
+  const { signup, status, error, clearError } = useAuth();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      fullName: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -44,31 +44,9 @@ export default function SignupPage() {
   });
 
   const onSubmit = async (data: SignupFormValues) => {
-    try {
-      clearError();
-      await signup(data);
-    } catch (err) {
-      console.error("🚀 ~ onSubmit ~ err:", err);
-    }
+    clearError();
+    await signup(data);
   };
-
-  // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      window.location.href = "/";
-    }
-  }, [user]);
-
-  if (user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-t-transparent"></div>
-          <p className="text-muted-foreground">Redirecting...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
@@ -119,7 +97,7 @@ export default function SignupPage() {
                 {/* Full Name */}
                 <FormField
                   control={form.control}
-                  name="fullName"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
@@ -162,8 +140,7 @@ export default function SignupPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
+                        <PasswordInput
                           placeholder="Create a password"
                           fieldSize="lg"
                           {...field}
@@ -185,8 +162,7 @@ export default function SignupPage() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
+                        <PasswordInput
                           placeholder="Confirm your password"
                           fieldSize="lg"
                           {...field}
@@ -214,14 +190,14 @@ export default function SignupPage() {
                           <FormLabel className="text-sm font-normal">
                             I agree to the{" "}
                             <Link
-                              href="/terms"
+                              href={ROUTES.TERMS}
                               className="text-primary hover:underline"
                             >
                               Terms of Service
                             </Link>{" "}
                             and{" "}
                             <Link
-                              href="/privacy"
+                              href={ROUTES.PRIVACY}
                               className="text-primary hover:underline"
                             >
                               Privacy Policy
@@ -262,7 +238,7 @@ export default function SignupPage() {
             <p className="text-sm text-muted-foreground text-center w-full">
               Already have an account?{" "}
               <Link
-                href="/login"
+                href={ROUTES.LOGIN}
                 className="text-primary font-semibold hover:underline"
               >
                 Sign in

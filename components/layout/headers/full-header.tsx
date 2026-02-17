@@ -7,6 +7,7 @@ import { ROUTES } from "@/constants";
 import { Container } from "@/components/ui";
 import CategoryMegaMenu from "@/components/CategoryMegaMenu";
 import Image from "next/image";
+import { NavUser } from "./nav-user";
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -82,18 +83,9 @@ export default function Header() {
             >
               Instructor
             </Link>
-            <Link
-              href={ROUTES.LOGIN}
-              className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
-              href={ROUTES.SIGNUP}
-              className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded transition-colors font-semibold"
-            >
-              Sign up
-            </Link>
+
+            <NavUser />
+           
           </div>
 
           {/* Mobile Actions */}

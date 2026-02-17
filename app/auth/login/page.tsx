@@ -13,21 +13,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Input, PasswordInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/components/icons/google";
 import FaceBookIcon from "@/components/icons/facebook";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth-context";
-import { useEffect } from "react";
 import { LoginFormValues, loginSchema } from "@/lib/validations/login.schema";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { ROUTES } from "@/constants";
 
 export default function LoginPage() {
-  const { login, status, error, clearError, user } = useAuth();
+  const { login, status, error, clearError } = useAuth();
 
+  const loading = status === "loading";
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -38,37 +39,15 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    try {
-      clearError();
-      await login(data);
-    } catch (err) {
-      console.error("🚀 ~ onSubmit ~ err:", err);
-    }
+    clearError();
+    await login(data);
   };
-
-  // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      window.location.href = "/";
-    }
-  }, [user]);
-
-  if (user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-t-transparent"></div>
-          <p className="text-muted-foreground">Redirecting...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
       <div className="max-w-md w-full">
         <div className="flex justify-center">
-          <Link href="/">
+          <Link href={ROUTES.HOME}>
             <Image
               src="/images/logo.png"
               alt="IMETS school of business"
@@ -87,11 +66,21 @@ export default function LoginPage() {
         <Card>
           <CardContent>
             <div className="space-y-3">
-              <Button variant="outline" size="lg" className="w-full">
+              <Button
+                disabled={loading}
+                variant="outline"
+                size="lg"
+                className="w-full"
+              >
                 <GoogleIcon />
                 Continue with Google
               </Button>
-              <Button variant="outline" size="lg" className="w-full">
+              <Button
+                disabled={loading}
+                variant="outline"
+                size="lg"
+                className="w-full"
+              >
                 <FaceBookIcon />
                 Continue with Facebook
               </Button>
@@ -136,15 +125,14 @@ export default function LoginPage() {
                       <div className="flex justify-between items-center">
                         <FormLabel>Password</FormLabel>
                         <Link
-                          href="/forgot-password"
+                          href={ROUTES.FORGOT_PASSWORD}
                           className="text-sm text-primary font-semibold hover:underline"
                         >
                           Forgot password?
                         </Link>
                       </div>
                       <FormControl>
-                        <Input
-                          type="password"
+                        <PasswordInput
                           placeholder="Enter your password"
                           fieldSize="lg"
                           {...field}
@@ -179,12 +167,12 @@ export default function LoginPage() {
                   </div>
                 )}
                 <Button
-                  disabled={status === "loading"}
+                  disabled={loading}
                   type="submit"
                   size="lg"
                   className="w-full"
                 >
-                  {status === "loading" ? (
+                  {loading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Signing in...
@@ -200,7 +188,7 @@ export default function LoginPage() {
             <p className="text-sm text-muted-foreground text-center w-full">
               Don&apos;t have an account?{" "}
               <Link
-                href="/signup"
+                href={ROUTES.SIGNUP}
                 className="text-primary font-semibold hover:underline"
               >
                 Sign up for free

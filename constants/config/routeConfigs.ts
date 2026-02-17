@@ -2,11 +2,7 @@ import { RouteConfig } from "@/types";
 
 export const routeConfigs: RouteConfig[] = [
   {
-    pattern: "/login",
-    headerType: "none",
-  },
-  {
-    pattern: "/signup",
+    pattern: "/auth/*",
     headerType: "none",
   },
   {
