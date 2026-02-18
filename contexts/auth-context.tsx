@@ -229,8 +229,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 
   const logout = useCallback(async () => {
-    dispatch({ type: "SET_UNAUTHENTICATED" });
     await deleteCookie(USER_COOKIE_KEY);
+    dispatch({ type: "SET_UNAUTHENTICATED" });
     router.push(ROUTES.HOME);
   }, [router]);
 
